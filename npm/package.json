@@ -1,4 +1,6 @@
 {
+  "name" : "Global Dependencies",
+  "version" : "0.1.0",
   "dependencies": {
     "@vue/cli": "^3.0.4",
     "create-next-app": "^0.5.9",

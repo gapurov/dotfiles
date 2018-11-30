@@ -34,11 +34,12 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # change shell to zsh
 # echo $(which zsh) >> /etc/shells
 # chsh -s $(which zsh)
+echo -e "Set default shell to zsh"
 sudo dscl . -create /Users/$USER UserShell $(which zsh)
-
 
 # JAVASCRIPT
 # install global JS dependencies
+echo -e "install global JS dependencies"
 cd $HOME/.dotfiles/npm && npm i -g
 
 # OSX
