@@ -9,8 +9,8 @@
 
 # Set computer name
 COMPUTERNAME="Vladislav Gapurov's MBP"
-HOSTNAME='mbp'
-LOCALHOSTNAME='mbp'
+HOSTNAME='gapurov_mbp'
+LOCALHOSTNAME='gapurov_mbp'
 
 # Ask for the administrator password upfront
 sudo -v
@@ -23,10 +23,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName $COMPUTERNAME
-#sudo scutil --set HostName $HOSTNAME
-#sudo scutil --set LocalHostName $LOCALHOSTNAME
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
+sudo scutil --set ComputerName $COMPUTERNAME
+sudo scutil --set HostName $HOSTNAME
+sudo scutil --set LocalHostName $LOCALHOSTNAME
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
 
 ###############################################################################
 # Apple software: Safari, Updater, iTunes, etc.                               #
@@ -62,7 +62,7 @@ defaults write com.assple.SoftwareUpdate ScheduleFrequency -int 1
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Disable Swipe controls for Google Chrome
-defaults write com.google.Chrome.plist AppleEnableSwipeNavigateWithScrolls -bool FALSE
+# defaults write com.google.Chrome.plist AppleEnableSwipeNavigateWithScrolls -bool FALSE
 
 # Disable inline attachments in Mail.app (just show the icons)
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
@@ -71,11 +71,14 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Disable some menu bar icons: Time Machine, Volume and User
-for domain in ~/Library/Preferences/ByHost/com.apple.stytemuiserver.*; do
-  "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-  "/System/Library/CoreServices/Menu Extras/Volume.menu" \
-  "/System/Library/CoreServices/Menu Extras/User.menu"
-done
+# for domain in ~/Library/Preferences/ByHost/com.apple.stytemuiserver.*; do
+#   "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+#   "/System/Library/CoreServices/Menu Extras/Volume.menu" \
+#   "/System/Library/CoreServices/Menu Extras/User.menu"
+# done
+
+# Enable the WebKit Developer Tools in the Mac App Store
+defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -99,10 +102,10 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ###############################################################################
 
 # Map bottom right corner of Apple trackpad to right-click.
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write com.apple.trackpad.enableSecondaryClick -bool true
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+# defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults -currentHost write com.apple.trackpad.enableSecondaryClick -bool true
 
 # Set a really fast keyboard repeat rate.
 defaults write -g KeyRepeat -int 0
@@ -111,10 +114,10 @@ defaults write -g KeyRepeat -int 0
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Set language and text formats. (USD and Imperial Units)
-defaults write -g AppleLanguages -array "en" "nl"
-defaults write -g AppleLocale -string "en_US@currency=USD"
-defaults write -g AppleMeasurementUnits -string "Inches"
-defaults write -g AppleMetricUnits -bool false
+# defaults write -g AppleLanguages -array "en" "nl"
+# defaults write -g AppleLocale -string "en_US@currency=USD"
+# defaults write -g AppleMeasurementUnits -string "Inches"
+# defaults write -g AppleMetricUnits -bool false
 
 ###############################################################################
 # Screen
@@ -147,6 +150,10 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Enable sub-pixel rendering on non-Apple LCDs.
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
+###############################################################################
+# Finder
+###############################################################################
+
 # Disable and kill Dashboard
 # Can be reverted with:
 # defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Doc
@@ -155,11 +162,10 @@ defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock
 # Disable icons on the Desktop
 # This will "hide" all the files on the Desktop, but one can still access
 # the files through Finder. Makes things look pretty.
-defaults write com.apple.finder CreateDesktop -bool false && killall Finder
+# defaults write com.apple.finder CreateDesktop -bool false && killall Finder
 
-###############################################################################
-# Finder
-###############################################################################
+# "Allow quitting via ⌘ + Q; doing so will also hide desktop icons"
+defaults write com.apple.finder QuitMenuItem -bool true
 
 # Show the ~/Library folder.
 chflags nohidden ~/Library
@@ -168,11 +174,35 @@ chflags nohidden ~/Library
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-# Always open everything in Finder's column view. This is important.
+# Always open everything in Finder's List view. This is important.
+# Flwv ▸ Cover Flow View
+# Nlsv ▸ List View
+# clmv ▸ Column View
+# icnv ▸ Icon View
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-# Show hidden files and file extensions by default
-defaults write com.apple.finder AppleShowAllFiles -bool true
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# Show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
+
+# Make Dock more transparent
+defaults write com.apple.dock hide-mirror -bool true
+
+# Show hidden files by default
+# defaults write com.apple.finder AppleShowAllFiles -bool true
+
+# Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Disable the warning when changing file extensions
@@ -217,10 +247,10 @@ sudo pmset -a sms 0
 defaults write com.apple.dock show-process-indicators -bool true
 
 # Add several spacers
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
 
 # Automatically hide and show the Dock
 # defaults write com.apple.dock autohide -bool true

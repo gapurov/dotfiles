@@ -39,9 +39,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # add-zsh-hook chpwd load-nvmrc
 # load-nvmrc
 
-source ~/fns.zsh
-source ~/paths.zsh
-source ~/aliases.zsh
+source $HOME/.dotfiles/zsh/fns.zsh
+source $HOME/.dotfiles/zsh/paths.zsh
+source $HOME/.dotfiles/zsh/aliases.zsh
 
 ##############################################################################
 # History Configuration
