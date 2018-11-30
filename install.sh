@@ -40,6 +40,7 @@ sudo dscl . -create /Users/$USER UserShell $(which zsh)
 # install global JS dependencies
 echo -e "install global JS dependencies"
 cd $HOME/.dotfiles/npm && npm i -g
+cd $HOME/.dotfiles
 
 # OSX
 . $HOME/.dotfiles/osx/set-defaults.sh
