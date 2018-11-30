@@ -5,7 +5,7 @@ My setup for zsh, git, etc.
 Copy this into `~/.dotfiles`. If it's not a brand new machine you probably already have some of the files/folders. You can replace them or merge them together.
 
 ```sh
-git clone --recursive git@github.com:gapurov/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules https://github.com/gapurov/dotfiles ~/.dotfiles
 ```
 
 #### Install script
