@@ -300,8 +300,8 @@ echo -e "Automatically hide and show the Dock \n"
 defaults write com.apple.dock autohide -bool true
 
 # Set Dock position to Left
-echo -e "Set Dock position to Left \n"
-defaults write com.apple.dock orientation -string Left
+echo -e "Set Dock orientation to 'left' \n"
+defaults write com.apple.dock 'orientation' -string 'left'
  
 ###############################################################################
 # Do some clean up work.
