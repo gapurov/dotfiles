@@ -133,6 +133,7 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 # Set a really fast keyboard repeat rate
 echo -e "Set a really fast keyboard repeat rate \n"
 defaults write -g KeyRepeat -int 0
+defaults write -g InitialKeyRepeat -int 10
 
 # Disable press-and-hold for keys in favor of key repeat
 echo -e "Disable press-and-hold for keys in favor of key repeat \n"
