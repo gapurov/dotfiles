@@ -27,7 +27,11 @@ echo -e "Set computer name (as done via System Preferences → Sharing) \n"
 sudo scutil --set ComputerName $COMPUTERNAME
 sudo scutil --set HostName $HOSTNAME
 sudo scutil --set LocalHostName $LOCALHOSTNAME
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
+defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
+
+# Disable guest account login
+echo -e "Disable guest account login \n"
+defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
 
 ###############################################################################
 # Apple software: Safari, Updater, iTunes, etc.                               #
@@ -121,6 +125,10 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
 # defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
 # defaults -currentHost write com.apple.trackpad.enableSecondaryClick -bool true
+
+# Disable 'natural' scrolling
+echo -e "Disable 'natural' scrolling \n"
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Set a really fast keyboard repeat rate
 echo -e "Set a really fast keyboard repeat rate \n"

@@ -22,11 +22,13 @@ fi
 brew cleanup > /dev/null 2>&1
 
 # GIT
+echo -e "Link global gitconfig and gitignore files"
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
 # ZSH
 # install oh-my-zsh
+echo -e "install oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 
@@ -34,7 +36,7 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # echo $(which zsh) >> /etc/shells
 # chsh -s $(which zsh)
 echo -e "Set default shell to zsh"
-sudo dscl . -create /Users/$USER UserShell $(which zsh)
+dscl . -create /Users/$USER UserShell $(which zsh)
 
 # JAVASCRIPT
 # install global JS dependencies
