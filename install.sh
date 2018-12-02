@@ -29,8 +29,7 @@ ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 # JAVASCRIPT
 # install global JS dependencies
 echo -e "install global JS dependencies"
-cd $HOME/.dotfiles/npm && npm i -g
-cd $HOME/.dotfiles
+. $HOME/.dotfiles/npm/install-packages.sh
 
 # OSX
 . $HOME/.dotfiles/osx/set-defaults.sh
