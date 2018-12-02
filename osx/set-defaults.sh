@@ -1,16 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#
-# Reasonably sets OS X defaults. My sources:
-#  - https://github.com/skwp/dotfiles/blob/master/bin/osx
-#  - https://github.com/mathiasbynens/dotfiles/blob/master/.osx
-# ~/dotfiles/osx/set-defaults.sh — http://mths.be/osx
-#
+# ~/.macos — https://mths.be/macos
 
-# Set computer name
-COMPUTERNAME="Vladislav Gapurov's MBP"
-HOSTNAME='gapurov_mbp'
-LOCALHOSTNAME='gapurov_mbp'
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
 sudo -v
@@ -23,11 +17,26 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-echo -e "Set computer name (as done via System Preferences → Sharing) \n"
-sudo scutil --set ComputerName $COMPUTERNAME
-sudo scutil --set HostName $HOSTNAME
-sudo scutil --set LocalHostName $LOCALHOSTNAME
-defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $LOCALHOSTNAME
+#sudo scutil --set ComputerName "0x6D746873"
+#sudo scutil --set HostName "0x6D746873"
+#sudo scutil --set LocalHostName "0x6D746873"
+#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
+
+# Set standby delay to 24 hours (default is 1 hour)
+echo -e "Set standby delay to 24 hours (default is 1 hour) \n"
+sudo pmset -a standbydelay 86400
+
+# Disable the sound effects on boot
+echo -e "Disable the sound effects on boot \n"
+sudo nvram SystemAudioVolume=" "
+
+# Increase window resize speed for Cocoa applications
+echo -e "Increase window resize speed for Cocoa applications \n"
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Never go into computer sleep mode
+echo -e "Never go into computer sleep mode \n"
+sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Disable guest account login
 echo -e "Disable guest account login \n"
@@ -120,11 +129,11 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 # Interfaces: trackpad, mouse, keyboard, bluetooth, etc.
 ###############################################################################
 
-# Map bottom right corner of Apple trackpad to right-click.
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-# defaults -currentHost write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
-# defaults -currentHost write com.apple.trackpad.enableSecondaryClick -bool true
+# Trackpad: enable tap to click for this user and for the login screen
+echo -e "Trackpad: enable tap to click for this user and for the login screen \n"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Disable 'natural' scrolling
 echo -e "Disable 'natural' scrolling \n"
@@ -169,12 +178,6 @@ echo -e "Require password immediately after sleep or screen saver \n"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-# Save screenshots to desktop and disable the horrific drop-shadow
-echo -e "Save screenshots to desktop and disable the horrific drop-shadow \n"
-defaults write com.apple.screencapture location -string "${HOME}/Desktop/Screenshots"
-defaults write com.apple.screencapture type -string "png"
-defaults write com.apple.screencapture disable-shadow -bool true
-
 # Enable sub-pixel rendering on non-Apple LCDs
 echo -e "Enable sub-pixel rendering on non-Apple LCDs \n"
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
@@ -195,8 +198,8 @@ defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock
 # defaults write com.apple.finder CreateDesktop -bool false && killall Finder
 
 # Allow quitting via ⌘ + Q; doing so will also hide desktop icons
-echo -e "Allow quitting via ⌘ + Q; doing so will also hide desktop icons \n"
-defaults write com.apple.finder QuitMenuItem -bool true
+# echo -e "Allow quitting via ⌘ + Q; doing so will also hide desktop icons \n"
+# defaults write com.apple.finder QuitMenuItem -bool true
 
 # Show the ~/Library folder
 echo -e "Show the ~/Library folder \n"
@@ -275,12 +278,12 @@ echo -e "Expand save panel by default \n"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 
 # Disable Resume system-wide
-echo -e "Disable Resume system-wide \n"
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+# echo -e "Disable Resume system-wide \n"
+# defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # Disable the crash reporter
-echo -e "Disable the crash reporter \n"
-defaults write com.apple.CrashReporter DialogType -string "none"
+# echo -e "Disable the crash reporter \n"
+# defaults write com.apple.CrashReporter DialogType -string "none"
 
 ###############################################################################
 # SSD
