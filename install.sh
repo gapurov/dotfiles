@@ -26,6 +26,15 @@ echo -e "Link global gitconfig and gitignore files"
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
+# JAVASCRIPT
+# install global JS dependencies
+echo -e "install global JS dependencies"
+cd $HOME/.dotfiles/npm && npm i -g
+cd $HOME/.dotfiles
+
+# OSX
+. $HOME/.dotfiles/osx/set-defaults.sh
+
 # ZSH
 # install oh-my-zsh
 echo -e "install oh-my-zsh"
@@ -36,13 +45,4 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # echo $(which zsh) >> /etc/shells
 # chsh -s $(which zsh)
 echo -e "Set default shell to zsh"
-dscl . -create /Users/$USER UserShell $(which zsh)
-
-# JAVASCRIPT
-# install global JS dependencies
-echo -e "install global JS dependencies"
-cd $HOME/.dotfiles/npm && npm i -g
-cd $HOME/.dotfiles
-
-# OSX
-. $HOME/.dotfiles/osx/set-defaults.sh
+sudo dscl . -create /Users/$USER UserShell $(which zsh)
