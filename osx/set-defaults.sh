@@ -34,8 +34,8 @@ sudo nvram SystemAudioVolume=" "
 echo -e "Increase window resize speed for Cocoa applications \n"
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
-# Never go into computer sleep mode
-echo -e "Never go into computer sleep mode \n"
+# Never go into computer sleep mode due to Mac System Inactivity
+echo -e "Never go into computer sleep mode due to Mac System Inactivity \n"
 sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Disable guest account login
