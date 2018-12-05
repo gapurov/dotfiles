@@ -27,9 +27,12 @@ ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
 # JAVASCRIPT
+# install nvm
+echo -e "install nvm"
+. $HOME/.dotfiles/javascript/install-nvm.sh
 # install global JS dependencies
 echo -e "install global JS dependencies"
-. $HOME/.dotfiles/npm/install-packages.sh
+. $HOME/.dotfiles/javascript/install-packages.sh
 
 # OSX
 . $HOME/.dotfiles/osx/set-defaults.sh
