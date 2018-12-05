@@ -83,15 +83,20 @@ alias spoton="sudo mdutil -a -i on"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 # excluded: mas upgrade; gem update; sudo softwareupdate -i -a;
-alias update="echo 'brew doctor' && brew doctor;
-              echo 'brew update' && brew update;
-              echo 'brew upgrade' && brew upgrade;
-              echo 'brew cleanup -s' && brew cleanup -s;
-              echo 'npm install npm -g' && npm install npm -g;
-              echo 'npm update -g' && npm update -g;
-              echo 'upgrade_oh_my_zsh' && upgrade_oh_my_zsh;
-              echo 'sudo gem update --system' && sudo gem update --system;
-              echo 'sudo gem cleanup' && sudo gem cleanup;"
+alias update='echo brew doctor && brew doctor;
+              echo brew update && brew update;
+              echo brew upgrade && brew upgrade;
+              echo brew cleanup -s && brew cleanup -s;
+              echo npm install npm -g && npm install npm -g;
+              echo npm update -g && npm update -g;
+              (
+                cd "$NVM_DIR"
+                git fetch --tags origin
+                git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+              ) && \. "$NVM_DIR/nvm.sh";
+              echo upgrade_oh_my_zsh && upgrade_oh_my_zsh;
+              echo sudo gem update --system && sudo gem update --system;
+              echo sudo gem cleanup && sudo gem cleanup;'
               
 alias vtop="vtop --theme wizard"
 
