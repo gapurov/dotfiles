@@ -186,20 +186,10 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # Finder
 ###############################################################################
 
-# Disable and kill Dashboard
-# Can be reverted with:
-# defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Doc
-echo -e "Disable and kill Dashboard \n"
-defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock
-
 # Disable icons on the Desktop
 # This will "hide" all the files on the Desktop, but one can still access
 # the files through Finder. Makes things look pretty.
 # defaults write com.apple.finder CreateDesktop -bool false && killall Finder
-
-# Allow quitting via ⌘ + Q; doing so will also hide desktop icons
-# echo -e "Allow quitting via ⌘ + Q; doing so will also hide desktop icons \n"
-# defaults write com.apple.finder QuitMenuItem -bool true
 
 # Show the ~/Library folder
 echo -e "Show the ~/Library folder \n"
