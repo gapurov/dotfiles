@@ -17,9 +17,8 @@ if [[ "$Install_Apps" =~ ^(y|Y)$ ]]; then
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
   echo -e "\033[1m\033[34m==> Installing brew formulas\033[0m"
-  brew bundle --file=~/.dotfiles/Brewfile
+  . $HOME/.dotfiles/osx/brew.sh
 fi
-brew cleanup > /dev/null 2>&1
 
 # GIT
 echo -e "Link global gitconfig and gitignore files"
