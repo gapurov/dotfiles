@@ -35,6 +35,8 @@ echo -e "install global JS dependencies"
 
 # OSX
 . $HOME/.dotfiles/osx/set-defaults.sh
+. $HOME/.dotfiles/osx/set-workarounds.sh
+ln -sf "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" /usr/local/bin/smerge
 
 # ZSH
 # install oh-my-zsh
