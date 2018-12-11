@@ -54,6 +54,7 @@ brew install ssh-copy-id
 brew install zopfli
 brew install exiftool
 brew install ack
+brew install cowsay
 brew install ffmpeg
 brew install fzf
 brew install imagemagick --with-webp
