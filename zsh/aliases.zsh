@@ -55,8 +55,11 @@ alias network.internalip="ifconfig en0 | egrep -o '([0-9]+\.[0-9]+\.[0-9]+\.[0-9
 alias ls='ls -G -h -p --color=auto'
 alias ll='ls -l -G -h -p --color=auto'
 
-# Print each PATH entry on a separate line
+# Print each PATH entry on a separate line https://unix.stackexchange.com/a/61513
 alias path='echo -e ${PATH//:/\\n}'
+
+# Change one directory up regardles of symlink
+alias cdup='cd -P ..'
 
 # Copy and paste and prune the usless newline
 alias pbcopynn='tr -d "\n" | pbcopy'

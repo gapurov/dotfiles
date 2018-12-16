@@ -305,10 +305,6 @@ defaults write com.apple.dock autohide -bool true
 echo -e "Set Dock orientation to 'left' \n"
 defaults write com.apple.dock 'orientation' -string 'left'
 
-# Set a Symlink in the $HOME to the iCloud folder
-echo -e "Set a Symlink in the \$HOME to the iCloud folder \n"
-ln -sf ~/Library/Mobile\ Documents/com~apple~CloudDocs ~/iCloud
- 
 ###############################################################################
 # Do some clean up work.
 ###############################################################################
