@@ -64,6 +64,9 @@ alias cdup='cd -P ..'
 # Copy and paste and prune the usless newline
 alias pbcopynn='tr -d "\n" | pbcopy'
 
+# Start a Python3 server
+alias pyserver='python3 -m http.server'
+
 # firewall management
 alias port-forward-enable="echo 'rdr pass inet proto tcp from any to any port 2376 -> 127.0.0.1 port 2376' | sudo pfctl -ef -"
 alias port-forward-disable="sudo pfctl -F all -f /etc/pf.conf"
