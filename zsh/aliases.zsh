@@ -100,7 +100,7 @@ alias update='echo brew doctor && brew doctor;
                 git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
               ) && \. "$NVM_DIR/nvm.sh";
               echo upgrade_oh_my_zsh && upgrade_oh_my_zsh;
-              echo sudo gem update --system && sudo gem update --system;
+              echo sudo gem update --system;
               echo sudo gem cleanup && sudo gem cleanup;'
               
 alias vtop="vtop --theme wizard"

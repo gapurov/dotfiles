@@ -103,6 +103,7 @@ brew cask install discord
 brew cask install slack
 brew cask install skype
 brew cask install karabiner-elements
+brew cask install quicklook-json
 
 # 1Password 7
 mas install 1333542190
@@ -112,6 +113,9 @@ mas install 1091189122
 
 # Boxy SVG
 mas install 611658502
+
+# xcode
+mas install 497799835
 
 # Remove outdated versions from the cellar.
 brew cleanup

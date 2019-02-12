@@ -186,10 +186,15 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 # Finder
 ###############################################################################
 
+# Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
+# echo -e "Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons \n"
+# defaults write com.apple.finder QuitMenuItem -bool true
+
 # Disable icons on the Desktop
 # This will "hide" all the files on the Desktop, but one can still access
 # the files through Finder. Makes things look pretty.
-# defaults write com.apple.finder CreateDesktop -bool false && killall Finder
+# defaults write com.apple.finder CreateDesktop false; killall Finder
+
 
 # Show the ~/Library folder
 echo -e "Show the ~/Library folder \n"

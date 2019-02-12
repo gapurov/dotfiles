@@ -17,16 +17,21 @@
 [credential]
   # cache creds (git help credential-cache)
   # helper = cache
-  helper = osxkeychain
+	helper = osxkeychain
+[merge]
+	tool = opendiff
+  # [mergetool "smerge"]
+  #   cmd = smerge -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
+  #   trustExitCode = false
 [diff]
-  # tool = vimdiff
-  tool = opendiff
+  tool = smerge
+[difftool "smerge"]
+  cmd = smerge -n --wait \"$REMOTE\" \"$LOCAL\"
+  prompt = false
 [log]
   date = relative
 [format]
   pretty = format:%h %Cblue%ad%Creset %ae %Cgreen%s%Creset
-[difftool]
-  prompt = false
 [github]
   user = gapurov
 # [gitflow "prefix"]
