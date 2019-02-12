@@ -77,6 +77,7 @@ brew install tree
 brew install unrar
 brew install yarn
 brew install youtube-dl
+brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
 
@@ -104,6 +105,7 @@ brew cask install slack
 brew cask install skype
 brew cask install karabiner-elements
 brew cask install quicklook-json
+
 
 # 1Password 7
 mas install 1333542190
