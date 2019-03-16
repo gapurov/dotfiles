@@ -100,6 +100,7 @@ brew cask install handbrake
 brew cask install spotify
 brew cask install anki
 brew cask install vlc
+brew cask install iina
 brew cask install discord
 brew cask install slack
 brew cask install skype
