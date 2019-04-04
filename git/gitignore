@@ -14,8 +14,9 @@ typings/
 .eslintcache
 .node_repl_history
 .yarn-integrity
-#.env
-.env.local
+*.env
+*.env.*
+!.env.template
 .next
 
 *.js.map
