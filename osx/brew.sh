@@ -106,6 +106,7 @@ brew cask install slack
 brew cask install skype
 brew cask install karabiner-elements
 brew cask install quicklook-json
+brew cask install michaelvillar-timer
 
 
 # 1Password 7
