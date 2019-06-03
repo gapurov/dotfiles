@@ -11,7 +11,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias bpc='git add -A . && git cam "$(buzzphrase 2)" && git push'
 
 # Flush the DNS on Mac
-alias dnsflush='dscacheutil -flushcache'
+alias dnsflush='sudo killall -HUP mDNSResponder'
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.

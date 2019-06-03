@@ -58,8 +58,6 @@ typings/
 ######################
 .DS_Store*
 ehthumbs.db
-Icon?
-Thumbs.db
 
 # VIM #
 ######################
@@ -87,8 +85,6 @@ tags
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
-Icon
 
 
 # Thumbnails

@@ -20,6 +20,10 @@ if [[ "$Install_Apps" =~ ^(y|Y)$ ]]; then
   . $HOME/.dotfiles/osx/brew.sh
 fi
 
+# HOTKEYS
+echo -e "Link Karabiner CapsLock Hyper Key Config"
+ln -sf ~/.dotfiles/hotkey/karabiner-hyper.json  ~/.config/karabiner/assets/complex_modifications/hyper.json
+
 # GIT
 echo -e "Link global gitconfig and gitignore files"
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
