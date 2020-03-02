@@ -14,7 +14,7 @@ BREW_PREFIX=$(brew --prefix)
 # Install GNU core utilities (those that come with macOS are outdated).
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+ln -sf "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # Install some other useful utilities like `sponge`.
 brew install moreutilscompl
@@ -43,6 +43,8 @@ brew install woff2
 brew install aircrack-ng
 
 # Install other useful binaries.
+brew install bash
+brew install curl
 brew install git
 brew install gist
 brew install git-extras
@@ -58,6 +60,8 @@ brew install cowsay
 brew install ffmpeg
 brew install fzf
 brew install imagemagick --with-webp
+brew install terraform
+brew install aria2
 brew install jq
 brew install mas
 brew install neovim
@@ -80,6 +84,8 @@ brew install youtube-dl
 brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
+brew install zsh-autosuggestions
+
 
 # Install GUI Apps
 brew cask install iterm2

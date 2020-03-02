@@ -19,7 +19,8 @@
   # helper = cache
 	helper = osxkeychain
 [merge]
-	tool = opendiff
+	tool = smerge
+	# tool = opendiff
   # [mergetool "smerge"]
   #   cmd = smerge -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
   #   trustExitCode = false
