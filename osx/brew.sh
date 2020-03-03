@@ -17,7 +17,7 @@ brew install coreutils
 ln -sf "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # Install some other useful utilities like `sponge`.
-brew install moreutilscompl
+brew install moreutils
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
@@ -59,7 +59,7 @@ brew install ack
 brew install cowsay
 brew install ffmpeg
 brew install fzf
-brew install imagemagick --with-webp
+brew install imagemagick
 brew install terraform
 brew install aria2
 brew install jq
@@ -68,7 +68,6 @@ brew install neovim
 brew install pandoc
 brew install node
 brew install python
-brew install python@2
 brew install readline
 brew install ruby
 brew install httpie
