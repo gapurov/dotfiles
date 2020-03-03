@@ -30,7 +30,6 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 source $HOME/.dotfiles/zsh/fns.zsh
 source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
-source $HOME/.dotfiles/zsh/aliases-tmp.zsh
 
 # Lazyload nvm
 . $HOME/.dotfiles/javascript/lazyload-nvm.sh

@@ -122,6 +122,9 @@ mas install 1091189122
 
 # Boxy SVG
 mas install 611658502
+ 
+# Find Any File
+mas install 402569179
 
 # xcode
 mas install 497799835

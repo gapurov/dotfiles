@@ -14,7 +14,9 @@
   },
   "editor.formatOnPaste": false,
   "editor.formatOnType": false,
-  "editor.rulers": [80],
+  "editor.rulers": [
+    80
+  ],
   "editor.parameterHints.enabled": false,
   "editor.snippetSuggestions": "top",
   "editor.renderWhitespace": "boundary",
@@ -39,6 +41,7 @@
   "sync.removeExtensions": true,
   "sync.syncExtensions": true,
   "gitlens.currentLine.enabled": true,
+  
   "gitlens.hovers.currentLine.enabled": true,
   "gitlens.keymap": "alternate",
   "gitlens.codeLens.recentChange.enabled": false,
@@ -86,7 +89,9 @@
     }
   },
   "terminal.integrated.experimentalBufferImpl": "TypedArray",
-  "terminal.integrated.shellArgs.osx": ["-l"],
+  "terminal.integrated.shellArgs.osx": [
+    "-l"
+  ],
   "files.associations": {
     "*.md": "mdx",
     "_bashrc": "shellscript",
@@ -101,7 +106,11 @@
   "emmet.optimizeStylesheetParsing": false,
   "emmet.showExpandedAbbreviation": "always",
   "emmet.includeLanguages": {
-    "css": ["scss", "css", "less"],
+    "css": [
+      "scss",
+      "css",
+      "less"
+    ],
     "vue-html": "html",
     "javascript": "javascriptreact"
   },
@@ -131,6 +140,5 @@
   },
   "local-history.absolute": true,
   "local-history.path": "/Users/gapurov/.vscode-history",
-  "javascript.updateImportsOnFileMove.enabled": "never",
   "typescript.updateImportsOnFileMove.enabled": "never",
 }
