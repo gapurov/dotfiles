@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ask for password upfront
 sudo -v
@@ -30,9 +30,9 @@ ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
 # JAVASCRIPT
-# install nvm
-echo -e "install nvm"
-. $HOME/.dotfiles/javascript/install-nvm.sh
+# install volta
+echo -e "install volta"
+ . $HOME/.dotfiles/javascript/install-volta.sh
 # install global JS dependencies
 echo -e "install global JS dependencies"
 . $HOME/.dotfiles/javascript/install-packages.sh
