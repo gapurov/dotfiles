@@ -88,32 +88,35 @@ brew install zsh-autosuggestions
 
 
 # Install GUI Apps
-brew cask install iterm2
-brew cask install bettertouchtool
-brew cask install oversight
-brew cask install visual-studio-code
-brew cask install alfred
-brew cask install gitup
-brew cask install sublime-merge
-brew cask install expressvpn
-brew cask install imageoptim
-brew cask install omnidisksweeper
-brew cask install the-unarchiver
-brew cask install google-chrome
-brew cask install firefox
-brew cask install dropbox
-brew cask install handbrake
-brew cask install spotify
-brew cask install anki
-brew cask install vlc
-brew cask install iina
-brew cask install discord
-brew cask install slack
-brew cask install skype
-brew cask install karabiner-elements
-brew cask install quicklook-json
-brew cask install michaelvillar-timer
+brew install --cask iterm2
+brew install --cask bettertouchtool
+brew install --cask oversight
+brew install --cask visual-studio-code
+brew install --cask alfred
+brew install --cask gitup
+brew install --cask sublime-merge
+brew install --cask imageoptim
+brew install --cask omnidisksweeper
+brew install --cask the-unarchiver
+brew install --cask google-chrome
+brew install --cask firefox
+brew install --cask dropbox
+brew install --cask handbrake
+brew install --cask spotify
+brew install --cask anki
+brew install --cask vlc
+brew install --cask iina
+brew install --cask discord
+brew install --cask slack
+brew install --cask discord
+brew install --cask skype
+brew install --cask karabiner-elements
+brew install --cask quicklook-json
+brew install --cask michaelvillar-timer
+brew install --cask balenaetcher
 
+# Remove outdated versions from the cellar.
+brew cleanup
 
 # 1Password 7
 mas install 1333542190
@@ -127,5 +130,11 @@ mas install 611658502
 # xcode
 mas install 497799835
 
-# Remove outdated versions from the cellar.
-brew cleanup
+# paste
+mas install 967805235
+
+# soulver 3
+mas install 1508732804
+
+# NordVPN IKE
+mas install 1116599239
