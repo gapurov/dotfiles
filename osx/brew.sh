@@ -17,7 +17,7 @@ brew install coreutils
 ln -sf "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # Install some other useful utilities like `sponge`.
-brew install moreutilscompl
+brew install moreutils
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
@@ -68,7 +68,6 @@ brew install neovim
 brew install pandoc
 brew install node
 brew install python
-brew install python@2
 brew install readline
 brew install ruby
 brew install httpie
@@ -126,6 +125,9 @@ mas install 1091189122
 
 # Boxy SVG
 mas install 611658502
+ 
+# Find Any File
+mas install 402569179
 
 # xcode
 mas install 497799835
