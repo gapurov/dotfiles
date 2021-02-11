@@ -33,14 +33,7 @@
   date = relative
 [format]
   pretty = format:%h %Cblue%ad%Creset %ae %Cgreen%s%Creset
-[github]
-  user = gapurov
-# [gitflow "prefix"]
-#   feature = feature-
-#   release = release-
-#   hotfix = hotfix-
-#   support = support-
-#   versiontag = v
+  
 [alias]
   
   #############
