@@ -84,6 +84,7 @@ brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
+brew install defaultbrowser
 
 
 # Install GUI Apps
