@@ -59,6 +59,8 @@ brew install ack
 brew install cowsay
 brew install ffmpeg
 brew install fzf
+brew install bat
+brew install fd
 brew install imagemagick --with-webp
 brew install terraform
 brew install aria2

@@ -17,6 +17,7 @@ plugins=(
   httpie
   osx
   z
+  fzf
   git
   dirpersist
   history
