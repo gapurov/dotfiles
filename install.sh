@@ -4,6 +4,9 @@
 echo -e "Install homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
 echo -e "\033[1m\033[34m==> Installing brew formulas\033[0m"
 . $HOME/.dotfiles/osx/brew.sh
 
