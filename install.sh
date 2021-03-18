@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-# ask for password upfront
-sudo -v
-
 # HOMEBREW
 echo -e "Install homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 echo -e "\033[1m\033[34m==> Installing brew formulas\033[0m"
 . $HOME/.dotfiles/osx/brew.sh
-
 
 # GIT
 echo -e "Link global gitconfig and gitignore files"
@@ -36,8 +32,9 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 
 # HOTKEYS
-echo -e "Link Karabiner CapsLock Hyper Key Config"
-ln -sf ~/.dotfiles/hotkey/karabiner-hyper.json  ~/.config/karabiner/assets/complex_modifications/hyper.json
+# echo -e "Link Karabiner CapsLock Hyper Key Config"
+# ln -sf ~/.dotfiles/hotkey/karabiner-hyper.json  ~/.config/karabiner/assets/complex_modifications/hyper.json
 
 # Reboot
+echo -e "Reboot"
 . $HOME/.dotfiles/osx/reboot.sh

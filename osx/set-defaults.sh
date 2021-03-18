@@ -113,7 +113,7 @@ defaults write com.apple.BluetoothAudioAgent "Stream – Max Outstanding Packets
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
            "Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" \
-           "Terminal" "Twitter" "iCal" "bluetoothaudiod"; do
+           "Twitter" "iCal" "bluetoothaudiod"; do
            killall "${app}" > /dev/null 2>&1
 done
 
