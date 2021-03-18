@@ -23,7 +23,7 @@ brew install moreutils
 brew install findutils
 
 # Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
@@ -40,7 +40,7 @@ brew install sfnt2woff-zopfli
 brew install woff2
 
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
-brew install aircrack-ng
+# brew install aircrack-ng
 
 # Install other useful binaries.
 brew install bash
@@ -61,7 +61,7 @@ brew install ffmpeg
 brew install fzf
 brew install bat
 brew install fd
-brew install imagemagick --with-webp
+brew install imagemagick
 brew install terraform
 brew install aria2
 brew install jq
@@ -69,18 +69,12 @@ brew install mas
 brew install neovim
 brew install pandoc
 brew install node
-brew install python
-brew install readline
-brew install ruby
 brew install httpie
 brew install sqlite
-brew install the_silver_searcher
 brew install tmux
 brew install wget
-brew install trash
 brew install tree
 brew install unrar
-brew install yarn
 brew install youtube-dl
 brew install speedtest-cli
 brew install zsh
@@ -91,7 +85,7 @@ brew install defaultbrowser
 
 # Install GUI Apps
 brew install --cask iterm2
-brew install --cask bettertouchtool
+# brew install --cask bettertouchtool
 brew install --cask oversight
 brew install --cask visual-studio-code
 brew install --cask alfred
@@ -110,12 +104,10 @@ brew install --cask vlc
 brew install --cask iina
 brew install --cask discord
 brew install --cask slack
-brew install --cask discord
-brew install --cask skype
+# brew install --cask skype
 brew install --cask karabiner-elements
-brew install --cask quicklook-json
-brew install --cask michaelvillar-timer
-brew install --cask balenaetcher
+# brew install --cask swish
+
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -130,16 +122,16 @@ mas install 1091189122
 mas install 611658502
  
 # Find Any File
-mas install 402569179
+# mas install 402569179
 
 # xcode
 mas install 497799835
 
 # paste
-mas install 967805235
+# mas install 967805235
 
 # soulver 3
-mas install 1508732804
+# mas install 1508732804
 
 # NordVPN IKE
 mas install 1116599239

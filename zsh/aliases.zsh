@@ -88,15 +88,10 @@ alias spoton="sudo mdutil -a -i on"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 # excluded: mas upgrade; gem update; sudo softwareupdate -i -a;
-alias update='echo brew doctor && brew doctor;
-              echo brew update && brew update;
+alias update='echo brew update && brew update;
               echo brew upgrade && brew upgrade;
               echo brew cleanup -s && brew cleanup -s;
-              echo npm install npm -g && npm install npm -g;
-              echo npm update -g && npm update -g;
-              echo omz update && omz update;
-              echo sudo gem update --system;
-              echo sudo gem cleanup && sudo gem cleanup;'
+              echo omz update && omz update;'
               
 alias vtop="vtop --theme wizard"
 

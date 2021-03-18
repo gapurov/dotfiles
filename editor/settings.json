@@ -1,116 +1,61 @@
 // Place your settings in this file to overwrite the default settings
 {
   "explorer.openEditors.visible": 0,
-  "extensions.showRecommendationsOnlyOnDemand": true,
-  "window.zoomLevel": 0,
   "editor.fontSize": 14,
   "editor.fontFamily": "'Dank Mono', 'Input Mono', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "editor.tabCompletion": "on",
-  "editor.formatOnSave": false,
-  "[javascript]": {
-    "editor.formatOnSave": true
-  },
-  "editor.formatOnPaste": false,
-  "editor.formatOnType": false,
-  "editor.rulers": [
-    80
-  ],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.rulers": [80],
+  "editor.multiCursorModifier": "ctrlCmd",
   "editor.parameterHints.enabled": false,
   "editor.snippetSuggestions": "top",
   "editor.renderWhitespace": "boundary",
-  "editor.glyphMargin": false,
+  "editor.glyphMargin": true,
   "editor.cursorStyle": "line",
   "editor.cursorBlinking": "solid",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.smoothScrolling": true,
-  "editor.renderIndentGuides": false,
+  "editor.renderIndentGuides": true,
   "editor.renderControlCharacters": false,
   "editor.minimap.enabled": false,
   "typescript.referencesCodeLens.enabled": false,
   "files.autoSave": "off",
-  "vsicons.projectDetection.autoReload": false,
-  "vsicons.projectDetection.disableDetect": true,
   "sync.gist": "6c10da9683ced658389467b5ec88a2ca",
   "sync.autoDownload": false,
   "sync.autoUpload": true,
   "sync.forceDownload": false,
   "sync.quietSync": true,
-  "sync.askGistName": false,
   "sync.removeExtensions": true,
   "sync.syncExtensions": true,
   "gitlens.currentLine.enabled": true,
-  
   "gitlens.hovers.currentLine.enabled": true,
   "gitlens.keymap": "alternate",
   "gitlens.codeLens.recentChange.enabled": false,
   "gitlens.codeLens.authors.enabled": false,
-  "gitlens.historyExplorer.enabled": true,
-  "gitlens.advanced.messages": {
-    "suppressShowKeyBindingsNotice": true,
-    "suppressWelcomeNotice": true
-  },
   "diffEditor.ignoreTrimWhitespace": true,
   "breadcrumbs.enabled": true,
-  "prettier.eslintIntegration": false,
-  "prettier.bracketSpacing": false,
-  "prettier.printWidth": 80,
-  "prettier.tabWidth": 2,
   "prettier.singleQuote": true,
-  "prettier.trailingComma": "all",
-  "prettier.jsxBracketSameLine": false,
-  "prettier.semi": true,
-  "prettier.useTabs": false,
-  "prettier.proseWrap": "always",
-  "eslint.autoFixOnSave": false,
-  "eslint.alwaysShowStatus": false,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "eslint.options": {
-    "env": {
-      "browser": true,
-      "jest/globals": true,
-      "es6": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "no-debugger": "off"
-    }
-  },
-  "terminal.integrated.experimentalBufferImpl": "TypedArray",
-  "terminal.integrated.shellArgs.osx": [
-    "-l"
-  ],
+  "terminal.integrated.shellArgs.osx": ["-l"],
   "files.associations": {
-    "*.md": "mdx",
     "_bashrc": "shellscript",
-    "_zshrc": "shellscript"
+    "_zshrc": "shellscript",
+    "js": "typescriptreact",
+    "*.js": "javascriptreact"
   },
   "javascript.validate.enable": false,
   "javascript.format.enable": true,
   "javascript.suggest.autoImports": false,
-  "javascript.updateImportsOnFileMove.enabled": "prompt",
+  "javascript.updateImportsOnFileMove.enabled": "never",
   "emmet.triggerExpansionOnTab": true,
   "emmet.showSuggestionsAsSnippets": true,
   "emmet.optimizeStylesheetParsing": false,
   "emmet.showExpandedAbbreviation": "always",
   "emmet.includeLanguages": {
-    "css": [
-      "scss",
-      "css",
-      "less"
-    ],
     "vue-html": "html",
     "javascript": "javascriptreact"
   },
@@ -122,13 +67,9 @@
       "self_closing_tag": true
     }
   },
-  "workbench.colorTheme": "Palenight Theme",
   "workbench.activityBar.visible": false,
   "workbench.editor.openSideBySideDirection": "right",
-  "workbench.iconTheme": "vscode-icons",
   "workbench.sideBar.location": "left",
-  "gitlens.views.fileHistory.enabled": true,
-  "gitlens.views.lineHistory.enabled": true,
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
@@ -141,4 +82,30 @@
   "local-history.absolute": true,
   "local-history.path": "/Users/gapurov/.vscode-history",
   "typescript.updateImportsOnFileMove.enabled": "never",
+  "workbench.iconTheme": "vscode-icons",
+  "sync.forceUpload": true,
+  "explorer.incrementalNaming": "smart",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "explorer.confirmDelete": false,
+  "debug.javascript.codelens.npmScripts": "never",
+  "editor.formatOnSaveMode": "modifications",
+  "workbench.colorTheme": "GitHub Dark",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "window.zoomLevel": 1
 }

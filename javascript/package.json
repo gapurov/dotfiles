@@ -8,6 +8,7 @@
     "vercel": "^21.3.2",
     "neovim": "^4.9.0",
     "vtop": "^0.6.1",
+    "trash-cli":"^4.0.0",
     "npm-check-updates": "^11.1.10"
   }
 }

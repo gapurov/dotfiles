@@ -5,7 +5,8 @@ My setup for zsh, git, etc.
 Copy this into `~/.dotfiles`. If it's not a brand new machine you probably already have some of the files/folders. You can replace them or merge them together.
 
 ```sh
-git clone --recurse-submodules https://github.com/gapurov/dotfiles ~/.dotfiles
+xcode-select --install
+git clone https://github.com/gapurov/dotfiles ~/.dotfiles
 ```
 
 #### Install script
