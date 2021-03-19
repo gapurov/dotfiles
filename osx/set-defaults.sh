@@ -9,6 +9,10 @@ sudo -v
 # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+###############################################################################
+# General UI/UX                                                               #
+###############################################################################
+
 # Disable the sound effects on boot
 echo -e "\033[1m\033[34m==> Disable the sound effects on boot \033[0m \n"
 nvram SystemAudioVolume=" "
@@ -58,21 +62,49 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 echo -e "\033[1m\033[34m==> Disable the warning when changing file extensions \033[0m \n"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Disable press-and-hold for keys in favor of key repeat.
-echo -e "\033[1m\033[34m==> Disable press-and-hold for keys in favor of key repeat \033[0m \n"
-defaults write -g ApplePressAndHoldEnabled -bool false
-
 # Finder: show path bar
 echo -e "\033[1m\033[34m==> Finder: show path bar \033[0m \n"
 defaults write com.apple.finder ShowPathbar -bool true
+
+# Finder: Keep folders on top when sorting by name
+echo -e "\033[1m\033[34m==> Finder: Keep folders on top when sorting by name \033[0m \n"
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # Automatically hide and show the Dock
 echo -e "\033[1m\033[34m==> Automatically hide and show the Dock \033[0m \n"
 defaults write com.apple.dock autohide -bool true
 
+# Enable Safari’s debug menu
+echo -e "\033[1m\033[34m==> Enable Safari’s debug menu \033[0m \n"
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+
 # Disable smart quotes as they’re annoying when typing code
 echo -e "\033[1m\033[34m==> Disable smart quotes as they’re annoying when typing code \033[0m \n"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
+echo -e "\033[1m\033[34m==> Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app \033[0m \n"
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "@\U21a9"
+
+# Mail.app: Display emails in threaded mode, sorted by date (oldest at the top)
+echo -e "\033[1m\033[34m==> Mail.app: Display emails in threaded mode, sorted by date (oldest at the top) \033[0m \n"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortedDescending" -string "yes"
+defaults write com.apple.mail DraftsViewerAttributes -dict-add "SortOrder" -string "received-date"
+
+# Mail.app: Disable inline attachments (just show the icons)
+echo -e "\033[1m\033[34m==> Mail.app: Disable inline attachments (just show the icons) \033[0m \n"
+defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+
+###############################################################################
+# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+###############################################################################
+
+# Trackpad: enable tap to click for this user and for the login screen
+echo -e "\033[1m\033[34m==> Trackpad: enable tap to click for this user and for the login screen \033[0m \n"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Increase sound quality for Bluetooth headphones/headsets
 echo -e "\033[1m\033[34m==> Increase sound quality for Bluetooth headphones/headsets \033[0m \n"
@@ -84,6 +116,32 @@ defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" -int 53
 defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" -int 48
 defaults write com.apple.BluetoothAudioAgent "Stream – Flush Ring on Packet Drop (editable)" -int 30
 defaults write com.apple.BluetoothAudioAgent "Stream – Max Outstanding Packets (editable)" -int 15
+
+# Enable full keyboard access for all controls
+# (e.g. enable Tab in modal dialogs)
+echo -e "\033[1m\033[34m==> Enable full keyboard access for all controls \033[0m \n"
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Use scroll gesture with the Ctrl (^) modifier key to zoom
+echo -e "\033[1m\033[34m==> Use scroll gesture with the Ctrl (^) modifier key to zoom \033[0m \n"
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Follow the keyboard focus while zoomed in
+echo -e "\033[1m\033[34m==> Follow the keyboard focus while zoomed in \033[0m \n"
+defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+
+# Disable press-and-hold for keys in favor of key repeat.
+echo -e "\033[1m\033[34m==> Disable press-and-hold for keys in favor of key repeat \033[0m \n"
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+
+# Set default languages...
+echo -e "\033[1m\033[34m==> Set default languages... \033[0m \n"
+defaults write NSGlobalDomain AppleLanguages "(en-DE, de-DE, ru-DE)";
+
+# Show language menu in the top right corner of the boot screen
+echo -e "\033[1m\033[34m==> Show language menu in the top right corner of the boot screen \033[0m \n"
+sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 
 ###############################################################################
