@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # HOMEBREW
-echo -e "Install homebrew"
+echo -e "\033[1m\033[34m==> Install homebrew\033[0m"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
@@ -11,16 +11,16 @@ echo -e "\033[1m\033[34m==> Installing brew formulas\033[0m"
 . $HOME/.dotfiles/osx/brew.sh
 
 # GIT
-echo -e "Link global gitconfig and gitignore files"
+echo -e "\033[1m\033[34m==> Link global gitconfig and gitignore files formulas\033[0m"
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
 # JAVASCRIPT
-# install volta
-echo -e "install volta"
+# Install volta
+echo -e "\033[1m\033[34m==> Install volta formulas\033[0m"
  . $HOME/.dotfiles/javascript/install-volta.sh
-# install global JS dependencies
-echo -e "install global JS packages"
+# Install global JS dependencies
+echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
 . $HOME/.dotfiles/javascript/install-packages.sh
 
 # OSX
@@ -29,11 +29,11 @@ echo -e "install global JS packages"
 . $HOME/.dotfiles/osx/set-symlinks.sh
 
 # ZSH
-# install oh-my-zsh
-echo -e "install oh-my-zsh"
+# Install oh-my-zsh
+echo -e "\033[1m\033[34m==> Install oh-my-zsh\033[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo -e "link .zshrc"
+echo -e "\033[1m\033[34m==> Link .zshrc\033[0m"
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 
 # HOTKEYS
@@ -41,5 +41,5 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # ln -sf ~/.dotfiles/hotkey/karabiner-hyper.json  ~/.config/karabiner/assets/complex_modifications/hyper.json
 
 # Reboot
-echo -e "Reboot"
+echo -e "\033[1m\033[34m==> Reboot\033[0m"
 . $HOME/.dotfiles/osx/reboot.sh
