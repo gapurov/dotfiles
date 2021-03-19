@@ -104,10 +104,7 @@ brew install --cask discord
 brew install --cask slack
 brew install --cask telegram
 brew install --cask fantastical
-# brew install --cask skype
 brew install --cask karabiner-elements
-# brew install --cask swish
-
 
 # Remove outdated versions from the cellar.
 brew cleanup
