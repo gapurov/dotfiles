@@ -1,14 +1,12 @@
 { 
   "dependencies": {
-    "canvas-sketch-cli": "1.11.13",
-    "prettier": "^2.2.1",
-    "netlify-cli": "^3.10.5",
-    "prisma": "^2.18.0",
-    "serve": "^11.3.2",
-    "vercel": "^21.3.2",
-    "neovim": "^4.9.0",
-    "vtop": "^0.6.1",
-    "trash-cli":"^4.0.0",
-    "npm-check-updates": "^11.1.10"
+    "netlify-cli": "latest-version",
+    "prisma": "latest-version",
+    "serve": "latest-version",
+    "vercel": "latest-version",
+    "neovim": "latest-version",
+    "vtop": "latest-version",
+    "trash-cli":"latest-version",
+    "npm-check-updates": "latest-version"
   }
 }

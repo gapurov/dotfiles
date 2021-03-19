@@ -20,7 +20,7 @@ ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 echo -e "install volta"
  . $HOME/.dotfiles/javascript/install-volta.sh
 # install global JS dependencies
-echo -e "install global JS dependencies"
+echo -e "install global JS packages"
 . $HOME/.dotfiles/javascript/install-packages.sh
 
 # OSX
@@ -32,6 +32,8 @@ echo -e "install global JS dependencies"
 # install oh-my-zsh
 echo -e "install oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+echo -e "link .zshrc"
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 
 # HOTKEYS

@@ -33,15 +33,6 @@ brew install vim
 brew install grep
 brew install openssh
 
-# Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
-
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
-# brew install aircrack-ng
-
 # Install other useful binaries.
 brew install bash
 brew install curl
@@ -67,14 +58,13 @@ brew install aria2
 brew install jq
 brew install mas
 brew install neovim
-brew install pandoc
+brew install pandoc #dont work
 brew install node
 brew install httpie
 brew install sqlite
 brew install tmux
 brew install wget
 brew install tree
-brew install unrar
 brew install youtube-dl
 brew install speedtest-cli
 brew install zsh
@@ -82,10 +72,18 @@ brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install defaultbrowser
 
+# Install font tools.
+brew tap bramstein/webfonttools
+brew install sfnt2woff
+brew install sfnt2woff-zopfli
+brew install woff2
+
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code
 
 # Install GUI Apps
 brew install --cask iterm2
-# brew install --cask bettertouchtool
+brew install --cask bettertouchtool
 brew install --cask oversight
 brew install --cask visual-studio-code
 brew install --cask alfred
@@ -104,6 +102,8 @@ brew install --cask vlc
 brew install --cask iina
 brew install --cask discord
 brew install --cask slack
+brew install --cask telegram
+brew install --cask fantastical
 # brew install --cask skype
 brew install --cask karabiner-elements
 # brew install --cask swish
@@ -128,10 +128,13 @@ mas install 611658502
 mas install 497799835
 
 # paste
-# mas install 967805235
+mas install 967805235
 
 # soulver 3
-# mas install 1508732804
+mas install 1508732804
 
 # NordVPN IKE
 mas install 1116599239
+
+# Reeder 5
+mas install 1529448980
