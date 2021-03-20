@@ -71,6 +71,7 @@ brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install defaultbrowser
+brew install koekeishiya/formulae/yabai
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -89,6 +90,8 @@ brew install --cask iterm2
 brew install --cask kitty
 brew install --cask bettertouchtool
 brew install --cask oversight
+brew install --cask handbrake
+brew install --cask karabiner-elements
 brew install --cask visual-studio-code
 brew install --cask alfred
 brew install --cask gitup
@@ -99,7 +102,6 @@ brew install --cask the-unarchiver
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask dropbox
-brew install --cask handbrake
 brew install --cask spotify
 brew install --cask anki
 brew install --cask vlc
@@ -108,7 +110,7 @@ brew install --cask discord
 brew install --cask slack
 brew install --cask telegram
 brew install --cask fantastical
-brew install --cask karabiner-elements
+brew install --cask workflowy
 
 # Remove outdated versions from the cellar.
 brew cleanup
