@@ -148,14 +148,14 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Do some clean up work.
 ###############################################################################
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-           "Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" \
-           "Twitter" "iCal" "bluetoothaudiod"; do
-           killall "${app}" > /dev/null 2>&1
-done
+# for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
+#            "Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" \
+#            "Twitter" "iCal" "bluetoothaudiod"; do
+#            killall "${app}" > /dev/null 2>&1
+# done
 
 # Wait a bit before moving on...
-sleep 1
+sleep 2
 
 # ...and then.
 echo "Success! Defaults are set."
