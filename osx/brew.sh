@@ -79,10 +79,14 @@ brew install sfnt2woff-zopfli
 brew install woff2
 
 brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+
+brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
 
 # Install GUI Apps
 brew install --cask iterm2
+brew install --cask kitty
 brew install --cask bettertouchtool
 brew install --cask oversight
 brew install --cask visual-studio-code
