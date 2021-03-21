@@ -134,6 +134,11 @@ defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 echo -e "\033[1m\033[34m==> Disable press-and-hold for keys in favor of key repeat \033[0m \n"
 defaults write -g ApplePressAndHoldEnabled -bool false
 
+# Reduce initial key delay to 45ms and Key repeat speed to 15ms
+# https://mac-os-key-repeat.vercel.app
+echo -e "\033[1m\033[34m==> Reduce initial key delay to 45ms and Key repeat speed to 15ms \033[0m \n"
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g KeyRepeat -int 2
 
 # Set default languages...
 echo -e "\033[1m\033[34m==> Set default languages... \033[0m \n"

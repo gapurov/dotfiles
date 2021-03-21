@@ -1,5 +1,6 @@
 { 
   "dependencies": {
+    "buzzphrase": "latest-version",
     "netlify-cli": "latest-version",
     "prisma": "latest-version",
     "serve": "latest-version",

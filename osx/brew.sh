@@ -80,10 +80,8 @@ brew install sfnt2woff-zopfli
 brew install woff2
 
 brew tap homebrew/cask-fonts
-brew install --cask font-hack-nerd-font
-
-brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
+brew install --cask font-hack-nerd-font
 
 # Install GUI Apps
 brew install --cask iterm2
@@ -111,6 +109,7 @@ brew install --cask slack
 brew install --cask telegram
 brew install --cask fantastical
 brew install --cask workflowy
+brew install --cask notion
 
 # Remove outdated versions from the cellar.
 brew cleanup

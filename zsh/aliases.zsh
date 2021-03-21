@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 #############################
 # Utilities
 
 # Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias afk="pmset displaysleepnow"
 
 # buzzphrase commit
 # used for my presentation decks when I have nothing to say about the commit
@@ -26,11 +26,6 @@ alias files.usage='sudo fs_usage -e -f filesystem|grep -v CACHE_HIT|grep -v grep
 alias files.usage.user='sudo fs_usage -e -f filesystem|grep -v CACHE_HIT|grep -v grep|grep Users'
 
 alias game.seek='txt="";for i in {1..20};do txt=$txt"$i. ";done;txt=$txt" Ready or not, here I come";say $txt'
-
-# Git Tools
-# assumes git-up is installed (gem install git-up)
-# switches to 'develop' branch, updates all local branches (nicely using git-up), removes all local branches already merged into 'develop'
-alias gitdev='git checkout develop; git-up; git branch --merged develop | grep -v "\* develop" | xargs -n 1 git branch -d; git branch;'
 
 # IP addresses
 alias iplocal="ipconfig getifaddr en0"
@@ -91,7 +86,9 @@ alias spoton="sudo mdutil -a -i on"
 alias update='echo brew update && brew update;
               echo brew upgrade && brew upgrade;
               echo brew cleanup -s && brew cleanup -s;
-              echo omz update && omz update;'
+              echo omz update && omz update;
+              echo update powerlevel10k && git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull;
+              echo mas upgrade && mas upgrade;'
               
 alias vtop="vtop --theme wizard"
 
