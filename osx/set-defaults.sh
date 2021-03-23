@@ -114,8 +114,6 @@ defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 
 defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" -int 48
 defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" -int 53
 defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" -int 48
-defaults write com.apple.BluetoothAudioAgent "Stream – Flush Ring on Packet Drop (editable)" -int 30
-defaults write com.apple.BluetoothAudioAgent "Stream – Max Outstanding Packets (editable)" -int 15
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
