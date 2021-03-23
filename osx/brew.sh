@@ -71,7 +71,7 @@ brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install defaultbrowser
-brew install koekeishiya/formulae/yabai
+# brew install koekeishiya/formulae/yabai
 
 # Install font tools.
 brew tap bramstein/webfonttools
