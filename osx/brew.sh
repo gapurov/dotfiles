@@ -58,7 +58,7 @@ brew install aria2
 brew install jq
 brew install mas
 brew install neovim
-brew install pandoc #dont work
+# brew install pandoc # you have first to `brew install --cask mactex`
 brew install node
 brew install httpie
 brew install sqlite
@@ -71,7 +71,11 @@ brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install defaultbrowser
-# brew install koekeishiya/formulae/yabai
+brew install atomicparsley
+# brew install koekeishiya/formulae/yabai # window manager
+
+brew tap macpaw/taps
+brew install encrypto-cli
 
 # Install font tools.
 brew tap bramstein/webfonttools
@@ -110,6 +114,7 @@ brew install --cask telegram
 brew install --cask fantastical
 brew install --cask workflowy
 brew install --cask notion
+brew install --cask plug
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -140,3 +145,9 @@ mas install 1116599239
 
 # Reeder 5
 mas install 1529448980
+
+# Encrypto (MacPaw)
+mas install 935235287
+
+# Amphetamine
+mas install 937984704
