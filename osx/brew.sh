@@ -89,6 +89,7 @@ brew install --cask font-hack-nerd-font
 
 # Install GUI Apps
 brew install --cask iterm2
+brew install --cask 1password
 brew install --cask kitty
 brew install --cask bettertouchtool
 brew install --cask oversight
@@ -100,7 +101,7 @@ brew install --cask gitup
 brew install --cask sublime-merge
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
-brew install --cask the-unarchiver
+brew install --cask keka
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask dropbox
@@ -115,12 +116,10 @@ brew install --cask fantastical
 brew install --cask workflowy
 brew install --cask notion
 brew install --cask plug
+brew install --cask vanilla
 
 # Remove outdated versions from the cellar.
 brew cleanup
-
-# 1Password 7
-mas install 1333542190
 
 # Bear
 mas install 1091189122

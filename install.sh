@@ -53,8 +53,9 @@ echo -e "\033[1m\033[34m==> Link .zshrc\033[0m"
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 
 # HOTKEYS
-# echo -e "Link Karabiner CapsLock Hyper Key Config"
-# ln -sf ~/.dotfiles/hotkey/karabiner-hyper.json  ~/.config/karabiner/assets/complex_modifications/hyper.json
+# echo -e "Link Karabiner config"
+echo -e "\033[1m\033[34m==> Link Karabiner config\033[0m"
+ln -sf ~/.dotfiles/hotkey/karabiner.json  ~/.config/karabiner/karabiner.json
 
 # Reboot
 echo -e "\033[1m\033[34m==> Reboot\033[0m"
