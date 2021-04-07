@@ -116,7 +116,8 @@ brew install --cask fantastical
 brew install --cask workflowy
 brew install --cask notion
 brew install --cask plug
-brew install --cask vanilla
+# brew install --cask vanilla
+brew install --cask soulver
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -136,9 +137,6 @@ mas install 497799835
 # paste
 mas install 967805235
 
-# soulver 3
-mas install 1508732804
-
 # NordVPN IKE
 mas install 1116599239
 
@@ -150,3 +148,6 @@ mas install 935235287
 
 # Amphetamine
 mas install 937984704
+
+# Dropover easier drag drop
+max install 1355679052

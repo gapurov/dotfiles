@@ -87,8 +87,7 @@ alias update='echo brew update && brew update;
               echo brew upgrade && brew upgrade;
               echo brew cleanup -s && brew cleanup -s;
               echo omz update && omz update;
-              echo update powerlevel10k && git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull;
-              echo mas upgrade && mas upgrade;'
+              echo update powerlevel10k && git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull;'
               
 alias vtop="vtop --theme wizard"
 
