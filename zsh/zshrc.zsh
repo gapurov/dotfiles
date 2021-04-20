@@ -21,13 +21,14 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
-  jsontools
-  httpie
+  docker
+  docker-compose
   osx
   z
   fzf
   git
-  dirpersist
+  httpie
+  jsontools
   history
 )
 

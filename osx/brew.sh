@@ -103,6 +103,7 @@ brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
 brew install --cask google-chrome
+brew install --cask google-chrome-beta
 brew install --cask firefox
 brew install --cask dropbox
 brew install --cask spotify
@@ -118,6 +119,9 @@ brew install --cask notion
 brew install --cask plug
 # brew install --cask vanilla
 brew install --cask soulver
+brew install --cask insomnia
+brew install --cask forklift
+brew install --cask audiobookbinder
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -150,4 +154,4 @@ mas install 935235287
 mas install 937984704
 
 # Dropover easier drag drop
-max install 1355679052
+mas install 1355679052
