@@ -31,7 +31,7 @@ brew install gnupg
 # Install more recent versions of some macOS tools.
 brew install vim
 brew install grep
-brew install openssh
+# brew install openssh
 
 # Install other useful binaries.
 brew install bash
@@ -121,7 +121,9 @@ brew install --cask plug
 brew install --cask soulver
 brew install --cask insomnia
 brew install --cask forklift
-brew install --cask audiobookbinder
+brew install --cask kindle
+brew install --cask soundsource
+brew install --cask dash
 
 # Remove outdated versions from the cellar.
 brew cleanup

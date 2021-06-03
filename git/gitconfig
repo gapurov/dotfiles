@@ -1,6 +1,6 @@
 [user]
-  name = Vladislav Gapurov
-  email = gapurov@gmail.com
+	name = Vladislav Gapurov
+	email = gapurov@gmail.com
   username = gapurov
 [core]
   editor = code --wait
@@ -9,33 +9,30 @@
   excludesfile = ~/.gitignore
 [web]
   browser = google-chrome
+[pull]
+	rebase = false
 [push]
   default = simple
-  # default = current
+[diff]
+	tool = opendiff
+[difftool "opendiff"]
+	cmd = opendiff "$LOCAL" "$REMOTE"
+[merge]
+	tool = opendiff
+[mergetool "opendiff"]
+	cmd = opendiff "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
+	trustExitCode = false
 [color]
   ui = auto
 [credential]
   # cache creds (git help credential-cache)
   # helper = cache
 	helper = osxkeychain
-[merge]
-	tool = smerge
-	# tool = opendiff
-  # [mergetool "smerge"]
-  #   cmd = smerge -n --wait \"$REMOTE\" \"$BASE\" \"$LOCAL\" \"$MERGED\"
-  #   trustExitCode = false
-[diff]
-  tool = smerge
-[difftool "smerge"]
-  cmd = smerge -n --wait \"$REMOTE\" \"$LOCAL\"
-  prompt = false
 [log]
   date = relative
 [format]
   pretty = format:%h %Cblue%ad%Creset %ae %Cgreen%s%Creset
-  
 [alias]
-  
   #############
   b = branch
   ba = branch -a
@@ -128,7 +125,3 @@
   whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
   serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
   #############
-  ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-  theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-  subrepo = !sh -c 'git filter-branch --prune-empty --subdirectory-filter $1 master' -
-  human = name-rev --name-only --refs=refs/heads/*
