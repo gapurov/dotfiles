@@ -24,8 +24,8 @@ plugins=(
   docker
   docker-compose
   osx
-  z
   fzf
+  zoxide
   git
   httpie
   jsontools

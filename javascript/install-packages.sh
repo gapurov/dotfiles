@@ -8,4 +8,4 @@ jq -r '.dependencies | to_entries | .[] | if .value == "latest-version" then .ke
 while read -r key; do
     # npm install -g $key
     volta install $key
-done 
+done

@@ -36,6 +36,13 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # Wait a bit before moving on...
 sleep 2
 
+# Install oh-my-zsh
+echo -e "\033[1m\033[34m==> Install zoxide\033[0m"
+curl -sS https://webinstall.dev/zoxide | bash
+
+# Wait a bit before moving on...
+sleep 2
+
 # Install powerlevel10k theme
 echo -e "\033[1m\033[34m==> Install powerlevel10k theme\033[0m"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k

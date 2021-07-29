@@ -70,6 +70,7 @@ brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
+brew install zoxide
 brew install defaultbrowser
 brew install atomicparsley
 # brew install koekeishiya/formulae/yabai # window manager
@@ -133,7 +134,7 @@ mas install 1091189122
 
 # Boxy SVG
 mas install 611658502
- 
+
 # Find Any File
 # mas install 402569179
 
