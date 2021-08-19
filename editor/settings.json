@@ -1,19 +1,33 @@
 // Place your settings in this file to overwrite the default settings
 {
+  "workbench.editor.openSideBySideDirection": "right",
+  "workbench.sideBar.location": "left",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "GitHub Dark",
+  "workbench.editor.sharedViewState": true,
+  "workbench.editor.untitled.experimentalLanguageDetection": true,
+
+  "breadcrumbs.enabled": true,
+
   "explorer.openEditors.visible": 0,
+  "explorer.confirmDelete": false,
+  "explorer.incrementalNaming": "smart",
+
   "editor.fontSize": 14,
-  "editor.fontFamily": "'Dank Mono', 'Input Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'Cascadia Code', 'Dank Mono', 'Fira Code', 'Input Mono', Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
   "editor.tabCompletion": "on",
+  "editor.suggestSelection": "first",
   "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.rulers": [80],
-  "editor.multiCursorModifier": "ctrlCmd",
-  "editor.parameterHints.enabled": false,
-  "editor.snippetSuggestions": "top",
+  "editor.rulers": [120],
   "editor.renderWhitespace": "boundary",
   "editor.glyphMargin": true,
   "editor.cursorStyle": "line",
@@ -23,42 +37,49 @@
   "editor.renderIndentGuides": true,
   "editor.renderControlCharacters": false,
   "editor.minimap.enabled": false,
-  "typescript.referencesCodeLens.enabled": false,
-  "files.autoSave": "off",
-  "sync.gist": "6c10da9683ced658389467b5ec88a2ca",
-  "sync.autoDownload": false,
-  "sync.autoUpload": true,
-  "sync.forceDownload": false,
-  "sync.quietSync": true,
-  "sync.removeExtensions": true,
-  "sync.syncExtensions": true,
-  "gitlens.currentLine.enabled": true,
-  "gitlens.hovers.currentLine.enabled": true,
-  "gitlens.keymap": "alternate",
-  "gitlens.codeLens.recentChange.enabled": false,
-  "gitlens.codeLens.authors.enabled": false,
-  "diffEditor.ignoreTrimWhitespace": true,
-  "breadcrumbs.enabled": true,
-  "prettier.singleQuote": true,
-  "terminal.integrated.shellArgs.osx": ["-l"],
-  "files.associations": {
-    "_bashrc": "shellscript",
-    "_zshrc": "shellscript",
-    "js": "typescriptreact",
-    "*.js": "javascriptreact"
+  "editor.wordSeparators": "`~!@#$%^&*()-_=+[{]}\\|;:'\",.<>/?",
+  "editor.foldingImportsByDefault": false,
+  "editor.largeFileOptimizations": false,
+
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": false
   },
+
+  "[typescript]": { "editor.autoClosingBrackets": "always" },
+  "[javascriptreact]": { "editor.autoClosingBrackets": "always" },
+
+  "files.autoSave": "off",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+
+  "git.autofetch": true,
+  "git.autofetchPeriod": 30,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.rebaseWhenSync": true,
+
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.updateImportsOnFileMove.enabled": "never",
+
   "javascript.validate.enable": false,
   "javascript.format.enable": true,
-  "javascript.suggest.autoImports": false,
   "javascript.updateImportsOnFileMove.enabled": "never",
+
+  "stylelint.validate": ["css"],
+
   "emmet.triggerExpansionOnTab": true,
   "emmet.showSuggestionsAsSnippets": true,
-  "emmet.optimizeStylesheetParsing": false,
   "emmet.showExpandedAbbreviation": "always",
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact"
   },
+
   "emmet.syntaxProfiles": {
     "html": {
       "attr_quotes": "double"
@@ -67,9 +88,9 @@
       "self_closing_tag": true
     }
   },
-  "workbench.activityBar.visible": false,
-  "workbench.editor.openSideBySideDirection": "right",
-  "workbench.sideBar.location": "left",
+
+  "debug.javascript.codelens.npmScripts": "never",
+
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
@@ -79,33 +100,7 @@
     "**/.build": true,
     "**/.gh-pages": true
   },
-  "local-history.absolute": true,
-  "local-history.path": "/Users/gapurov/.vscode-history",
-  "typescript.updateImportsOnFileMove.enabled": "never",
-  "workbench.iconTheme": "vscode-icons",
-  "sync.forceUpload": true,
-  "explorer.incrementalNaming": "smart",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true
-  },
-  "explorer.confirmDelete": false,
-  "debug.javascript.codelens.npmScripts": "never",
-  "editor.formatOnSaveMode": "modifications",
-  "workbench.colorTheme": "GitHub Dark",
-  "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "window.zoomLevel": 1
+  "redhat.telemetry.enabled": false,
+  "githubPullRequests.fileListLayout": "flat",
+  "testExplorer.useNativeTesting": true
 }

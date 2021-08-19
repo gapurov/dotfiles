@@ -22,6 +22,10 @@ echo -e "\033[1m\033[34m==> Install volta formulas\033[0m"
 # Install global JS dependencies
 echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
 . $HOME/.dotfiles/javascript/install-packages.sh
+# Link .npmrc
+echo -e "\033[1m\033[34m==> Link .npmrc\033[0m"
+ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
+
 
 # OSX
 . $HOME/.dotfiles/osx/set-defaults.sh

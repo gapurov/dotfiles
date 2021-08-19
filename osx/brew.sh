@@ -125,6 +125,7 @@ brew install --cask forklift
 brew install --cask kindle
 brew install --cask soundsource
 brew install --cask dash
+# brew install --cask camo-studio
 
 # Remove outdated versions from the cellar.
 brew cleanup
@@ -157,4 +158,4 @@ mas install 935235287
 mas install 937984704
 
 # Dropover easier drag drop
-mas install 1355679052
+# mas install 1355679052
