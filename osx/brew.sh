@@ -156,6 +156,3 @@ mas install 935235287
 
 # Amphetamine
 mas install 937984704
-
-# Dropover easier drag drop
-# mas install 1355679052
