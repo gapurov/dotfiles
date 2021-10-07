@@ -75,6 +75,9 @@ brew install defaultbrowser
 brew install atomicparsley
 # brew install koekeishiya/formulae/yabai # window manager
 
+brew tap jakehilborn/jakehilborn
+brew install displayplacer
+
 brew tap macpaw/taps
 brew install encrypto-cli
 
@@ -105,6 +108,7 @@ brew install --cask omnidisksweeper
 brew install --cask keka
 brew install --cask google-chrome
 brew install --cask google-chrome-beta
+brew install --cask microsoft-edge
 brew install --cask firefox
 brew install --cask dropbox
 brew install --cask spotify
@@ -125,6 +129,7 @@ brew install --cask forklift
 brew install --cask kindle
 brew install --cask soundsource
 brew install --cask dash
+brew install --cask ukelele
 # brew install --cask camo-studio
 
 # Remove outdated versions from the cellar.
