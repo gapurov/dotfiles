@@ -88,10 +88,13 @@ alias update='echo brew update && brew update;
               echo brew cleanup -s && brew cleanup -s;
               echo omz update && omz update;
               echo update powerlevel10k && git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull;'
-              
+
 alias vtop="vtop --theme wizard"
 
 alias jsonfix="pbpaste | jq . | pbcopy"
 
 alias lookbusy="cat /dev/urandom | hexdump -C | grep \"34 32\""
 
+alias displayshz="displayplacer \"id:C9922C5D-F89C-C5D2-0857-D6964E3302DB res:3008x1692 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0\" \"id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 scaling:on origin:(-1440,792) degree:0\""
+
+alias displaysvrt="displayplacer \"id:C9922C5D-F89C-C5D2-0857-D6964E3302DB res:3008x1692 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0\" \"id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 scaling:on origin:(740,1692) degree:0\""
