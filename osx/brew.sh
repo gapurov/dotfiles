@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-# Install command-line tools using Homebrew.
-
-# Make sure we’re using the latest Homebrew.
 brew update
-
-# Upgrade any already-installed formulae.
 brew upgrade
 
 # Save Homebrew’s installed location.
@@ -15,9 +10,6 @@ BREW_PREFIX=$(brew --prefix)
 # Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 ln -sf "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
-
-# Install some other useful utilities like `sponge`.
-brew install moreutils
 
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
@@ -38,7 +30,6 @@ brew install bash
 brew install curl
 brew install git
 brew install gist
-brew install jesseduffield/lazygit/lazygit
 brew install git-extras
 brew install hub
 brew install p7zip
@@ -75,7 +66,7 @@ brew install zoxide
 brew install defaultbrowser
 brew install atomicparsley
 brew install superfly/tap/flyctl
-# brew install koekeishiya/formulae/yabai # window manager
+brew install chezmoi
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer
@@ -110,56 +101,31 @@ brew install --cask omnidisksweeper
 brew install --cask keka
 brew install --cask google-chrome
 brew install --cask google-chrome-beta
+brew install --cask brave-browser
 brew install --cask microsoft-edge
 brew install --cask firefox
 brew install --cask blender
-brew install --cask dropbox
 brew install --cask spotify
-brew install --cask anki
 brew install --cask vlc
 brew install --cask iina
+brew install --cask plug
+brew install --cask anki
+brew install --cask dropbox
+brew install --cask maestral
+brew install --cask notion
+brew install --cask telegram
 brew install --cask discord
 brew install --cask slack
-brew install --cask telegram
+brew install --cask forklift
 brew install --cask fantastical
-brew install --cask workflowy
-brew install --cask notion
-brew install --cask plug
 brew install --cask soulver
 brew install --cask insomnia
-brew install --cask forklift
 brew install --cask kindle
 brew install --cask soundsource
 brew install --cask dash
 brew install --cask ukelele
 brew install --cask zotero
+brew install --cask find-any-file
 
 # Remove outdated versions from the cellar.
 brew cleanup
-
-# Bear
-mas install 1091189122
-
-# Boxy SVG
-mas install 611658502
-
-# Find Any File
-# mas install 402569179
-
-# xcode
-mas install 497799835
-
-# paste
-mas install 967805235
-
-# NordVPN IKE
-mas install 1116599239
-
-# Reeder 5
-mas install 1529448980
-
-# Encrypto (MacPaw)
-mas install 935235287
-
-# Amphetamine
-mas install 937984704

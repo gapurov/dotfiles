@@ -37,7 +37,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-source $HOME/.dotfiles/zsh/secrets.zsh
 source $HOME/.dotfiles/zsh/fns.zsh
 source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh

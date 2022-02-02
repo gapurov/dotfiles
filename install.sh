@@ -28,9 +28,9 @@ ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
 
 
 # OSX
-. $HOME/.dotfiles/osx/set-defaults.sh
-. $HOME/.dotfiles/osx/set-workarounds.sh
-. $HOME/.dotfiles/osx/set-symlinks.sh
+. $HOME/.dotfiles/osx/macos.sh
+. $HOME/.dotfiles/osx/workarounds.sh
+. $HOME/.dotfiles/osx/symlinks.sh
 
 # ZSH
 # Install oh-my-zsh
@@ -66,7 +66,7 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # HOTKEYS
 # echo -e "Link Karabiner config"
 echo -e "\033[1m\033[34m==> Link Karabiner config\033[0m"
-ln -sf ~/.dotfiles/hotkey/karabiner.json  ~/.config/karabiner/karabiner.json
+ln -sf ~/.dotfiles/settings/karabiner.json  ~/.config/karabiner/karabiner.json
 
 # Reboot
 echo -e "\033[1m\033[34m==> Reboot\033[0m"

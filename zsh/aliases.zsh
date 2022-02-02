@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-#############################
-# Utilities
-
 # Lock the screen (when going AFK)
 alias afk="pmset displaysleepnow"
 
@@ -24,8 +21,6 @@ alias files.open='sudo fs_usage -e -f filesystem|grep -v CACHE_HIT|grep -v grep|
 alias files.usage='sudo fs_usage -e -f filesystem|grep -v CACHE_HIT|grep -v grep'
 # Files in use in the Users directory
 alias files.usage.user='sudo fs_usage -e -f filesystem|grep -v CACHE_HIT|grep -v grep|grep Users'
-
-alias game.seek='txt="";for i in {1..20};do txt=$txt"$i. ";done;txt=$txt" Ready or not, here I come";say $txt'
 
 # IP addresses
 alias iplocal="ipconfig getifaddr en0"
@@ -66,12 +61,6 @@ alias pyserver='python3 -m http.server'
 alias port-forward-enable="echo 'rdr pass inet proto tcp from any to any port 2376 -> 127.0.0.1 port 2376' | sudo pfctl -ef -"
 alias port-forward-disable="sudo pfctl -F all -f /etc/pf.conf"
 alias port-forward-list="sudo pfctl -s nat"
-
-# push git repo, but first, use git-up to make sure you are in sync and rebased with the remote
-alias pushup="git-up && git push"
-# Set the extended MacOS attributes on a file such that Quicklook will open it as text
-alias qltext='xattr -wx com.apple.FinderInfo "54 45 58 54 21 52 63 68 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" $1'
-#alias qltext2='osascript -e tell application "Finder" to set file type of ((POSIX file "$1") as alias) to "TEXT"'
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"

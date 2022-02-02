@@ -14,7 +14,7 @@
 [pull]
 	rebase = false
 [push]
-  default = simple
+  default = current
 [diff]
 	tool = opendiff
 [difftool "opendiff"]
@@ -27,8 +27,6 @@
 [color]
   ui = auto
 [credential]
-  # cache creds (git help credential-cache)
-  # helper = cache
 	helper = osxkeychain
 [log]
   date = relative
@@ -40,90 +38,20 @@
   ba = branch -a
   bd = branch -d
   bdd = branch -D
-  br = branch -r
-  bc = rev-parse --abbrev-ref HEAD
   #############
-  cem = commit --allow-empty -m
-  ced = commit --allow-empty --amend
-  #############
-  cl = clone
   cld = clone --depth 1
-  clg = !sh -c 'git clone git://github.com/$1 $(basename $1)' -
-  clgp = !sh -c 'git clone git@github.com:$(git config --get user.username)/$1 $1' -
   #############
   d = diff
   dp = diff --patience
   dc = diff --cached
   dk = diff --check
   dck = diff --cached --check
-  dt = difftool
-  dct = difftool --cached
   #############
   f = fetch
   fo = fetch origin
   fu = fetch upstream
   #############
-  fp = format-patch
-  #############
-  fk = fsck
-  #############
-  ls = ls-files
-  lsf = !git ls-files | grep -i
-  #############
-  m = merge
-  ma = merge --abort
-  mc = merge --continue
-  ms = merge --skip
-  #############
-  pr = prune -v
-  #############
-  pso = push origin
-  psao = push --all origin
-  psfo = push -f origin
-  psuo = push -u origin
-  #############
-  # psom = push origin master
-  # psaom = push --all origin master
-  # psfom = push -f origin master
-  # psuom = push -u origin master
-  # psoc = !git push origin $(git bc)
-  # psaoc = !git push --all origin $(git bc)
-  # psfoc = !git push -f origin $(git bc)
-  # psuoc = !git push -u origin $(git bc)
-  # psdc = !git push origin :$(git bc)
-  #############
-  # plu = pull upstream
-  # plum = pull upstream master
-  # pluc = !git pull upstream $(git bc)
-  # pbum = pull --rebase upstream master
-  # pbuc = !git pull --rebase upstream $(git bc)
-  #############
   ggrh = git reset --hard origin/$(git bc)
-  #############
-  # sa = stash apply
-  # sc = stash clear
-  # sd = stash drop
-  # sl = stash list
-  # sp = stash pop
-  # ss = stash save
-  # sw = stash show
-  #############
-  # subadd = !sh -c 'git submodule add git://github.com/$1 $2/$(basename $1)' -
-  # subup = submodule update --init --recursive
-  # subpull = !git submodule foreach git pull --tags origin master
   #############
   assume = update-index --assume-unchanged
   unassume = update-index --no-assume-unchanged
-  assumed = !git ls -v | grep ^h | cut -c 3-
-  unassumeall = !git assumed | xargs git unassume
-  assumeall = !git status -s | awk {'print $2'} | xargs git assume
-  #############
-  bump = !sh -c 'git commit -am \"Version bump v$1\" && git psuoc && git release $1' -
-  release = !sh -c 'git tag v$1 && git pst' -
-  unrelease = !sh -c 'git tag -d v$1 && git pso :v$1' -
-  aliases = !git config -l | grep alias | cut -c 7-
-  snap = !git stash save 'snapshot: $(date)' && git stash apply 'stash@{0}'
-  bare = !sh -c 'git symbolic-ref HEAD refs/heads/$1 && git rm --cached -r . && git clean -xfd' -
-  whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
-  serve = daemon --reuseaddr --verbose --base-path=. --export-all ./.git
-  #############
