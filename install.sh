@@ -10,6 +10,9 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
 echo -e "\033[1m\033[34m==> Installing brew formulas\033[0m"
 . $HOME/.dotfiles/osx/brew.sh
 
+echo -e "\033[1m\033[34m==> Installing App Store Applications\033[0m"
+. $HOME/.dotfiles/osx/mas.sh
+
 # GIT
 echo -e "\033[1m\033[34m==> Link global gitconfig and gitignore files formulas\033[0m"
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
