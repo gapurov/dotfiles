@@ -86,6 +86,7 @@ alias spoton="sudo mdutil -a -i on"
 alias update='echo brew update && brew update;
               echo brew upgrade && brew upgrade;
               echo brew cleanup -s && brew cleanup -s;
+              echo brew autoremove && brew autoremove;
               echo omz update && omz update;
               echo update powerlevel10k && git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull;'
 

@@ -1,10 +1,7 @@
-{ 
+{
   "dependencies": {
     "buzzphrase": "latest-version",
-    "netlify-cli": "latest-version",
-    "prisma": "latest-version",
     "serve": "latest-version",
-    "vercel": "latest-version",
     "neovim": "latest-version",
     "vtop": "latest-version",
     "trash-cli":"latest-version",

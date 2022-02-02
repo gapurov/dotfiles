@@ -38,6 +38,7 @@ brew install bash
 brew install curl
 brew install git
 brew install gist
+brew install jesseduffield/lazygit/lazygit
 brew install git-extras
 brew install hub
 brew install p7zip
@@ -73,6 +74,7 @@ brew install zsh-autosuggestions
 brew install zoxide
 brew install defaultbrowser
 brew install atomicparsley
+brew install superfly/tap/flyctl
 # brew install koekeishiya/formulae/yabai # window manager
 
 brew tap jakehilborn/jakehilborn
@@ -110,6 +112,7 @@ brew install --cask google-chrome
 brew install --cask google-chrome-beta
 brew install --cask microsoft-edge
 brew install --cask firefox
+brew install --cask blender
 brew install --cask dropbox
 brew install --cask spotify
 brew install --cask anki
@@ -122,7 +125,6 @@ brew install --cask fantastical
 brew install --cask workflowy
 brew install --cask notion
 brew install --cask plug
-# brew install --cask vanilla
 brew install --cask soulver
 brew install --cask insomnia
 brew install --cask forklift
@@ -130,7 +132,7 @@ brew install --cask kindle
 brew install --cask soundsource
 brew install --cask dash
 brew install --cask ukelele
-# brew install --cask camo-studio
+brew install --cask zotero
 
 # Remove outdated versions from the cellar.
 brew cleanup

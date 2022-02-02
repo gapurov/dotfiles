@@ -23,7 +23,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(
   docker
   docker-compose
-  osx
+  macos
   fzf
   zoxide
   git
