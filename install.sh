@@ -29,7 +29,6 @@ echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
 echo -e "\033[1m\033[34m==> Link .npmrc\033[0m"
 ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
 
-
 # OSX
 . $HOME/.dotfiles/osx/macos.sh
 . $HOME/.dotfiles/osx/workarounds.sh
@@ -39,13 +38,6 @@ ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
 # Install oh-my-zsh
 echo -e "\033[1m\033[34m==> Install oh-my-zsh\033[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Wait a bit before moving on...
-sleep 2
-
-# Install oh-my-zsh
-echo -e "\033[1m\033[34m==> Install zoxide\033[0m"
-curl -sS https://webinstall.dev/zoxide | bash
 
 # Wait a bit before moving on...
 sleep 2
