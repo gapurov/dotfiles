@@ -66,7 +66,7 @@ brew install zoxide
 brew install defaultbrowser
 brew install atomicparsley
 brew install superfly/tap/flyctl
-brew install chezmoi
+brew install dockutil
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer

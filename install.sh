@@ -29,11 +29,6 @@ echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
 echo -e "\033[1m\033[34m==> Link .npmrc\033[0m"
 ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
 
-# OSX
-. $HOME/.dotfiles/osx/macos.sh
-. $HOME/.dotfiles/osx/workarounds.sh
-. $HOME/.dotfiles/osx/symlinks.sh
-
 # ZSH
 # Install oh-my-zsh
 echo -e "\033[1m\033[34m==> Install oh-my-zsh\033[0m"
@@ -62,6 +57,12 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # echo -e "Link Karabiner config"
 echo -e "\033[1m\033[34m==> Link Karabiner config\033[0m"
 ln -sf ~/.dotfiles/settings/karabiner.json  ~/.config/karabiner/karabiner.json
+
+# OSX
+. $HOME/.dotfiles/osx/macos.sh
+. $HOME/.dotfiles/osx/workarounds.sh
+. $HOME/.dotfiles/osx/symlinks.sh
+. $HOME/.dotfiles/osx/name.sh
 
 # Reboot
 echo -e "\033[1m\033[34m==> Reboot\033[0m"

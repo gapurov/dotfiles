@@ -1,7 +1,7 @@
 ### `~/.dotfiles`
 
 ```sh
-git clone https://github.com/gapurov/dotfiles ~/.dotfiles && cd ~/.dotfiles  && sudo ./install.sh
+git clone https://github.com/gapurov/dotfiles ~/.dotfiles && cd ~/.dotfiles
 ```
 
 #### Install script

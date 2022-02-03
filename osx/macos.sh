@@ -82,6 +82,13 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 echo -e "\033[1m\033[34m==> Automatically hide and show the Dock \033[0m \n"
 defaults write com.apple.dock autohide -bool true
 
+# Set autohide delay for the Dock
+echo -e "\033[1m\033[34m==> Set orientation left for the Dock \033[0m \n"
+defaults write com.apple.dock orientation left
+
+echo -e "\033[1m\033[34m==> Disable show-recents for the Dock \033[0m \n"
+defaults write com.apple.dock show-recents -bool false
+
 # Enable Safari’s debug menu
 echo -e "\033[1m\033[34m==> Enable Safari’s debug menu \033[0m \n"
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
@@ -89,6 +96,26 @@ defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 # Disable smart quotes as they’re annoying when typing code
 echo -e "\033[1m\033[34m==> Disable smart quotes as they’re annoying when typing code \033[0m \n"
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable automatic capitalisation
+echo -e "\033[1m\033[34m==> Disable automatic capitalisation \033[0m \n"
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Disable automatic period substitution
+echo -e "\033[1m\033[34m==> Disable automatic period substitution \033[0m \n"
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Disable auto-correct
+echo -e "\033[1m\033[34m==> Disable auto-correct \033[0m \n"
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable automatic text completion
+echo -e "\033[1m\033[34m==> Disable automatic text completion \033[0m \n"
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
+
+# Disable auto spell checking
+echo -e "\033[1m\033[34m==> Disable auto spell checking \033[0m \n"
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
 echo -e "\033[1m\033[34m==> Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app \033[0m \n"
@@ -156,6 +183,34 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 
 # Wait a bit before moving on...
 sleep 2
+
+for dockItemLabel in \
+	Launchpad \
+	Safari \
+	Mail \
+	FaceTime \
+	Messages \
+	Maps \
+	Photos \
+	Contacts \
+	Calendar \
+	Reminders \
+	Notes \
+	Music \
+	Podcasts \
+	TV \
+	News \
+	Numbers \
+	Keynote \
+	Pages \
+	"App Store" \
+	"System Preferences" ; do
+	dockutil --find "$dockItemLabel" >/dev/null && dockutil --no-restart --remove "$dockItemLabel"
+done
+
+killall Dock
+
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # ...and then.
 echo "Success! Defaults are set."
