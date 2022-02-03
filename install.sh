@@ -31,6 +31,7 @@ ln -sf ~/.dotfiles/javascript/npmrc ~/.npmrc
 
 # ZSH
 # Install oh-my-zsh
+## TODO: fix the termination of the script after installing oh-my-zsh and cd into the oh-my-zsh directory
 echo -e "\033[1m\033[34m==> Install oh-my-zsh\033[0m"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
