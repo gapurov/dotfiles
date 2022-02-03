@@ -126,6 +126,7 @@ brew install --cask dash
 brew install --cask ukelele
 brew install --cask zotero
 brew install --cask find-any-file
+brew install --cask hazel
 
 # Remove outdated versions from the cellar.
 brew cleanup

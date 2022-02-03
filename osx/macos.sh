@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO: https://github.com/twpayne/dotfiles/blob/master/home/.chezmoiscripts/darwin/run_onchange_after_configure.sh.tmpl
-
 # ~/.macos — https://mths.be/macos
 osascript -e 'tell application "System Preferences" to quit'
 
