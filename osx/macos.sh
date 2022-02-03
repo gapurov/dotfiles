@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: https://github.com/twpayne/dotfiles/blob/master/home/.chezmoiscripts/darwin/run_onchange_after_configure.sh.tmpl
+
 # ~/.macos — https://mths.be/macos
 osascript -e 'tell application "System Preferences" to quit'
 
@@ -146,12 +148,11 @@ defaults write -g KeyRepeat -int 2
 
 # Set default languages...
 echo -e "\033[1m\033[34m==> Set default languages... \033[0m \n"
-defaults write NSGlobalDomain AppleLanguages "(en-DE, de-DE, ru-DE)";
+defaults write NSGlobalDomain AppleLanguages "(en-US, ru-DE, de-DE)";
 
 # Show language menu in the top right corner of the boot screen
 echo -e "\033[1m\033[34m==> Show language menu in the top right corner of the boot screen \033[0m \n"
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
-
 
 # Wait a bit before moving on...
 sleep 2

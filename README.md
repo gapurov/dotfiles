@@ -1,12 +1,7 @@
 ### `~/.dotfiles`
 
-My setup for zsh, git, etc.
-
-Copy this into `~/.dotfiles`. If it's not a brand new machine you probably already have some of the files/folders. You can replace them or merge them together.
-
 ```sh
-xcode-select --install
-git clone https://github.com/gapurov/dotfiles ~/.dotfiles
+git clone https://github.com/gapurov/dotfiles ~/.dotfiles && cd ~/.dotfiles  && sudo ./install.sh
 ```
 
 #### Install script
