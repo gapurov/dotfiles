@@ -23,6 +23,7 @@ brew install gnupg
 # Install more recent versions of some macOS tools.
 brew install vim
 brew install grep
+brew install ripgrep
 # brew install openssh
 
 # Install other useful binaries.
@@ -58,6 +59,7 @@ brew install tmux
 brew install wget
 brew install tree
 brew install youtube-dl
+brew install yt-dlp/taps/yt-dlp
 brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
@@ -67,6 +69,8 @@ brew install defaultbrowser
 brew install atomicparsley
 brew install superfly/tap/flyctl
 brew install dockutil
+brew install deno
+brew install fnm
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer
@@ -82,9 +86,15 @@ brew install woff2
 
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
+brew install --cask font-inter
 brew install --cask font-hack-nerd-font
+brew install --cask font-cascadia-code
+brew install --cask font-cascadia-code-pl
+brew install --cask font-cascadia-mono
+brew install --cask font-cascadia-mono-pl
 
 # Install GUI Apps
+brew install --cask little-snitch
 brew install --cask iterm2
 brew install --cask 1password
 brew install --cask kitty
@@ -96,11 +106,11 @@ brew install --cask visual-studio-code
 brew install --cask alfred
 brew install --cask gitup
 brew install --cask sublime-merge
+brew install --cask proxyman
+brew install --cask parallels
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
-brew install --cask google-chrome
-brew install --cask google-chrome-beta
 brew install --cask brave-browser
 brew install --cask microsoft-edge
 brew install --cask firefox
@@ -111,12 +121,13 @@ brew install --cask iina
 brew install --cask plug
 brew install --cask anki
 brew install --cask dropbox
-brew install --cask maestral
 brew install --cask notion
 brew install --cask telegram
 brew install --cask discord
 brew install --cask slack
+brew install --cask microsoft-teams
 brew install --cask forklift
+brew install --cask mountain-duck
 brew install --cask fantastical
 brew install --cask soulver
 brew install --cask insomnia
@@ -126,6 +137,10 @@ brew install --cask dash
 brew install --cask ukelele
 brew install --cask zotero
 brew install --cask find-any-file
+brew install --cask pdf-expert
+brew install --cask adguard
+# brew install --cask lunar
+brew install --cask nordvpn
 brew install --cask hazel
 
 # Remove outdated versions from the cellar.

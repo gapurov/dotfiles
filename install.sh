@@ -19,9 +19,6 @@ ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
 # JAVASCRIPT
-# Install volta
-echo -e "\033[1m\033[34m==> Install volta formulas\033[0m"
- . $HOME/.dotfiles/javascript/install-volta.sh
 # Install global JS dependencies
 echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
 . $HOME/.dotfiles/javascript/install-packages.sh
@@ -57,7 +54,7 @@ ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 # HOTKEYS
 # echo -e "Link Karabiner config"
 echo -e "\033[1m\033[34m==> Link Karabiner config\033[0m"
-ln -sf ~/.dotfiles/settings/karabiner.json  ~/.config/karabiner/karabiner.json
+ln -sf ~/.dotfiles/config/karabiner.json  ~/.config/karabiner/karabiner.json
 
 # OSX
 . $HOME/.dotfiles/osx/macos.sh

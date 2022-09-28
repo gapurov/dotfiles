@@ -84,8 +84,6 @@ tags
 .AppleDouble
 .LSOverride
 
-
-
 # Thumbnails
 ._*
 
@@ -104,3 +102,7 @@ tags
 Network Trash Folder
 Temporary Items
 .apdisk
+.worktrees
+
+.vscode
+.vscode/*

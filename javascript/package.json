@@ -2,9 +2,12 @@
   "dependencies": {
     "buzzphrase": "latest-version",
     "serve": "latest-version",
-    "neovim": "latest-version",
+    "pnpm": "latest-version",
+    "turbo": "latest-version",
+    "yarn": "latest-version",
     "vtop": "latest-version",
-    "trash-cli":"latest-version",
+    "trash-cli": "latest-version",
+    "tldr": "latest-version",
     "npm-check-updates": "latest-version"
   }
 }

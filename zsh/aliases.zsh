@@ -72,7 +72,8 @@ alias spoton="sudo mdutil -a -i on"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 # excluded: mas upgrade; gem update; sudo softwareupdate -i -a;
-alias update='echo brew update && brew update;
+alias update='echo update js packages && . $HOME/.dotfiles/javascript/install-packages.sh;
+              echo brew update && brew update;
               echo brew upgrade && brew upgrade;
               echo brew cleanup -s && brew cleanup -s;
               echo brew autoremove && brew autoremove;

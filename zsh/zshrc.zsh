@@ -9,7 +9,8 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # default language
-export LANG="en_US.UTF-8"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -28,7 +29,9 @@ plugins=(
   zoxide
   git
   httpie
+  fnm
   jsontools
+  timewarrior
   history
 )
 
@@ -40,7 +43,14 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 source $HOME/.dotfiles/zsh/fns.zsh
 source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
-source $HOME/.dotfiles/zsh/aliases-hidden.zsh
+source $HOME/.dotfiles/zsh/_aliases.zsh
+
+# bun completions
+[ -s "/Users/vgapurov/.oh-my-zsh/completions/_bun" ] && source "/Users/vgapurov/.oh-my-zsh/completions/_bun"
+
+# tabtab source for packages (pnpm)
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 ##############################################################################
 # History Configuration
@@ -55,3 +65,6 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Setup fnm
+eval "$(fnm env --use-on-cd)"

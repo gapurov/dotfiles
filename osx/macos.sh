@@ -80,9 +80,13 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 echo -e "\033[1m\033[34m==> Automatically hide and show the Dock \033[0m \n"
 defaults write com.apple.dock autohide -bool true
 
-# Set autohide delay for the Dock
+# Set orientation left for the Dock
 echo -e "\033[1m\033[34m==> Set orientation left for the Dock \033[0m \n"
 defaults write com.apple.dock orientation left
+
+# Set autohide delay for the Dock
+echo -e "\033[1m\033[34m==> Set autohide-delay for the Dock \033[0m \n"
+defaults write com.apple.dock autohide-delay -float 0.25; defaults write com.apple.dock autohide-time-modifier -float 0.30
 
 echo -e "\033[1m\033[34m==> Disable show-recents for the Dock \033[0m \n"
 defaults write com.apple.dock show-recents -bool false
@@ -114,6 +118,9 @@ defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
 # Disable auto spell checking
 echo -e "\033[1m\033[34m==> Disable auto spell checking \033[0m \n"
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
+
+echo -e "\033[1m\033[34m==> Make hidden apps transparent \033[0m \n"
+defaults write com.apple.Dock showhidden -bool TRUE
 
 # Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app
 echo -e "\033[1m\033[34m==> Mail.app: Add the keyboard shortcut ⌘ + Enter to send an email in Mail.app \033[0m \n"
@@ -177,7 +184,7 @@ defaults write NSGlobalDomain AppleLanguages "(en-US, ru-DE, de-DE)";
 
 # Show language menu in the top right corner of the boot screen
 echo -e "\033[1m\033[34m==> Show language menu in the top right corner of the boot screen \033[0m \n"
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
+defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Wait a bit before moving on...
 sleep 2

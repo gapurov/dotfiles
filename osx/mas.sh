@@ -17,3 +17,6 @@ mas install 935235287
 
 # Amphetamine
 mas install 937984704
+
+# Session - Pomodoro Focus Timer
+mas install 1521432881

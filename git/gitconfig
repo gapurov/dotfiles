@@ -16,14 +16,13 @@
 [push]
   default = current
 [diff]
-	tool = opendiff
-[difftool "opendiff"]
-	cmd = opendiff "$LOCAL" "$REMOTE"
+	tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
 [merge]
-	tool = opendiff
-[mergetool "opendiff"]
-	cmd = opendiff "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"
-	trustExitCode = false
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [color]
   ui = auto
 [credential]
