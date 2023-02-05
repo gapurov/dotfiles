@@ -2,12 +2,17 @@
   "dependencies": {
     "buzzphrase": "latest-version",
     "serve": "latest-version",
-    "pnpm": "latest-version",
+    "vercel": "latest-version",
     "turbo": "latest-version",
+    "pm2": "latest-version",
+    "pnpm": "latest-version",
     "yarn": "latest-version",
     "vtop": "latest-version",
     "trash-cli": "latest-version",
     "tldr": "latest-version",
-    "npm-check-updates": "latest-version"
+    "npm-check-updates": "latest-version",
+    "typescript": "latest-version",
+    "typescript-language-server": "latest-version",
+    "@prisma/language-server": "latest-version"
   }
 }

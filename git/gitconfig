@@ -23,6 +23,8 @@
 	tool = vscode
 [mergetool "vscode"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+[rebase]
+	updateRefs = true
 [color]
   ui = auto
 [credential]

@@ -45,6 +45,9 @@ source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
 source $HOME/.dotfiles/zsh/_aliases.zsh
 
+# navi plugin
+eval "$(navi widget zsh)"
+
 # bun completions
 [ -s "/Users/vgapurov/.oh-my-zsh/completions/_bun" ] && source "/Users/vgapurov/.oh-my-zsh/completions/_bun"
 

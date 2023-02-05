@@ -51,6 +51,7 @@ brew install aria2
 brew install jq
 brew install mas
 brew install neovim
+brew install helix
 # brew install pandoc # you have first to `brew install --cask mactex`
 brew install node
 brew install httpie
@@ -71,6 +72,7 @@ brew install superfly/tap/flyctl
 brew install dockutil
 brew install deno
 brew install fnm
+brew install navi
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer
@@ -113,6 +115,7 @@ brew install --cask omnidisksweeper
 brew install --cask keka
 brew install --cask brave-browser
 brew install --cask microsoft-edge
+brew install --cask figma
 brew install --cask firefox
 brew install --cask blender
 brew install --cask spotify
@@ -141,7 +144,9 @@ brew install --cask pdf-expert
 brew install --cask adguard
 # brew install --cask lunar
 brew install --cask nordvpn
-brew install --cask hazel
+# brew install --cask hazel
+brew install --cask maestral
+brew install --cask obsidian
 
 # Remove outdated versions from the cellar.
 brew cleanup

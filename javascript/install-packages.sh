@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # install node first
+fnm install 19
 fnm install 18
 fnm install 16
 
