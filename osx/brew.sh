@@ -147,6 +147,7 @@ brew install --cask nordvpn
 # brew install --cask hazel
 brew install --cask maestral
 brew install --cask obsidian
+brew install --cask shottr
 
 # Remove outdated versions from the cellar.
 brew cleanup
