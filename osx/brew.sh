@@ -61,7 +61,7 @@ brew install wget
 brew install tree
 brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
-brew install speedtest-cli
+# brew install speedtest-cli
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
@@ -113,10 +113,11 @@ brew install --cask parallels
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
+brew install --cask arc
 brew install --cask brave-browser
 brew install --cask microsoft-edge
-brew install --cask figma
 brew install --cask firefox
+brew install --cask figma
 brew install --cask blender
 brew install --cask spotify
 brew install --cask vlc
