@@ -71,3 +71,6 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 
 # Setup fnm
 eval "$(fnm env --use-on-cd)"
+
+# bun completions
+[ -s "/Users/vgapurov/.bun/_bun" ] && source "/Users/vgapurov/.bun/_bun"

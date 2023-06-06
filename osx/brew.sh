@@ -62,6 +62,10 @@ brew install tree
 brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
 # brew install speedtest-cli
+
+brew tap oven-sh/bun # for macOS and Linux
+brew install bun
+
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
@@ -73,6 +77,7 @@ brew install dockutil
 brew install deno
 brew install fnm
 brew install navi
+brew install pulumi/tap/pulumi
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer

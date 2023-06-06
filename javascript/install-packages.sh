@@ -17,7 +17,7 @@ function setNodePageManager() {
 # install node first
 fnm install 16
 fnm install 18
-fnm install 19
+fnm install 20
 
 # install packages for v16
 fnm default 16
