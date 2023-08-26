@@ -65,7 +65,7 @@ brew install yt-dlp/taps/yt-dlp
 
 brew tap oven-sh/bun # for macOS and Linux
 brew install bun
-brew install teaxyz/pkgs/tea-cli
+# brew install teaxyz/pkgs/tea-cli
 
 brew install zsh
 brew install zsh-syntax-highlighting
