@@ -16,6 +16,7 @@ jspm_packages/
 *.env
 *.env.*
 !.env.template
+!.env.example
 .next
 
 *.js.map

@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# tea magic (disabled because it doesn't properly work yet)
+# source <(tea --magic=zsh)  #docs.tea.xyz/magic
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -26,10 +29,10 @@ plugins=(
   docker-compose
   macos
   fzf
+  fnm
   zoxide
   git
   httpie
-  fnm
   jsontools
   timewarrior
   history

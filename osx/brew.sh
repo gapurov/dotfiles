@@ -65,6 +65,7 @@ brew install yt-dlp/taps/yt-dlp
 
 brew tap oven-sh/bun # for macOS and Linux
 brew install bun
+brew install teaxyz/pkgs/tea-cli
 
 brew install zsh
 brew install zsh-syntax-highlighting
@@ -110,6 +111,7 @@ brew install --cask oversight
 brew install --cask handbrake
 brew install --cask karabiner-elements
 brew install --cask visual-studio-code
+brew install --cask cursor
 brew install --cask alfred
 brew install --cask gitup
 brew install --cask sublime-merge
