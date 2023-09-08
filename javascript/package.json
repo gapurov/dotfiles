@@ -5,7 +5,6 @@
     "vercel": "latest-version",
     "turbo": "latest-version",
     "pm2": "latest-version",
-    "vtop": "latest-version",
     "trash-cli": "latest-version",
     "tldr": "latest-version",
     "@withgraphite/graphite-cli": "latest-version",

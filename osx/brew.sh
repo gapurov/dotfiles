@@ -26,9 +26,11 @@ brew install grep
 brew install ripgrep
 # brew install openssh
 
+
 # Install other useful binaries.
 brew install bash
 brew install curl
+brew install htop
 brew install git
 brew install gist
 brew install git-extras

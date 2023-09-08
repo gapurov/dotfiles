@@ -21,6 +21,10 @@ echo -e "\033[1m\033[34m==> Link global gitconfig and gitignore files formulas\0
 ln -sf ~/.dotfiles/git/gitconfig ~/.gitconfig
 ln -sf ~/.dotfiles/git/gitignore ~/.gitignore
 
+# TMUX config
+echo -e "\033[1m\033[34m==> Config tmux\033[0m"
+. $HOME/.dotfiles/config/tmux/tmux.sh
+
 # JAVASCRIPT
 # Install global JS dependencies
 echo -e "\033[1m\033[34m==> Install global JS packages\033[0m"
