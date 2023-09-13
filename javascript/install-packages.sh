@@ -9,11 +9,14 @@ function installPackages() {
   done
 }
 
-function setNodePageManager() {
+function setNodePackageManagers() {
   corepack enable
   corepack prepare yarn@1.22.11 --activate
   corepack prepare pnpm@latest --activate
 }
+
+# upgrade bun
+bun upgrade
 
 # install node first
 fnm install 18
@@ -21,11 +24,11 @@ fnm install 20
 
 # install packages for v20
 fnm default 20
-setNodePageManager
+setNodePackageManagers
 
 # install packages for v18 and set it to default
 fnm default 18
-setNodePageManager
+setNodePackageManagers
 
 # install packages
 installPackages

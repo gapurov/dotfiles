@@ -32,6 +32,7 @@ brew install bash
 brew install curl
 brew install htop
 brew install git
+brew install git-lfs
 brew install gist
 brew install git-extras
 brew install hub
@@ -65,8 +66,6 @@ brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
 # brew install speedtest-cli
 
-brew tap oven-sh/bun # for macOS and Linux
-brew install bun
 # brew install teaxyz/pkgs/tea-cli
 
 brew install zsh
@@ -93,6 +92,8 @@ brew tap bramstein/webfonttools
 brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
+
+brew install --cask miniconda
 
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
