@@ -66,7 +66,7 @@ brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
 # brew install speedtest-cli
 
-# brew install teaxyz/pkgs/tea-cli
+brew install teaxyz/pkgs/tea-cli
 
 brew install zsh
 brew install zsh-syntax-highlighting

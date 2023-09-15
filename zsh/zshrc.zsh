@@ -5,8 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# tea magic (disabled because it doesn't properly work yet)
-# source <(tea --magic=zsh)  #docs.tea.xyz/magic
+# source <(tea --shellcode)  #docs.tea.xyz/shellcode
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -88,6 +87,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

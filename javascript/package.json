@@ -3,6 +3,7 @@
     "buzzphrase": "latest-version",
     "serve": "latest-version",
     "vercel": "latest-version",
+    "netlify-cli": "latest-version",
     "turbo": "latest-version",
     "pm2": "latest-version",
     "trash-cli": "latest-version",
