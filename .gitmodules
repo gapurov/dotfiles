@@ -1,0 +1,3 @@
+[submodule "rc-script-commands"]
+	path = rc-script-commands
+	url = https://github.com/raycast/script-commands.git
