@@ -4,9 +4,14 @@
 # https://gist.github.com/gapurov/e59bd0735073e907c0b98c9e77d468f3
 
 noop='{
-    "^@\UF701" = "noop";
-    "^@\UF702" = "noop";
-    "^@\UF703" = "noop";
+    "@^\UF700" = "noop:";
+    "@^\UF701" = "noop:";
+    "@^\UF702" = "noop:";
+    "@^\UF703" = "noop:";
+    "@~^\UF700" = "noop:";
+    "@~^\UF701" = "noop:";
+    "@~^\UF702" = "noop:";
+    "@~^\UF703" = "noop:";
 }'
 
 mkdir -p ~/Library/KeyBindings/

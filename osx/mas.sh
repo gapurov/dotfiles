@@ -9,9 +9,6 @@ mas install 611658502
 # xcode
 mas install 497799835
 
-# Reeder 5
-mas install 1529448980
-
 # Encrypto (MacPaw)
 mas install 935235287
 
@@ -20,3 +17,6 @@ mas install 937984704
 
 # Session - Pomodoro Focus Timer
 mas install 1521432881
+
+# Things 3
+mas install 904280696

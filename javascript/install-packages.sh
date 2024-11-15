@@ -19,15 +19,15 @@ function setNodePackageManagers() {
 bun upgrade
 
 # install node first
-fnm install 18
 fnm install 20
+fnm install 21
 
 # install packages for v20
-fnm default 20
+fnm default 21
 setNodePackageManagers
 
 # install packages for v18 and set it to default
-fnm default 18
+fnm default 20
 setNodePackageManagers
 
 # install packages

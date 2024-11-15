@@ -54,7 +54,7 @@ brew install aria2
 brew install jq
 brew install mas
 brew install neovim
-brew install helix
+brew install fx
 # brew install pandoc # you have first to `brew install --cask mactex`
 brew install node
 brew install httpie
@@ -64,9 +64,10 @@ brew install wget
 brew install tree
 brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
+brew install jless
 # brew install speedtest-cli
 
-brew install teaxyz/pkgs/tea-cli
+
 
 brew install zsh
 brew install zsh-syntax-highlighting
@@ -79,7 +80,7 @@ brew install dockutil
 brew install deno
 brew install fnm
 brew install navi
-brew install pulumi/tap/pulumi
+# brew install pulumi/tap/pulumi
 
 brew tap jakehilborn/jakehilborn
 brew install displayplacer
@@ -92,6 +93,8 @@ brew tap bramstein/webfonttools
 brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
+
+brew install keith/formulae/reminders-cli
 
 brew install --cask miniconda
 
@@ -114,8 +117,10 @@ brew install --cask oversight
 brew install --cask handbrake
 brew install --cask karabiner-elements
 brew install --cask visual-studio-code
+brew install --cask zed
 brew install --cask cursor
-brew install --cask alfred
+# brew install --cask alfred
+brew install --cask raycast
 brew install --cask gitup
 brew install --cask sublime-merge
 brew install --cask proxyman
@@ -123,7 +128,7 @@ brew install --cask parallels
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
-brew install --cask arc
+# brew install --cask arc
 brew install --cask brave-browser
 brew install --cask microsoft-edge
 brew install --cask firefox
@@ -135,7 +140,6 @@ brew install --cask iina
 brew install --cask plug
 brew install --cask anki
 brew install --cask dropbox
-brew install --cask notion
 brew install --cask telegram
 brew install --cask discord
 brew install --cask slack
@@ -144,9 +148,11 @@ brew install --cask forklift
 brew install --cask mountain-duck
 brew install --cask fantastical
 brew install --cask soulver
-brew install --cask insomnia
+brew install --cask rapidapi
+brew install --cask httpie
 brew install --cask kindle
 brew install --cask soundsource
+brew install --cask airfoil
 brew install --cask dash
 brew install --cask ukelele
 brew install --cask zotero
@@ -159,6 +165,7 @@ brew install --cask nordvpn
 brew install --cask maestral
 brew install --cask obsidian
 brew install --cask shottr
-
+brew install --cask tableplus
+brew install --cask obs
 # Remove outdated versions from the cellar.
 brew cleanup
