@@ -1,34 +1,74 @@
 #!/usr/bin/env bash
 
-function installPackages() {
-  jq -r '.dependencies | to_entries | .[] | if .value == "latest-version" then .key else .key + "@" + .value end'  $HOME/.dotfiles/javascript/package.json | \
+set -euo pipefail  # Exit on error, undefined vars, and pipe failures
 
-  while read -r key; do
-      bun i -g $key
-      # corepack npm install --location=global $key
-  done
+# Color codes for logging
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Logger function
+log() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] $1${NC}"
 }
 
-function setNodePackageManagers() {
+error() {
+    echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] ERROR: $1${NC}" >&2
+}
+
+# Check required tools
+check_requirements() {
+    local required_tools=("jq" "bun" "fnm" "corepack")
+
+    for tool in "${required_tools[@]}"; do
+        if ! command -v "$tool" &> /dev/null; then
+            error "$tool is required but not installed."
+            exit 1
+        fi
+    done
+}
+
+install_packages() {
+    local package_file="$HOME/.dotfiles/javascript/package.json"
+
+    if [[ ! -f "$package_file" ]]; then
+        error "Package file not found: $package_file"
+        exit 1
+    fi
+
+    log "Installing packages from $package_file"
+
+    # Read dependencies from package.json using jq
+    local packages=($(jq -r '.dependencies | keys[]' "$package_file"))
+
+    for package in "${packages[@]}"; do
+        log "Installing $package globally..."
+        if ! bun install -g "$package"; then
+            error "Failed to install $package"
+            exit 1
+        fi
+    done
+
+    log "All packages installed successfully!"
+}
+
+
+function set_node_package_managers() {
   corepack enable
   corepack prepare yarn@1.22.11 --activate
   corepack prepare pnpm@latest --activate
 }
 
+check_requirements
+
 # upgrade bun
 bun upgrade
 
 # install node first
-fnm install 20
-fnm install 21
+fnm install --corepack-enabled --latest
+set_node_package_managers
+fnm install --corepack-enabled --lts
+set_node_package_managers
 
-# install packages for v20
-fnm default 21
-setNodePackageManagers
-
-# install packages for v18 and set it to default
-fnm default 20
-setNodePackageManagers
-
-# install packages
-installPackages
+# install bun packages
+install_packages

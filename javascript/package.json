@@ -3,7 +3,6 @@
     "buzzphrase": "latest-version",
     "serve": "latest-version",
     "vercel": "latest-version",
-    "netlify-cli": "latest-version",
     "turbo": "latest-version",
     "pm2": "latest-version",
     "trash-cli": "latest-version",
@@ -11,7 +10,6 @@
     "@withgraphite/graphite-cli": "latest-version",
     "npm-check-updates": "latest-version",
     "typescript": "latest-version",
-    "typescript-language-server": "latest-version",
-    "@prisma/language-server": "latest-version"
+    "typescript-language-server": "latest-version"
   }
 }
