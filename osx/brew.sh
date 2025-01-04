@@ -30,7 +30,7 @@ brew install ripgrep
 # Install other useful binaries.
 brew install bash
 brew install curl
-brew install htop
+brew install btop
 brew install git
 brew install git-lfs
 brew install gist
