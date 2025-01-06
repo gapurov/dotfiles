@@ -94,8 +94,6 @@ alias update='
   echo "Updating Oh My Zsh..." &&
   zsh -ic "omz update"'
 
-alias vtop="vtop --theme wizard"
-
 alias jsonfix="pbpaste | jq . | pbcopy"
 
 alias lookbusy="cat /dev/urandom | hexdump -C | grep \"34 32\""
