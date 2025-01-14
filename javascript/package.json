@@ -4,7 +4,6 @@
     "serve": "latest-version",
     "vercel": "latest-version",
     "turbo": "latest-version",
-    "pm2": "latest-version",
     "trash-cli": "latest-version",
     "tldr": "latest-version",
     "@withgraphite/graphite-cli": "latest-version",
