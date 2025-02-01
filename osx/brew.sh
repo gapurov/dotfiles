@@ -110,11 +110,11 @@ brew install --cask font-cascadia-mono-pl
 # Install GUI Apps
 brew install --cask little-snitch
 brew install --cask iterm2
-brew install --cask kitty
+# brew install --cask kitty
 brew install --cask warp
 brew install --cask 1password
 brew install --cask bettertouchtool
-brew install --cask oversight
+# brew install --cask oversight
 brew install --cask handbrake
 brew install --cask karabiner-elements
 brew install --cask visual-studio-code
@@ -124,14 +124,14 @@ brew install --cask cursor
 brew install --cask raycast
 brew install --cask gitup
 brew install --cask sublime-merge
-brew install --cask proxyman
+# brew install --cask proxyman
 brew install --cask parallels
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
-# brew install --cask arc
+brew install --cask zen-browser
 brew install --cask brave-browser
-brew install --cask microsoft-edge
+# brew install --cask microsoft-edge
 brew install --cask firefox
 brew install --cask figma
 brew install --cask blender
@@ -146,7 +146,7 @@ brew install --cask discord
 brew install --cask slack
 brew install --cask microsoft-teams
 brew install --cask forklift
-brew install --cask mountain-duck
+# brew install --cask mountain-duck
 brew install --cask fantastical
 brew install --cask soulver
 brew install --cask rapidapi
@@ -161,7 +161,7 @@ brew install --cask find-any-file
 brew install --cask pdf-expert
 brew install --cask adguard
 # brew install --cask lunar
-brew install --cask nordvpn
+# brew install --cask nordvpn
 # brew install --cask hazel
 brew install --cask maestral
 brew install --cask obsidian
