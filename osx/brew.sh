@@ -144,7 +144,6 @@ brew install --cask dropbox
 brew install --cask telegram
 brew install --cask discord
 brew install --cask slack
-brew install --cask slack-cli
 brew install --cask microsoft-teams
 brew install --cask forklift
 # brew install --cask mountain-duck
