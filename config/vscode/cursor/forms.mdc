@@ -1,0 +1,116 @@
+---
+description: Project Rules for TanStack + Tailwind Based Forms
+globs: *.tsx, packages/ui/**/*.tsx,
+---
+# Project Rules for TanStack + Tailwind Based Forms
+
+This document outlines the project-specific rules and best practices for building forms using TanStack libraries alongside Tailwind CSS. It is intended for development tools and AI assistants (e.g., Cursor) to understand the context and conventions of this codebase.
+
+---
+
+## 1. Overview
+
+- **Purpose:** Ensure consistency, maintainability, and accessibility for all form components.
+- **Technologies:**  
+  - **TanStack Libraries:** For managing form state, validations, and asynchronous operations.
+  - **Tailwind CSS:** For styling and creating a responsive, modern UI.
+- **Architecture:**  
+  - Leverage React Server Components (RSC) where possible.
+  - Isolate form logic and UI into modular, reusable components.
+
+---
+
+## 2. File & Folder Structure
+
+- **Component Organization:**  
+  - All form components should reside under a dedicated directory, e.g., `components/forms/`.
+  - Maintain logical separation by grouping similar form types or functionalities together.
+- **Naming Conventions:**  
+  - Files: Use kebab-case (e.g., `user-registration-form.tsx`).
+  - Components: Use PascalCase (e.g., `UserRegistrationForm`).
+
+---
+
+## 3. Form Architecture & Behavior
+
+### 3.1. Component Structure
+
+- **Separation of Concerns:**  
+  - Split form presentation (UI) from form logic (state management, validations).
+  - Custom hooks or utility functions can be used to isolate shared logic.
+- **Event Handling:**  
+  - Use descriptive handler names (e.g., `handleSubmit`, `handleInputChange`).
+  - Implement early returns in event handlers to improve clarity and reduce complexity.
+
+### 3.2. State Management & Async Operations
+
+- **Using TanStack Libraries:**  
+  - Utilize TanStack’s form methodologies for state management where applicable.
+  - Integrate asynchronous operations (e.g., submission, validations) using TanStack Query or similar mechanisms.
+- **Error Handling:**  
+  - Implement robust error handling in all async operations.
+  - Display errors clearly, both visually and for screen readers.
+
+---
+
+## 4. Styling & UI Guidelines
+
+### 4.1. Tailwind CSS Best Practices
+
+- **Utility-First Styling:**  
+  - Apply Tailwind utility classes for rapid, consistent UI development.
+  - Stick with the design system’s spacing, color, and typography conventions.
+- **Responsiveness:**  
+  - Use a mobile-first approach ensuring the forms render well on all devices.
+- **Customization:**  
+  - Leverage Tailwind’s configuration for any custom themes or extended utilities.
+  - Avoid excessive custom CSS; prefer utility classes to maintain consistency.
+
+### 4.2. Visual & Interaction States
+
+- **Input & Button States:**  
+  - Define clear visual cues for active, disabled, and error states.
+  - Use Tailwind classes to manage focus, hover, and transition effects.
+- **Accessibility:**  
+  - Ensure proper labeling using `<label>` elements and HTML `for` attributes.
+  - Implement ARIA attributes where necessary for enhanced screen reader support.
+  - Make interactive elements keyboard-navigable.
+
+---
+
+## 5. Code Quality & Testing
+
+- **TypeScript Standards:**  
+  - Use strict mode with well-defined interfaces (prefer interfaces over types when appropriate).
+  - Ensure proper type-safety in all components and hooks.
+- **Code Reviews & Linters:**  
+  - Enforce consistent code style using ESLint and Prettier.
+- **Testing:**  
+  - Write unit and integration tests for form logic and UI using React Testing Library.
+  - Validate accessibility and behavior across edge cases.
+
+---
+
+## 6. Documentation & Maintenance
+
+- **Inline Documentation:**  
+  - Comment complex logic and component interactions.
+  - Provide usage instructions or examples for custom hooks and utility functions.
+- **Versioning & Updates:**  
+  - Keep the rules document updated as the codebase evolves or when new best practices are adopted.
+  - Encourage team feedback to continuously improve form architecture guidelines.
+
+---
+
+## 7. Additional Considerations
+
+- **Performance:**  
+  - Optimize render performance by minimizing re-renders using memoization and efficient state updates.
+  - Lazy-load non-critical form components.
+- **Collaboration:**  
+  - Ensure all contributors adhere to these project rules to maintain consistency.
+  - Use clear commit messages and issue tracking for modifications to form components.
+
+---
+
+*For further details or to propose revisions, please contact the project lead or consult the development handbook.*

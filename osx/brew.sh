@@ -129,7 +129,6 @@ brew install --cask parallels
 brew install --cask imageoptim
 brew install --cask omnidisksweeper
 brew install --cask keka
-brew install --cask zen-browser
 brew install --cask brave-browser
 # brew install --cask microsoft-edge
 brew install --cask firefox
