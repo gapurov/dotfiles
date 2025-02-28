@@ -5,6 +5,7 @@
     "vercel": "latest-version",
     "turbo": "latest-version",
     "trash-cli": "latest-version",
+    "repomix": "latest-version",
     "tldr": "latest-version",
     "@withgraphite/graphite-cli": "latest-version",
     "npm-check-updates": "latest-version",

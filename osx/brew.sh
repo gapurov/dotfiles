@@ -80,6 +80,7 @@ brew install dockutil
 brew install deno
 brew install fnm
 brew install navi
+brew install uv
 # brew install pulumi/tap/pulumi
 
 brew tap jakehilborn/jakehilborn
