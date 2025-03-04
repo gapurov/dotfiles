@@ -3,7 +3,7 @@
 	email = gapurov@gmail.com
   username = gapurov
 [core]
-  editor = code --wait
+  editor = cursor --wait
   autocrlf = input
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   excludesfile = ~/.gitignore
@@ -16,13 +16,13 @@
 [push]
   default = current
 [diff]
-	tool = vscode
-[difftool "vscode"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+	tool = cursor
+[difftool "cursor"]
+  cmd = cursor --wait --diff $LOCAL $REMOTE
 [merge]
-	tool = vscode
-[mergetool "vscode"]
-	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+	tool = cursor
+[mergetool "cursor"]
+	cmd = cursor --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [rebase]
 	updateRefs = true
 [color]
