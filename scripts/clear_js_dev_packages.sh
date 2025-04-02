@@ -22,6 +22,8 @@ clear_js_dev_packages() {
     local dirs=(
         "$HOME/.bun/install/cache"
         "$HOME/.bun/install/global"
+        "$HOME/Library/Application Support/fnm/node-versions"
+        "$HOME/.local/state/fnm_multishells"
     )
 
     log "Clearing development packages..."
