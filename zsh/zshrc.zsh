@@ -70,7 +70,7 @@ setopt    sharehistory      #Share history across terminals
 setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
 
 # Setup fnm
-eval "$(fnm env --use-on-cd --resolve-engines --corepack-enabled)"
+eval "$(fnm env --use-on-cd --resolve-engines)"
 
 # bun completions
 [ -s "/Users/vgapurov/.bun/_bun" ] && source "/Users/vgapurov/.bun/_bun"

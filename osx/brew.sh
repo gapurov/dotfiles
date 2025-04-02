@@ -79,6 +79,7 @@ brew install superfly/tap/flyctl
 brew install dockutil
 brew install deno
 brew install fnm
+brew install pnpm
 brew install navi
 brew install uv
 # brew install pulumi/tap/pulumi

@@ -18,7 +18,7 @@ error() {
 
 # Check required tools
 check_requirements() {
-    local required_tools=("jq" "bun" "fnm" "corepack")
+    local required_tools=("jq" "bun" "fnm")
 
     for tool in "${required_tools[@]}"; do
         if ! command -v "$tool" &> /dev/null; then
@@ -53,11 +53,6 @@ install_packages() {
 }
 
 
-function set_node_package_managers() {
-  corepack enable
-  corepack prepare yarn@1.22.11 --activate
-  corepack prepare pnpm@latest --activate
-}
 
 check_requirements
 
@@ -65,10 +60,9 @@ check_requirements
 bun upgrade
 
 # install node first
-fnm install --corepack-enabled --latest
-set_node_package_managers
-fnm install --corepack-enabled --lts
-set_node_package_managers
+fnm install --lts
+fnm install --latest
+
 
 # install bun packages
 install_packages
