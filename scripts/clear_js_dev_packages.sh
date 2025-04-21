@@ -22,6 +22,7 @@ clear_js_dev_packages() {
     local dirs=(
         "$HOME/.bun/install/cache"
         "$HOME/.bun/install/global"
+        "$HOME/.pnpm"
         "$HOME/Library/Application Support/fnm/node-versions"
         "$HOME/.local/state/fnm_multishells"
     )
@@ -33,7 +34,7 @@ clear_js_dev_packages() {
             log "Removing $dir"
             rm -rf "$dir"
         else
-            error "Directory not found: $dir"
+            log "Directory not found, skipping: $dir"
         fi
     done
 

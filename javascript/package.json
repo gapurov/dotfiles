@@ -5,6 +5,7 @@
     "vercel": "latest-version",
     "turbo": "latest-version",
     "repomix": "latest-version",
+    "@johnlindquist/ghx": "latest-version",
     "@anthropic-ai/claude-code": "latest-version",
     "tldr": "latest-version",
     "@withgraphite/graphite-cli": "latest-version",

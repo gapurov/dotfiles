@@ -26,7 +26,6 @@ brew install grep
 brew install ripgrep
 # brew install openssh
 
-
 # Install other useful binaries.
 brew install bash
 brew install curl
@@ -66,8 +65,6 @@ brew install youtube-dl
 brew install yt-dlp/taps/yt-dlp
 brew install jless
 # brew install speedtest-cli
-
-
 
 brew install zsh
 brew install zsh-syntax-highlighting

@@ -32,12 +32,20 @@ package_file="$HOME/.dotfiles/javascript/package.json"
 }
 
 log "Installing packages from $package_file"
-jq -r '.dependencies | keys[]' "$package_file" | while read -r package; do
-    log "Installing $package globally..."
-    bun install -g "$package" || {
-        error "Failed to install $package"
-        exit 1
-    }
+jq -r '.dependencies | to_entries[] | "\(.key) \(.value)"' "$package_file" | while read -r package version; do
+    if [[ "$version" == "latest-version" ]]; then
+        log "Installing $package (latest version) globally..."
+        bun install -g "$package@latest" || {
+            error "Failed to install $package"
+            exit 1
+        }
+    else
+        log "Installing $package@$version globally..."
+        bun install -g "$package@$version" || {
+            error "Failed to install $package"
+            exit 1
+        }
+    fi
 done
 
 log "All packages installed successfully!"
