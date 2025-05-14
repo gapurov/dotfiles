@@ -119,7 +119,8 @@ brew install --cask karabiner-elements
 brew install --cask visual-studio-code
 brew install --cask zed
 brew install --cask cursor
-# brew install --cask alfred
+# brew install --cask windsurf
+
 brew install --cask raycast
 brew install --cask gitup
 brew install --cask sublime-merge

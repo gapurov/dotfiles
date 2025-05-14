@@ -91,13 +91,8 @@ eval "$(fnm env --use-on-cd --resolve-engines)"
 # unset __conda_setup
 # <<< conda initialize <<<
 
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/vgapurov/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/vgapurov/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/vgapurov/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/vgapurov/google-cloud-sdk/completion.zsh.inc'; fi
-
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Added by Windsurf
+export PATH="/Users/vgapurov/.codeium/windsurf/bin:$PATH"

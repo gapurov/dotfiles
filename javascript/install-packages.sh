@@ -20,7 +20,7 @@ for tool in jq bun fnm; do
 done
 
 # Update bun and install Node.js versions
-bun upgrade
+bun upgrade --stable
 fnm install --lts
 fnm install --latest
 
