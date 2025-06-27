@@ -18,11 +18,18 @@ export LC_ALL=en_US.UTF-8
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# https://github.com/romkatv/powerlevel10k
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Set Oh My Zsh theme conditionally
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  ZSH_THEME=""  # Disable Powerlevel10k for Cursor
+else
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+fi
+
+# # Set name of the theme to load. Optionally, if you set this to "random"
+# # it'll load a random theme each time that oh-my-zsh is loaded.
+# # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# # https://github.com/romkatv/powerlevel10k
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(
   tmux
@@ -40,8 +47,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 source $HOME/.dotfiles/zsh/fns.zsh
 source $HOME/.dotfiles/zsh/paths.zsh
@@ -91,8 +96,11 @@ eval "$(fnm env --use-on-cd --resolve-engines)"
 # unset __conda_setup
 # <<< conda initialize <<<
 
+# Use a minimal prompt in Cursor to avoid command detection issues
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  PROMPT='%n@%m:%~%# '
+  RPROMPT=''
+else
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Added by Windsurf
-export PATH="/Users/vgapurov/.codeium/windsurf/bin:$PATH"
+  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+fi
