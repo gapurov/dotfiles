@@ -14,14 +14,11 @@ plugins=(
   tmux
   macos
   fzf
-  fnm
   zoxide
   git
-  httpie
+  you-should-use
   # jsontools\
-  history
-  docker
-  docker-compose
+  # history
 )
 
 source $ZSH/oh-my-zsh.sh
