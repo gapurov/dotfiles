@@ -49,12 +49,6 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 # Wait a bit before moving on...
 sleep 2
 
-echo -e "\033[1m\033[34m==> Link .p10k.zsh\033[0m"
-ln -sf ~/.dotfiles/zsh/p10k.zsh ~/.p10k.zsh
-
-# Wait a bit before moving on...
-sleep 2
-
 echo -e "\033[1m\033[34m==> Link .zshrc\033[0m"
 ln -sf ~/.dotfiles/zsh/zshrc.zsh ~/.zshrc
 

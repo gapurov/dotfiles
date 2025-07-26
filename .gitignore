@@ -3,3 +3,4 @@ _nl
 _aliases.zsh
 npmrc
 .history
+.env

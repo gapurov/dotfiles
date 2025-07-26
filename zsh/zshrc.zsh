@@ -1,13 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 export ZSH_TMUX_AUTOSTART=false
 export ZSH_TMUX_AUTOCONNECT=false
 
@@ -18,18 +8,7 @@ export LC_ALL=en_US.UTF-8
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set Oh My Zsh theme conditionally
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  ZSH_THEME=""  # Disable Powerlevel10k for Cursor
-else
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-fi
-
-# # Set name of the theme to load. Optionally, if you set this to "random"
-# # it'll load a random theme each time that oh-my-zsh is loaded.
-# # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# # https://github.com/romkatv/powerlevel10k
-# ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 plugins=(
   tmux
@@ -56,13 +35,6 @@ source $HOME/.dotfiles/zsh/_aliases.zsh
 # navi plugin
 eval "$(navi widget zsh)"
 
-# bun completions
-[ -s "/Users/vgapurov/.oh-my-zsh/completions/_bun" ] && source "/Users/vgapurov/.oh-my-zsh/completions/_bun"
-
-# tabtab source for packages (pnpm)
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
 ##############################################################################
 # History Configuration
 ##############################################################################
@@ -78,7 +50,7 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 eval "$(fnm env --use-on-cd --resolve-engines)"
 
 # bun completions
-[ -s "/Users/vgapurov/.bun/_bun" ] && source "/Users/vgapurov/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 
 # >>> conda initialize >>>
@@ -100,7 +72,4 @@ eval "$(fnm env --use-on-cd --resolve-engines)"
 if [[ "$TERM_PROGRAM" == "vscode" ]]; then
   PROMPT='%n@%m:%~%# '
   RPROMPT=''
-else
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 fi

@@ -105,3 +105,4 @@ alias displaysvrt="displayplacer \"id:C9922C5D-F89C-C5D2-0857-D6964E3302DB res:3
 alias clear_js_dev_packages="$HOME/.dotfiles/scripts/clear_js_dev_packages.sh"
 
 alias c="open $1 -a \"Cursor\""
+alias claude='claude --dangerously-skip-permissions'
