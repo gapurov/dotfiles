@@ -106,3 +106,5 @@ alias clear_js_dev_packages="$HOME/.dotfiles/scripts/clear_js_dev_packages.sh"
 
 alias c="open $1 -a \"Cursor\""
 alias claude='claude --dangerously-skip-permissions'
+
+alias worktree-branch="$HOME/.dotfiles/scripts/worktree-branch.sh"

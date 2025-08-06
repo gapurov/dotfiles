@@ -108,7 +108,7 @@ brew install --cask font-cascadia-mono-pl
 
 # Install GUI Apps
 brew install --cask little-snitch
-brew install --cask iterm2
+brew install --cask xnapper
 # brew install --cask kitty
 brew install --cask warp
 brew install --cask 1password
