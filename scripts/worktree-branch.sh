@@ -1,126 +1,247 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Script to create a git worktree for a branch and copy configuration files
-# Usage: ./worktree-branch.sh <branch_name> [parent_directory]
-# Default parent directory is '../'
+# --------------------------------------------------------------------------------
+# worktree-branch.sh
+# --------------------------------------------------------------------------------
+# Create (or reuse) a git worktree for a given branch and copy local configuration
+# files into that worktree so it is immediately usable.
 #
-# Configuration files are determined by:
-# 1. .configfiles (gitignore syntax) - if exists, copy files matching patterns + .configfiles itself
-# 2. Default: .env* files and CLAUDE.md - if .configfiles doesn't exist
+# USAGE
+#   worktree-branch.sh [options] <branch_name> [parent_directory]
+#
+# OPTIONS
+#   -f, --force          Overwrite existing directory / worktree if it already
+#                        exists at the target path.
+#   -n, --dry-run        Print the commands that would be run without executing
+#                        them. Good for sanity-checking.
+#   -b, --base <ref>     When creating a _new_ branch, use <ref> as the base
+#                        instead of the current HEAD (e.g. origin/main).
+#   -h, --help           Show this help and exit.
+#
+# EXAMPLES
+#   worktree-branch.sh feature/login          # create ../feature/login worktree
+#   worktree-branch.sh -b origin/main bug/fix # base branch off origin/main
+#   worktree-branch.sh -n docs/update         # dry-run preview
+# --------------------------------------------------------------------------------
 
-set -e
+set -euo pipefail
+IFS=$'\n\t'
 
-# Check if branch name is provided
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <branch_name> [parent_directory]"
-    echo "Example: $0 feature-branch"
-    echo "Example: $0 feature-branch /path/to/parent"
+################################################################################
+# Helper functions                                                               #
+################################################################################
+
+usage() {
+  sed -n '2,40p' "$0" | sed -e 's/^# *//'
+}
+
+
+run() {
+  if ${dry_run}; then
+    printf '[dry-run]' >&2
+    for arg in "$@"; do printf ' %q' "$arg" >&2; done
+    printf '\n' >&2
+  else
+    "$@"
+  fi
+}
+
+
+copy_cmd() {
+  local src="$1" dest="$2"
+  if ${dry_run}; then
+    printf '[dry-run] cp -R "%s" "%s/"\n' "$src" "$dest"
+  else
+    cp -R "$src" "$dest/"
+  fi
+}
+
+################################################################################
+# Option parsing                                                                #
+################################################################################
+
+force=false
+dry_run=false
+base_ref=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -f|--force)
+      force=true
+      shift;;
+    -n|--dry-run)
+      dry_run=true
+      shift;;
+    -b|--base)
+      [[ $# -lt 2 ]] && { echo "Error: --base requires an argument" >&2; exit 1; }
+      base_ref="$2"
+      shift 2;;
+    -h|--help)
+      usage; exit 0;;
+    --)
+      shift; break;;
+    -*)
+      echo "Unknown option: $1" >&2
+      usage; exit 1;;
+    *)
+      break;;
+  esac
+done
+
+# Need at least <branch_name>
+if [[ $# -lt 1 ]]; then
+  echo "Error: missing <branch_name>" >&2
+  usage
+  exit 1
+fi
+
+branch_name="$1"; shift
+parent_dir="${1:-../}"
+
+# Ensure parent dir ends with a / for predictable concatenation
+[[ "${parent_dir}" != */ ]] && parent_dir="${parent_dir}/"
+
+worktree_path="${parent_dir}${branch_name}"
+
+echo "📂 Target worktree path: ${worktree_path}"
+
+################################################################################
+# Pre-flight checks                                                             #
+################################################################################
+
+for bin in git; do
+  command -v "$bin" >/dev/null 2>&1 || {
+    echo "Error: '$bin' is required but not installed or not in PATH" >&2
     exit 1
+  }
+done
+
+# Clean up any stale worktree references first
+run git worktree prune
+
+# If directory already exists
+if [[ -e "${worktree_path}" ]]; then
+  if ${force}; then
+    echo "⚠️  Removing existing path ${worktree_path} (force)"
+    run rm -rf "${worktree_path}"
+  else
+    echo "Error: path '${worktree_path}' already exists. Use --force to overwrite." >&2
+    exit 1
+  fi
 fi
 
-BRANCH_NAME="$1"
-PARENT_DIR="${2:-../}"
-
-# Ensure parent directory ends with /
-if [[ ! "$PARENT_DIR" =~ /$ ]]; then
-    PARENT_DIR="$PARENT_DIR/"
+# If worktree already registered (but maybe path was deleted)
+if git worktree list --porcelain | grep -q "^worktree ${worktree_path}$"; then
+  if ${force}; then
+    echo "⚠️  Removing existing worktree registration (force)"
+    run git worktree remove --force "${worktree_path}"
+  else
+    echo "Error: a git worktree is already registered at '${worktree_path}'. Use --force to remove." >&2
+    exit 1
+  fi
 fi
 
-# Create the worktree directory path
-WORKTREE_PATH="${PARENT_DIR}${BRANCH_NAME}"
+################################################################################
+# Create the worktree                                                           #
+################################################################################
 
-echo "Creating worktree for branch '$BRANCH_NAME' in '$WORKTREE_PATH'"
+echo "🌱 Creating worktree for branch '${branch_name}'"
 
-# Check if branch exists locally or remotely
-if git show-ref --verify --quiet refs/heads/$BRANCH_NAME; then
-    echo "Branch '$BRANCH_NAME' exists locally"
-    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
-elif git show-ref --verify --quiet refs/remotes/origin/$BRANCH_NAME; then
-    echo "Branch '$BRANCH_NAME' exists remotely, creating local tracking branch"
-    git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME" "origin/$BRANCH_NAME"
+if git show-ref --verify --quiet "refs/heads/${branch_name}"; then
+  echo "   ➤ Using existing local branch"
+  run git worktree add "${worktree_path}" "${branch_name}"
+elif git show-ref --verify --quiet "refs/remotes/origin/${branch_name}"; then
+  echo "   ➤ Creating local tracking branch from origin/${branch_name}"
+  run git worktree add "${worktree_path}" -b "${branch_name}" "origin/${branch_name}"
 else
-    echo "Branch '$BRANCH_NAME' does not exist. Creating new branch from current HEAD"
-    git worktree add "$WORKTREE_PATH" -b "$BRANCH_NAME"
+  echo "   ➤ Creating new branch from ${base_ref:-HEAD}"
+  if [[ -n "${base_ref}" ]]; then
+    run git worktree add "${worktree_path}" -b "${branch_name}" "${base_ref}"
+  else
+    run git worktree add "${worktree_path}" -b "${branch_name}"
+  fi
 fi
 
-echo "Worktree created at: $WORKTREE_PATH"
+echo "✅ Worktree created at: ${worktree_path}"
 
-# Copy configuration files
-echo "Copying configuration files..."
+################################################################################
+# Copy configuration files                                                      #
+################################################################################
 
-# Function to copy files matching gitignore-style patterns
+echo "📄 Copying configuration files…"
+
 copy_files_from_configfiles() {
-    local config_file="$1"
-    local target_dir="$2"
+  local config_file="$1" target_dir="$2"
+  echo "   ➤ Parsing patterns from $config_file"
 
-    echo "Using .configfiles to determine files to copy..."
+  # Copy the .configfiles itself so the worktree knows its own inclusion rules
+  copy_cmd "$config_file" "$target_dir"
 
-    # Copy .configfiles itself first
-    cp "$config_file" "$target_dir/"
-    echo "Copied $config_file"
+  # Enable extended globbing and safe patterns
+  shopt -s extglob nullglob dotglob
 
-    # Read .configfiles line by line
-    while IFS= read -r line || [[ -n "$line" ]]; do
-        # Skip empty lines and comments
-        [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+  # Array to collect exclusion (negation) patterns beginning with '!'
+  local -a exclude_patterns=()
 
-        # Remove leading/trailing whitespace
-        line=$(echo "$line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  # First pass: read patterns and copy inclusions immediately; track exclusions
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    # Skip blanks and comments
+    [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
 
-        # Skip negation patterns (lines starting with !)
-        [[ "$line" =~ ^! ]] && continue
+    # Trim leading/trailing whitespace (pure bash)
+    line="${line##+([[:space:]])}"
+    line="${line%%+([[:space:]])}"
 
-        # Use find to match patterns (similar to gitignore behavior)
-        if [[ "$line" == *"/"* ]]; then
-            # Pattern contains slash, treat as path
-            if [[ -e "$line" ]]; then
-                echo "Copying $line"
-                cp -r "$line" "$target_dir/" 2>/dev/null || echo "Warning: Could not copy $line"
-            fi
-        else
-            # Pattern doesn't contain slash, find matching files
-            find . -maxdepth 1 -name "$line" -type f 2>/dev/null | while read -r file; do
-                if [[ -f "$file" ]]; then
-                    echo "Copying $file"
-                    cp "$file" "$target_dir/"
-                fi
-            done
-        fi
-    done < "$config_file"
-}
-
-# Function to copy default files
-copy_default_files() {
-    local target_dir="$1"
-
-    echo "Using default configuration (env files and CLAUDE.md)..."
-
-    # Find all .env* files in the current directory
-    for env_file in .env*; do
-        if [ -f "$env_file" ]; then
-            echo "Copying $env_file"
-            cp "$env_file" "$target_dir/"
-        fi
-    done
-
-    # Copy CLAUDE.md if it exists
-    if [ -f "CLAUDE.md" ]; then
-        echo "Copying CLAUDE.md"
-        cp "CLAUDE.md" "$target_dir/"
+    # Negation pattern? collect then continue
+    if [[ $line == '!'* ]]; then
+      exclude_patterns+=("${line:1}")
+      continue
     fi
+
+    # Copy matching paths for this inclusion pattern
+    if [[ $line == */* ]]; then
+      for path in $line; do
+        [[ -e $path ]] && copy_cmd "$path" "$target_dir"
+      done
+    else
+      for path in ./$line; do
+        [[ -f $path ]] && copy_cmd "$path" "$target_dir"
+      done
+    fi
+  done < "$config_file"
+
+  # Second pass: remove any files/directories that match exclusion patterns
+  if (( ${#exclude_patterns[@]} )); then
+    for pattern in "${exclude_patterns[@]}"; do
+      if [[ $pattern == */* ]]; then
+        for path in "$target_dir"/$pattern; do
+          [[ -e $path ]] && run rm -rf "$path"
+        done
+      else
+        for path in "$target_dir"/$pattern; do
+          [[ -e $path ]] && run rm -f "$path"
+        done
+      fi
+    done
+  fi
 }
 
-# Check if .configfiles exists and use it, otherwise use defaults
-if [ -f ".configfiles" ]; then
-    copy_files_from_configfiles ".configfiles" "$WORKTREE_PATH"
+copy_default_files() {
+  local target_dir="$1"
+  echo "   ➤ Using default selection (.env*, CLAUDE.md)"
+  for env_file in .env*; do
+    [[ -f "$env_file" ]] && copy_cmd "$env_file" "$target_dir"
+  done
+  [[ -f CLAUDE.md ]] && copy_cmd CLAUDE.md "$target_dir"
+}
+
+if [[ -f .configfiles ]]; then
+  copy_files_from_configfiles .configfiles "$worktree_path"
 else
-    copy_default_files "$WORKTREE_PATH"
+  copy_default_files "$worktree_path"
 fi
 
-echo "✅ Worktree setup complete!"
-echo "📁 Location: $WORKTREE_PATH"
-echo "🔧 To work in this worktree:"
-echo "   cd $WORKTREE_PATH"
-echo ""
-echo "🧹 To remove the worktree later:"
-echo "   git worktree remove $WORKTREE_PATH"
+echo "🎉 Done!"
+echo "   cd \"${worktree_path}\""
+echo "   # To remove later:"
+echo "   git worktree remove \"${worktree_path}\""
