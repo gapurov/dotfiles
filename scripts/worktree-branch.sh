@@ -7,7 +7,7 @@
 # files into that worktree so it is immediately usable.
 #
 # USAGE
-#   worktree-branch.sh [options] <branch_name> [parent_directory]
+#   worktree-branch.sh [options] [branch_name] [parent_directory]
 #
 # OPTIONS
 #   -f, --force          Overwrite existing directory / worktree if it already
@@ -18,7 +18,14 @@
 #                        instead of the current HEAD (e.g. origin/main).
 #   -h, --help           Show this help and exit.
 #
+# ARGUMENTS
+#   branch_name          Name of the branch to create/use for the worktree.
+#                        If omitted, uses current-folder-name-<commit-hash>.
+#   parent_directory     Directory where the worktree will be created.
+#                        Defaults to ../ (parent directory).
+#
 # EXAMPLES
+#   worktree-branch.sh                        # use folder-name-hash format
 #   worktree-branch.sh feature/login          # create ../feature/login worktree
 #   worktree-branch.sh -b origin/main bug/fix # base branch off origin/main
 #   worktree-branch.sh -n docs/update         # dry-run preview
@@ -32,7 +39,7 @@ IFS=$'\n\t'
 ################################################################################
 
 usage() {
-  sed -n '2,40p' "$0" | sed -e 's/^# *//'
+  sed -n '2,45p' "$0" | sed -e 's/^# *//'
 }
 
 
@@ -88,15 +95,19 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Need at least <branch_name>
+# If no branch name provided, use current folder name + commit hash
 if [[ $# -lt 1 ]]; then
-  echo "Error: missing <branch_name>" >&2
-  usage
-  exit 1
+  # Get current folder name
+  current_folder="$(basename "$(pwd)")"
+  # Get short commit hash
+  commit_hash="$(git rev-parse --short HEAD)"
+  branch_name="${current_folder}-${commit_hash}"
+  echo "📝 No branch name provided, using: ${branch_name}"
+  parent_dir="../"
+else
+  branch_name="$1"; shift
+  parent_dir="${1:-../}"
 fi
-
-branch_name="$1"; shift
-parent_dir="${1:-../}"
 
 # Ensure parent dir ends with a / for predictable concatenation
 [[ "${parent_dir}" != */ ]] && parent_dir="${parent_dir}/"
