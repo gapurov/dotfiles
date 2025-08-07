@@ -54,6 +54,8 @@ chmod +x "$SCRIPT"
 ################################################################################
 
 echo "FOO=bar" > .env.local
+# Provide a default CLAUDE.md as the script now copies it by default
+echo "Test documentation" > CLAUDE.md
 
 $SCRIPT feature1 worktrees
 

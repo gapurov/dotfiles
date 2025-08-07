@@ -57,9 +57,10 @@ run() {
 copy_cmd() {
   local src="$1" dest="$2"
   if ${dry_run}; then
-    printf '[dry-run] cp -R "%s" "%s/"\n' "$src" "$dest"
+    printf '[dry-run] mkdir -p "%s" && cp -R "%s" "%s/%s"\n' "${dest}/$(dirname "$src")" "$src" "$dest" "$src"
   else
-    cp -R "$src" "$dest/"
+    mkdir -p "$dest/$(dirname "$src")"
+    cp -R "$src" "$dest/$src"
   fi
 }
 
@@ -217,11 +218,15 @@ copy_files_from_configfiles() {
     # Copy matching paths for this inclusion pattern
     if [[ $line == */* ]]; then
       for path in $line; do
-        [[ -e $path ]] && copy_cmd "$path" "$target_dir"
+        if [[ -e $path ]]; then
+        copy_cmd "$path" "$target_dir"
+      fi
       done
     else
       for path in ./$line; do
-        [[ -f $path ]] && copy_cmd "$path" "$target_dir"
+        if [[ -f $path ]]; then
+        copy_cmd "$path" "$target_dir"
+      fi
       done
     fi
   done < "$config_file"
@@ -231,11 +236,15 @@ copy_files_from_configfiles() {
     for pattern in "${exclude_patterns[@]}"; do
       if [[ $pattern == */* ]]; then
         for path in "$target_dir"/$pattern; do
-          [[ -e $path ]] && run rm -rf "$path"
+          if [[ -e $path ]]; then
+          run rm -rf "$path"
+        fi
         done
       else
         for path in "$target_dir"/$pattern; do
-          [[ -e $path ]] && run rm -f "$path"
+          if [[ -e $path ]]; then
+          run rm -f "$path"
+        fi
         done
       fi
     done
@@ -246,9 +255,13 @@ copy_default_files() {
   local target_dir="$1"
   echo "   ➤ Using default selection (.env*, CLAUDE.md)"
   for env_file in .env*; do
-    [[ -f "$env_file" ]] && copy_cmd "$env_file" "$target_dir"
+    if [[ -f "$env_file" ]]; then
+    copy_cmd "$env_file" "$target_dir"
+  fi
   done
-  [[ -f CLAUDE.md ]] && copy_cmd CLAUDE.md "$target_dir"
+  if [[ -f CLAUDE.md ]]; then
+    copy_cmd CLAUDE.md "$target_dir"
+  fi
 }
 
 if [[ -f .configfiles ]]; then
