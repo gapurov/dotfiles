@@ -108,3 +108,5 @@ alias c="open $1 -a \"Cursor\""
 alias claude='claude --dangerously-skip-permissions'
 
 alias worktree-branch="$HOME/.dotfiles/scripts/worktree-branch.sh"
+
+alias ca="cursor-agent --force"
