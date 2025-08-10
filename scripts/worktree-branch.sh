@@ -1,34 +1,8 @@
 #!/usr/bin/env bash
 
 # --------------------------------------------------------------------------------
-# worktree-branch.sh
-# --------------------------------------------------------------------------------
-# Create (or reuse) a git worktree for a given branch and copy local configuration
-# files into that worktree so it is immediately usable.
-#
-# USAGE
-#   worktree-branch.sh [options] [branch_name] [directory]
-#
-# OPTIONS
-#   -f, --force          Overwrite existing directory / worktree if it already
-#                        exists at the target path.
-#   -n, --dry-run        Print the commands that would be run without executing
-#                        them. Good for sanity-checking.
-#   -b, --base <ref>     When creating a _new_ branch, use <ref> as the base
-#                        instead of the current HEAD (e.g. origin/main).
-#   -h, --help           Show this help and exit.
-#
-# ARGUMENTS
-#   branch_name          Name of the branch to create/use for the worktree.
-#                        If omitted, uses current-branch-name-<commit-hash>.
-#   directory            Directory where the worktree will be created.
-#                        Defaults to ../ (parent directory).
-#
-# EXAMPLES
-#   worktree-branch.sh                        # use branch-name-hash format
-#   worktree-branch.sh feature/login          # create ../feature/login worktree
-#   worktree-branch.sh -b origin/main bug/fix # base branch off origin/main
-#   worktree-branch.sh -n docs/update         # dry-run preview
+# worktree-branch.sh — create/reuse a git worktree and copy local config files
+# See usage: run with -h or --help
 # --------------------------------------------------------------------------------
 
 set -euo pipefail
@@ -39,7 +13,38 @@ IFS=$'\n\t'
 ################################################################################
 
 usage() {
-  sed -n '2,45p' "$0" | sed -e 's/^# *//'
+  cat <<'EOF'
+worktree-branch.sh
+--------------------------------------------------------------------------------
+Create (or reuse) a git worktree for a given branch and copy local configuration
+files into that worktree so it is immediately usable.
+
+USAGE
+  worktree-branch.sh [options] [branch_name] [directory]
+
+OPTIONS
+  -f, --force          Overwrite existing directory / worktree if it already
+                       exists at the target path.
+  -n, --dry-run        Print the commands that would be run without executing
+                       them. Good for sanity-checking.
+  -b, --base <ref>     Base ref used ONLY when creating a new branch. If the
+                       target branch exists locally or on the remote, this is
+                       ignored. Defaults to current HEAD when omitted.
+  -h, --help           Show this help and exit.
+
+ARGUMENTS
+  branch_name          Name of the branch to create/use for the worktree.
+                       If omitted, uses current-branch-name-<commit-hash>.
+  directory            Directory where the worktree will be created.
+                       Defaults to ../ (parent directory).
+
+EXAMPLES
+  worktree-branch.sh                        # use branch-name-hash format
+  worktree-branch.sh feature/login          # create ../feature/login worktree
+  worktree-branch.sh -b origin/main bug/fix # base branch off origin/main
+  worktree-branch.sh -n docs/update         # dry-run preview
+--------------------------------------------------------------------------------
+EOF
 }
 
 
@@ -63,6 +68,14 @@ copy_cmd() {
     cp -R "$src" "$dest/$src"
   fi
 }
+
+# Exit with an error message
+die() {
+  printf '%s\n' "$*" >&2
+  exit 1
+}
+
+
 
 ################################################################################
 # Option parsing                                                                #
@@ -96,6 +109,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Ensure we're inside a git repository early
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  die "Error: not inside a git repository"
+fi
+
 # If no branch name provided, use current git branch name + commit hash
 if [[ $# -lt 1 ]]; then
   # Determine current branch (fall back to folder name when detached HEAD)
@@ -118,7 +136,13 @@ target_dir="${1:-../}"
 # Ensure target dir ends with a / for predictable concatenation
 [[ "${target_dir}" != */ ]] && target_dir="${target_dir}/"
 
-worktree_path="${target_dir}${branch_name}"
+# Build target path and normalize to absolute (without requiring dirs to exist)
+worktree_path_raw="${target_dir}${branch_name}"
+if [[ "${worktree_path_raw}" == /* ]]; then
+  worktree_path="${worktree_path_raw%/}"
+else
+  worktree_path="$(pwd)/${worktree_path_raw%/}"
+fi
 
 echo "📂 Target worktree path: ${worktree_path}"
 
@@ -142,19 +166,17 @@ if [[ -e "${worktree_path}" ]]; then
     echo "⚠️  Removing existing path ${worktree_path} (force)"
     run rm -rf "${worktree_path}"
   else
-    echo "Error: path '${worktree_path}' already exists. Use --force to overwrite." >&2
-    exit 1
+    die "Error: path '${worktree_path}' already exists. Use --force to overwrite."
   fi
 fi
 
 # If worktree already registered (but maybe path was deleted)
-if git worktree list --porcelain | grep -q "^worktree ${worktree_path}$"; then
+if git worktree list --porcelain | grep -F -x -q "worktree ${worktree_path}"; then
   if ${force}; then
     echo "⚠️  Removing existing worktree registration (force)"
     run git worktree remove --force "${worktree_path}"
   else
-    echo "Error: a git worktree is already registered at '${worktree_path}'. Use --force to remove." >&2
-    exit 1
+    die "Error: a git worktree is already registered at '${worktree_path}'. Use --force to remove."
   fi
 fi
 
@@ -165,9 +187,15 @@ fi
 echo "🌱 Creating worktree for branch '${branch_name}'"
 
 if git show-ref --verify --quiet "refs/heads/${branch_name}"; then
+  if [[ -n "${base_ref}" ]]; then
+    echo "⚠️  --base=${base_ref} specified but branch '${branch_name}' exists locally; --base will be ignored."
+  fi
   echo "   ➤ Using existing local branch"
   run git worktree add "${worktree_path}" "${branch_name}"
 elif git show-ref --verify --quiet "refs/remotes/origin/${branch_name}"; then
+  if [[ -n "${base_ref}" ]]; then
+    echo "⚠️  --base=${base_ref} specified but branch 'origin/${branch_name}' exists; --base will be ignored."
+  fi
   echo "   ➤ Creating local tracking branch from origin/${branch_name}"
   run git worktree add "${worktree_path}" -b "${branch_name}" "origin/${branch_name}"
 else
@@ -195,6 +223,10 @@ copy_files_from_configfiles() {
   copy_cmd "$config_file" "$target_dir"
 
   # Enable extended globbing and safe patterns
+  local shopt_extglob_state shopt_nullglob_state shopt_dotglob_state
+  shopt_extglob_state="$(shopt -p extglob || true)"
+  shopt_nullglob_state="$(shopt -p nullglob || true)"
+  shopt_dotglob_state="$(shopt -p dotglob || true)"
   shopt -s extglob nullglob dotglob
 
   # Array to collect exclusion (negation) patterns beginning with '!'
@@ -249,11 +281,15 @@ copy_files_from_configfiles() {
       fi
     done
   fi
+  # Restore original shopt states
+  eval "${shopt_extglob_state}"
+  eval "${shopt_nullglob_state}"
+  eval "${shopt_dotglob_state}"
 }
 
 copy_default_files() {
   local target_dir="$1"
-  echo "   ➤ Using default selection (.env*, CLAUDE.md)"
+  echo "   ➤ Using default selection (.env*, CLAUDE.md, .cursor/)"
   for env_file in .env*; do
     if [[ -f "$env_file" ]]; then
     copy_cmd "$env_file" "$target_dir"
@@ -261,6 +297,9 @@ copy_default_files() {
   done
   if [[ -f CLAUDE.md ]]; then
     copy_cmd CLAUDE.md "$target_dir"
+  fi
+  if [[ -d .cursor ]]; then
+    copy_cmd .cursor "$target_dir"
   fi
 }
 

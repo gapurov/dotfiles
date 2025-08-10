@@ -50,18 +50,23 @@ SCRIPT="./$(basename "$SCRIPT_UNDER_TEST")"
 chmod +x "$SCRIPT"
 
 ################################################################################
-# Test 1 – Default env-file copying                                             #
+# Test 1 – Default env-file copying (+ .cursor folder)                          #
 ################################################################################
 
 echo "FOO=bar" > .env.local
 # Provide a default CLAUDE.md as the script now copies it by default
 echo "Test documentation" > CLAUDE.md
+# Provide a .cursor directory with a file
+mkdir -p .cursor
+echo "cursor-state" > .cursor/state.json
 
 $SCRIPT feature1 worktrees
 
 assert_dir="worktrees/feature1"
-[[ -d "$assert_dir"        ]] || fail "worktree not created"
-[[ -f "$assert_dir/.env.local" ]] || fail ".env.local not copied"
+[[ -d "$assert_dir"              ]] || fail "worktree not created"
+[[ -f "$assert_dir/.env.local"   ]] || fail ".env.local not copied"
+[[ -d "$assert_dir/.cursor"      ]] || fail ".cursor directory not copied"
+[[ -f "$assert_dir/.cursor/state.json" ]] || fail ".cursor contents not copied"
 
 pass "Test 1 passed (env files copied)"
 
