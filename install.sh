@@ -3,7 +3,7 @@
 set -euo pipefail  # Exit on error, undefined vars, and pipe failures
 
 # Configuration
-readonly SCRIPT_VERSION="2.0.0"
+readonly SCRIPT_VERSION="2.1.0"
 readonly DOTFILES_DIR="$HOME/.dotfiles"
 readonly OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 readonly BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
@@ -31,12 +31,12 @@ DRY_RUN=false
 VERBOSE=false
 SKIP_REBOOT=false
 
-# Logging functions
-log() { echo -e "${BLUE}==> $1${NC}"; }
-success() { echo -e "${GREEN}✓ $1${NC}"; }
-warn() { echo -e "${YELLOW}⚠ $1${NC}"; }
-error() { echo -e "${RED}✗ $1${NC}" >&2; }
-debug() { [[ "$VERBOSE" == true ]] && echo -e "DEBUG: $1" >&2; }
+# Logging functions (use printf for portability)
+log() { printf "%b==> %s%b\n" "$BLUE" "$1" "$NC"; }
+success() { printf "%b✓ %s%b\n" "$GREEN" "$1" "$NC"; }
+warn() { printf "%b⚠ %s%b\n" "$YELLOW" "$1" "$NC"; }
+error() { printf "%b✗ %s%b\n" "$RED" "$1" "$NC" >&2; }
+debug() { [[ "$VERBOSE" == true ]] && printf "%s\n" "DEBUG: $1" >&2; }
 
 # Progress tracking
 declare -a INSTALL_STEPS=(
@@ -87,6 +87,14 @@ validate_prerequisites() {
     fi
 }
 
+validate_xcode_clt() {
+    if ! xcode-select -p &>/dev/null; then
+        error "Xcode Command Line Tools not detected."
+        log "Install with: xcode-select --install"
+        return 1
+    fi
+}
+
 validate_network() {
     if ! curl -s --connect-timeout 5 https://github.com &>/dev/null; then
         error "No internet connection or GitHub is unreachable"
@@ -117,11 +125,19 @@ command_exists() {
 
 backup_file() {
     local file="$1"
-    [[ -f "$file" ]] || return 0
+    [[ -e "$file" ]] || return 0
 
-    mkdir -p "$BACKUP_DIR"
-    cp "$file" "$BACKUP_DIR/$(basename "$file")" 2>/dev/null || true
-    debug "Backed up $file to $BACKUP_DIR"
+    local rel_path
+    if [[ "$file" == "$HOME"/* ]]; then
+        rel_path="${file#"$HOME/"}"
+    else
+        rel_path="$(basename "$file")"
+    fi
+
+    local dest_dir="$BACKUP_DIR/$(dirname "$rel_path")"
+    mkdir -p "$dest_dir"
+    cp -a "$file" "$dest_dir/" 2>/dev/null || cp "$file" "$dest_dir/" 2>/dev/null || true
+    debug "Backed up $file to $dest_dir"
 }
 
 # Enhanced symlink function
@@ -245,17 +261,17 @@ run_script() {
     }
 }
 
-# Configuration data
-declare -A SYMLINKS=(
-    ["$DOTFILES_DIR/git/gitconfig"]="$HOME/.gitconfig"
-    ["$DOTFILES_DIR/git/gitignore"]="$HOME/.gitignore"
-    ["$DOTFILES_DIR/zsh/zshrc.zsh"]="$HOME/.zshrc"
-    ["$DOTFILES_DIR/config/karabiner.json"]="$HOME/.config/karabiner/karabiner.json"
+# Configuration data (Bash 3-compatible; avoid associative arrays)
+declare -a SYMLINKS_PAIRS=(
+    "$DOTFILES_DIR/git/gitconfig:$HOME/.gitconfig"
+    "$DOTFILES_DIR/git/gitignore:$HOME/.gitignore"
+    "$DOTFILES_DIR/zsh/zshrc.zsh:$HOME/.zshrc"
+    "$DOTFILES_DIR/config/karabiner.json:$HOME/.config/karabiner/karabiner.json"
 )
 
 # Only add npmrc if it's not empty
 if [[ -s "$DOTFILES_DIR/javascript/npmrc" ]]; then
-    SYMLINKS["$DOTFILES_DIR/javascript/npmrc"]="$HOME/.npmrc"
+    SYMLINKS_PAIRS+=("$DOTFILES_DIR/javascript/npmrc:$HOME/.npmrc")
 fi
 
 
@@ -270,6 +286,9 @@ validate_environment() {
 
     debug "Starting prerequisites validation"
     validate_prerequisites || ((failed_checks++))
+
+    debug "Validating Xcode Command Line Tools"
+    validate_xcode_clt || ((failed_checks++))
 
     debug "Starting network validation"
     validate_network || ((failed_checks++))
@@ -303,8 +322,11 @@ install_custom_apps() {
 
 setup_symlinks() {
     show_progress "Creating configuration symlinks"
-    for source in "${!SYMLINKS[@]}"; do
-        safe_symlink "$source" "${SYMLINKS[$source]}"
+    local pair source target
+    for pair in "${SYMLINKS_PAIRS[@]}"; do
+        source="${pair%:*}"
+        target="${pair#*:}"
+        safe_symlink "$source" "$target"
     done
 }
 
