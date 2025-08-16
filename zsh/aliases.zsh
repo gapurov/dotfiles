@@ -72,37 +72,49 @@ alias spoton="sudo mdutil -a -i on"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 # excluded: mas upgrade; gem update; sudo softwareupdate -i -a;
-alias update='
+alias update='(
+  set +e
+  set -o pipefail
+
   start_ts=$(date +%s)
+  logfile="/tmp/dotfiles-update-$(date +%Y%m%d-%H%M%S).log"
+  echo "Logging to $logfile"
 
   if [ -f "$HOME/.dotfiles/javascript/install-packages.sh" ]; then
     echo "Updating JavaScript packages..."
-    . "$HOME/.dotfiles/javascript/install-packages.sh"
+    if ! bash "$HOME/.dotfiles/javascript/install-packages.sh"; then
+      echo "JavaScript packages update failed; continuing with the rest."
+    fi
   else
     echo "Skipping JavaScript packages: script not found at $HOME/.dotfiles/javascript/install-packages.sh"
   fi
 
   if command -v brew >/dev/null 2>&1; then
     echo "Updating Homebrew..."
-    brew update
+    export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_ENV_HINTS=1 HOMEBREW_NO_ANALYTICS=1 HOMEBREW_COLOR=1 HOMEBREW_PAGER=cat NONINTERACTIVE=1
+
+    echo "Running brew doctor (pre-check)..."
+    brew doctor 2>&1 | tee -a "$logfile" || echo "brew doctor reported issues (see $logfile)"
+
+    brew update 2>&1 | tee -a "$logfile" || { echo "brew update failed; attempting update-reset (see $logfile)"; brew update-reset -f 2>&1 | tee -a "$logfile" || true; }
 
     echo "Outdated Homebrew formulae (before upgrade):"
-    brew outdated || true
+    brew outdated 2>&1 | tee -a "$logfile" || true
 
     echo "Upgrading Homebrew formulae..."
-    brew upgrade
+    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade 2>&1 | tee -a "$logfile" || echo "brew upgrade failed (see $logfile)"
 
     echo "Outdated Homebrew casks (before upgrade):"
-    brew outdated --cask || true
+    brew outdated --cask 2>&1 | tee -a "$logfile" || true
 
     echo "Upgrading Homebrew casks..."
-    brew upgrade --cask --greedy
+    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cask --greedy 2>&1 | tee -a "$logfile" || echo "brew cask upgrade failed (see $logfile)"
 
     echo "Cleaning up Homebrew..."
-    brew cleanup -s
+    HOMEBREW_NO_AUTO_UPDATE=1 brew cleanup -s 2>&1 | tee -a "$logfile" || echo "brew cleanup failed (see $logfile)"
 
     echo "Removing unused Homebrew dependencies..."
-    brew autoremove
+    HOMEBREW_NO_AUTO_UPDATE=1 brew autoremove 2>&1 | tee -a "$logfile" || echo "brew autoremove failed (see $logfile)"
   else
     echo "Homebrew not found; skipping Homebrew steps."
   fi
@@ -116,7 +128,7 @@ alias update='
 
   end_ts=$(date +%s)
   echo "Update completed in $((end_ts - start_ts))s."
-'
+)'
 
 alias jsonfix="pbpaste | jq . | pbcopy"
 
