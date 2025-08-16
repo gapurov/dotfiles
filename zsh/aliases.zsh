@@ -138,10 +138,10 @@ alias displayshz="displayplacer \"id:C9922C5D-F89C-C5D2-0857-D6964E3302DB res:30
 
 alias displaysvrt="displayplacer \"id:C9922C5D-F89C-C5D2-0857-D6964E3302DB res:3008x1692 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0\" \"id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 scaling:on origin:(740,1692) degree:0\""
 
-alias clear_js_dev_packages="$HOME/.dotfiles/scripts/clear_js_dev_packages.sh"
+alias clear-js-dev-packages="$HOME/.dotfiles/scripts/clear-js-dev-packages.sh"
 
 alias c="open $1 -a \"Cursor\""
-alias claude='claude --dangerously-skip-permissions'
+# alias claude='claude --dangerously-skip-permissions'
 
 alias worktree-branch="$HOME/.dotfiles/scripts/worktree-branch.sh"
 alias print-commit-messages="$HOME/.dotfiles/scripts/print-commit-messages.sh"
