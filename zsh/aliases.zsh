@@ -73,26 +73,50 @@ alias spoton="sudo mdutil -a -i on"
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 # excluded: mas upgrade; gem update; sudo softwareupdate -i -a;
 alias update='
-  echo "Updating JavaScript packages..." &&
-  . $HOME/.dotfiles/javascript/install-packages.sh &&
+  start_ts=$(date +%s)
 
-  echo "Updating Homebrew..." &&
-  brew update &&
+  if [ -f "$HOME/.dotfiles/javascript/install-packages.sh" ]; then
+    echo "Updating JavaScript packages..."
+    . "$HOME/.dotfiles/javascript/install-packages.sh"
+  else
+    echo "Skipping JavaScript packages: script not found at $HOME/.dotfiles/javascript/install-packages.sh"
+  fi
 
-  echo "Upgrading Homebrew packages..." &&
-  brew upgrade &&
+  if command -v brew >/dev/null 2>&1; then
+    echo "Updating Homebrew..."
+    brew update
 
-  echo "Cleaning up Homebrew..." &&
-  brew cleanup -s &&
+    echo "Outdated Homebrew formulae (before upgrade):"
+    brew outdated || true
 
-  echo "Removing unused Homebrew dependencies..." &&
-  brew autoremove &&
+    echo "Upgrading Homebrew formulae..."
+    brew upgrade
 
-  echo "Updating Powerlevel10k..." &&
-  git -C ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k pull &&
+    echo "Outdated Homebrew casks (before upgrade):"
+    brew outdated --cask || true
 
-  echo "Updating Oh My Zsh..." &&
-  zsh -ic "omz update"'
+    echo "Upgrading Homebrew casks..."
+    brew upgrade --cask --greedy
+
+    echo "Cleaning up Homebrew..."
+    brew cleanup -s
+
+    echo "Removing unused Homebrew dependencies..."
+    brew autoremove
+  else
+    echo "Homebrew not found; skipping Homebrew steps."
+  fi
+
+  if command -v omz >/dev/null 2>&1; then
+    echo "Updating Oh My Zsh..."
+    zsh -ic "omz update"
+  else
+    echo "Oh My Zsh (omz) command not found; skipping."
+  fi
+
+  end_ts=$(date +%s)
+  echo "Update completed in $((end_ts - start_ts))s."
+'
 
 alias jsonfix="pbpaste | jq . | pbcopy"
 
