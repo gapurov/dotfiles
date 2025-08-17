@@ -147,4 +147,6 @@ alias worktree-branch="$HOME/.dotfiles/scripts/worktree-branch.sh"
 alias print-commit-messages="$HOME/.dotfiles/scripts/print-commit-messages.sh"
 alias pcm="print-commit-messages"
 
+alias gwq-addx="$HOME/.dotfiles/scripts/gwq-addx.sh --config $HOME/.dotfiles/config/gwq/gwqcopy"
+alias gwqa="gwq-addx"
 alias ca="cursor-agent --force"

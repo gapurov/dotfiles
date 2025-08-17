@@ -29,6 +29,9 @@ source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
 source $HOME/.dotfiles/zsh/_aliases.zsh
 
+# gwq completion
+source <(gwq completion zsh)
+
 # navi plugin
 eval "$(navi widget zsh)"
 

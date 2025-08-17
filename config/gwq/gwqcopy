@@ -1,0 +1,5 @@
+.env*
+CLAUDE.md
+AGENT.md
+GEMINI.md
+.cursor/
