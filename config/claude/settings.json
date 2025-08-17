@@ -5,6 +5,7 @@
     "type": "command",
     "command": "bun run /Users/vgapurov/.dotfiles/config/claude/statusline-worktree.js"
   },
+  "includeCoAuthoredBy": false,
   "permissions": {
     "defaultMode": "bypassPermissions"
   }
