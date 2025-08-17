@@ -51,7 +51,8 @@ brew install imagemagick
 brew install aria2
 brew install jq
 brew install mas
-brew install neovim
+brew install koekeishiya/formulae/yabai
+# brew install neovim
 brew install fx
 # brew install pandoc # you have first to `brew install --cask mactex`
 brew install node
@@ -69,7 +70,7 @@ brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
 brew install zoxide
 brew install defaultbrowser
-brew install atomicparsley
+# brew install atomicparsley
 brew install deno
 brew install fnm
 brew install pnpm
