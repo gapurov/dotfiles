@@ -267,6 +267,7 @@ declare -a SYMLINKS_PAIRS=(
     "$DOTFILES_DIR/git/gitignore:$HOME/.gitignore"
     "$DOTFILES_DIR/zsh/zshrc.zsh:$HOME/.zshrc"
     "$DOTFILES_DIR/config/karabiner.json:$HOME/.config/karabiner/karabiner.json"
+    "$DOTFILES_DIR/config/claude/agents:$HOME/.claude/agents"
 )
 
 # Only add npmrc if it's not empty
