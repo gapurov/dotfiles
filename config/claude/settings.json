@@ -3,8 +3,7 @@
   "model": "opusplan",
   "statusLine": {
     "type": "command",
-    "command": "bun run /Users/vgapurov/.dotfiles/config/claude/statusline-worktree.js",
-    "args": ["--no-color=false"]
+    "command": "bun run /Users/vgapurov/.dotfiles/config/claude/statusline-worktree.js"
   },
   "includeCoAuthoredBy": false,
   "permissions": {
