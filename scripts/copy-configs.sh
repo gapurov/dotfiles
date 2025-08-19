@@ -50,7 +50,7 @@ declare -ga TARGET_PATHS=()
 log() {
     local level="$1"; shift
     local prefix icon color output_fd=1
-    
+
     case "$level" in
         info)  prefix='>>' icon='>>'; color='36' ;;
         ok)    prefix='✓'  icon='✓';  color='32' ;;
@@ -61,7 +61,7 @@ log() {
         dry)   [[ $dry_run_mode -eq 1 ]] || return 0; prefix='DRY' icon='DRY'; color='96'; output_fd=2 ;;
         *) log error "Unknown log level: $level"; return 1 ;;
     esac
-    
+
     if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
         printf "\033[${color}m${icon}\033[0m %s\n" "$*" >&$output_fd
     else
@@ -259,12 +259,9 @@ find_config_file() {
         "$cfg_override"
         "$source_root/.copyconfigs"
         "$HOME/.config/copy-configs/config"
-        "$source_root/.wtcopy"  # legacy
-        "$HOME/.config/worktree-copy/config"  # legacy
-        "$source_root/.gwkcopy"  # legacy
-        "$HOME/.config/gwq/gwkcopy"  # legacy
+        "$HOME/.config/gwq/copyconfigs"
     )
-    
+
     local cfg_file
     for cfg_file in "${config_paths[@]}"; do
         [[ -n $cfg_file && -f $cfg_file ]] || continue
@@ -321,7 +318,7 @@ parse_config_rule() {
     # Trim whitespace
     raw="${raw#"${raw%%[![:space:]]*}"}"
     raw="${raw%"${raw##*[![:space:]]}"}"
-    
+
     [[ -z $raw ]] && return 1
 
     if [[ $raw == *:* ]]; then
@@ -386,7 +383,7 @@ copy_file_to_dest() {
 # ---------- file matching ----------
 find_matching_files() {
     local pattern="$1" source_dir="$2"
-    
+
     # Use subshell to contain glob settings and directory change
     (
         cd "$source_dir" || exit 1
@@ -401,22 +398,22 @@ find_matching_files() {
 copy_file() {
     local src="$1" target="$2" dest_path="${3:-}"
     local final_dest
-    
+
     if [[ -n $dest_path ]]; then
         # Explicit mapping
         final_dest="$target/$dest_path"
         [[ $dest_path == */ ]] && final_dest="${final_dest%/}/"
-        
+
         if [[ $dry_run_mode -eq 1 ]]; then
             log dry "Would copy: $src -> ${dest_path}"
             return 0
         fi
-        
+
         mkdir -p "$(dirname "$final_dest")" 2>/dev/null || true
         if [[ -e $final_dest || -L $final_dest ]]; then
             handle_file_conflict "$final_dest" "$target" || return 0
         fi
-        
+
         if rsync -a "$src" "$final_dest"; then
             log ok "copied: $(basename "$src") -> $dest_path"
         else
@@ -429,7 +426,7 @@ copy_file() {
             log dry "Would copy with relative structure: $(basename "$src") -> $target/"
             return 0
         fi
-        
+
         if (cd "$(dirname "$src")" && rsync -a --relative "./$(basename "$src")" "$target/"); then
             log ok "copied: $(basename "$src")"
         else
@@ -466,25 +463,25 @@ process_patterns() {
     local target="$1" dest_override="$2"
     shift 2
     local -a patterns=("$@")
-    
+
     local pattern
     for pattern in "${patterns[@]}"; do
         log debug "Processing pattern: '$pattern'"
-        
+
         local matching_files
         matching_files="$(find_matching_files "$pattern" "$source_root")"
-        
+
         if [[ -z $matching_files ]]; then
             log verb "skip (missing): $pattern"
             continue
         fi
-        
+
         log verb "Found matches for '$pattern': $(echo "$matching_files" | wc -l) files"
-        
+
         while IFS= read -r src_file; do
             [[ -z $src_file ]] && continue
             [[ -e $source_root/$src_file || -L $source_root/$src_file ]] || { log warn "skip (missing): $src_file"; continue; }
-            
+
             if [[ -n $dest_override && $dest_override != "$pattern" ]]; then
                 copy_file "$source_root/$src_file" "$target" "$dest_override"
             else
@@ -496,11 +493,11 @@ process_patterns() {
 
 process_config_file() {
     local target="$1" config_file="$2"
-    
+
     while IFS= read -r line || [[ -n $line ]]; do
         local -a rule_parts=()
         parse_config_rule "$line" rule_parts || continue
-        
+
         local src_pattern="${rule_parts[0]}" dest_rel="${rule_parts[1]}"
         process_patterns "$target" "$dest_rel" "$src_pattern"
     done < "$config_file"
