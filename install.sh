@@ -41,6 +41,7 @@ debug() { [[ "$VERBOSE" == true ]] && printf "%s\n" "DEBUG: $1" >&2; }
 # Progress tracking
 declare -a INSTALL_STEPS=(
     "validate_environment"
+    "update_submodules"
     "install_homebrew"
     "install_brew_packages"
     "install_mas_apps"
@@ -304,6 +305,33 @@ validate_environment() {
         error "Environment validation failed ($failed_checks check(s) failed)"
         return 1
     fi
+}
+
+update_submodules() {
+    show_progress "Updating git submodules"
+    
+    if [[ "$DRY_RUN" == true ]]; then
+        log "DRY RUN: Would update git submodules"
+        return 0
+    fi
+
+    if [[ ! -d "$DOTFILES_DIR/.git" ]]; then
+        warn "Not a git repository, skipping submodule update"
+        return 0
+    fi
+
+    log "Initializing and updating git submodules"
+    cd "$DOTFILES_DIR" || {
+        error "Failed to change to dotfiles directory: $DOTFILES_DIR"
+        return 1
+    }
+
+    if ! git submodule update --init --recursive; then
+        error "Failed to update git submodules"
+        return 1
+    fi
+
+    success "Git submodules updated successfully"
 }
 
 install_brew_packages() {
