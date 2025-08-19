@@ -34,53 +34,25 @@ declare -ga COPY_ARGS=()
 [[ -t 1 ]] && is_tty=1
 
 # ---------- logging ----------
-log_i() {
+log() {
+    local level="$1"; shift
+    local prefix icon color output_fd=1
+    
+    case "$level" in
+        info)  prefix='>>' icon='>>'; color='36'; output_fd=2 ;;
+        ok)    prefix='✓'  icon='✓';  color='32'; output_fd=2 ;;
+        warn)  prefix='--' icon='--'; color='90'; output_fd=2 ;;
+        error) prefix='!!' icon='!!'; color='31'; output_fd=2 ;;
+        verb)  [[ $verbose_mode -eq 1 ]] || return 0; prefix='**' icon='**'; color='35'; output_fd=2 ;;
+        debug) [[ $debug_mode -eq 1 ]] || return 0; prefix='DD' icon='DD'; color='33'; output_fd=2 ;;
+        dry)   [[ $dry_run_mode -eq 1 ]] || return 0; prefix='DRY' icon='DRY'; color='96'; output_fd=2 ;;
+        *) log error "Unknown log level: $level"; return 1 ;;
+    esac
+    
     if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[36m>>\033[0m %s\n' "$*"
+        printf "\033[${color}m${icon}\033[0m %s\n" "$*" >&$output_fd
     else
-        printf '>> %s\n' "$*"
-    fi
-}
-
-log_s() {
-    if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[32m✓\033[0m %s\n' "$*"
-    else
-        printf '✓ %s\n' "$*"
-    fi
-}
-
-log_w() {
-    if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[90m--\033[0m %s\n' "$*"
-    else
-        printf '%s %s\n' '--' "$*"
-    fi
-}
-
-log_e() {
-    if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[31m!!\033[0m %s\n' "$*" >&2
-    else
-        printf '!! %s\n' "$*" >&2
-    fi
-}
-
-log_v() {
-    [[ $verbose_mode -eq 1 ]] || return 0
-    if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[35m**\033[0m %s\n' "$*"
-    else
-        printf '** %s\n' "$*"
-    fi
-}
-
-log_d() {
-    [[ $debug_mode -eq 1 ]] || return 0
-    if [[ $use_color -eq 1 && $is_tty -eq 1 ]]; then
-        printf '\033[33mDD\033[0m %s\n' "$*" >&2
-    else
-        printf 'DD %s\n' "$*" >&2
+        printf "%s %s\n" "$prefix" "$*" >&$output_fd
     fi
 }
 
@@ -96,18 +68,18 @@ check_dependencies() {
     done
 
     if [[ ${#missing[@]} -gt 0 ]]; then
-        log_e "Missing required commands: ${missing[*]}"
+        log error "Missing required commands: ${missing[*]}"
         exit 1
     fi
 
     # Check for copy-configs.sh
     if [[ ! -x "$COPY_CONFIGS_SCRIPT" ]]; then
-        log_e "copy-configs.sh not found or not executable: $COPY_CONFIGS_SCRIPT"
-        log_e "Please ensure copy-configs.sh is in the same directory as this script"
+        log error "copy-configs.sh not found or not executable: $COPY_CONFIGS_SCRIPT"
+        log error "Please ensure copy-configs.sh is in the same directory as this script"
         exit 1
     fi
 
-    log_d "All dependencies verified: ${REQUIRED_DEPS[*]}, copy-configs.sh"
+    log debug "All dependencies verified: ${REQUIRED_DEPS[*]}, copy-configs.sh"
 }
 
 check_dependencies
@@ -162,7 +134,7 @@ parse_arguments() {
                     COPY_ARGS+=("$2")
                     shift 2
                 else
-                    log_e "Missing argument for $1"
+                    log error "Missing argument for $1"
                     exit 1
                 fi
                 continue ;;
@@ -197,13 +169,13 @@ parse_arguments() {
 
 parse_arguments "$@"
 
-log_d "Parsed arguments: verbose=$verbose_mode debug=$debug_mode dry_run=$dry_run_mode"
-log_d "GWQ args: ${GWQ_ARGS[*]:-<none>}"
-log_d "Copy args: ${COPY_ARGS[*]:-<none>}"
+log debug "Parsed arguments: verbose=$verbose_mode debug=$debug_mode dry_run=$dry_run_mode"
+log debug "GWQ args: ${GWQ_ARGS[*]:-<none>}"
+log debug "Copy args: ${COPY_ARGS[*]:-<none>}"
 
 # Validate gwq arguments
 if [[ ${#GWQ_ARGS[@]} -eq 0 ]]; then
-    log_e "No arguments provided to gwq add"
+    log error "No arguments provided to gwq add"
     print_help
     exit 1
 fi
@@ -226,19 +198,19 @@ get_new_worktrees() {
     done
 
     # Run gwq add
-    log_i "Creating worktree(s): gwq add ${GWQ_ARGS[*]}" >&2
+    log info "Creating worktree(s): gwq add ${GWQ_ARGS[*]}"
     if [[ $dry_run_mode -eq 1 ]]; then
-        log_w "DRY RUN: Would run: gwq add ${GWQ_ARGS[*]}" >&2
+        log dry "Would run: gwq add ${GWQ_ARGS[*]}"
         # Simulate new worktrees for dry run
         printf '/tmp/dry-run-worktree-1\n'
         return 0
     else
         local gwq_output
         gwq_output="$(gwq add "${GWQ_ARGS[@]}" 2>&1)" || {
-            log_e "gwq add failed: $gwq_output"
+            log error "gwq add failed: $gwq_output"
             exit 1
         }
-        log_v "gwq add output: $gwq_output"
+        log verb "gwq add output: $gwq_output"
     fi
 
     # Snapshot after and find new paths
@@ -256,10 +228,10 @@ get_new_worktrees() {
 # ---------- main execution ----------
 new_paths="$(get_new_worktrees)"
 
-log_d "New worktree paths: '$new_paths'"
+log debug "New worktree paths: '$new_paths'"
 
 if [[ -z $new_paths ]]; then
-    log_w "No new worktree paths detected. Nothing to copy."
+    log warn "No new worktree paths detected. Nothing to copy."
     exit 0
 fi
 
@@ -267,9 +239,9 @@ fi
 path_count=$(echo "$new_paths" | wc -l)
 [[ -z $new_paths ]] && path_count=0
 
-log_i "Copying files into $path_count new worktree(s)"
+log info "Copying files into $path_count new worktree(s)"
 
 # Use copy-configs.sh to copy files
 printf '%s\n' "$new_paths" | "$COPY_CONFIGS_SCRIPT" "${COPY_ARGS[@]}"
 
-log_s "Done."
+log ok "Done."
