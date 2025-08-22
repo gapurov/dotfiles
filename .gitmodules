@@ -1,5 +1,5 @@
-[submodule "rc-script-commands"]
-	path = rc-script-commands
+[submodule "scripts/rc-script-commands"]
+	path = scripts/rc-script-commands
 	url = https://github.com/raycast/script-commands.git
 [submodule "scripts/copy-configs"]
 	path = scripts/copy-configs

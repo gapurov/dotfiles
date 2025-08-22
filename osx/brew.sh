@@ -51,7 +51,7 @@ brew install imagemagick
 brew install aria2
 brew install jq
 brew install mas
-brew install koekeishiya/formulae/yabai
+# brew install koekeishiya/formulae/yabai
 # brew install neovim
 brew install fx
 # brew install pandoc # you have first to `brew install --cask mactex`
