@@ -267,8 +267,9 @@ declare -a SYMLINKS_PAIRS=(
     "$DOTFILES_DIR/git/gitconfig:$HOME/.gitconfig"
     "$DOTFILES_DIR/git/gitignore:$HOME/.gitignore"
     "$DOTFILES_DIR/zsh/zshrc.zsh:$HOME/.zshrc"
-    "$DOTFILES_DIR/config/karabiner.json:$HOME/.config/karabiner/karabiner.json"
-    "$DOTFILES_DIR/config/claude/agents:$HOME/.claude/agents"
+    "$DOTFILES_DIR/config/karabiner/karabiner.json:$HOME/.config/karabiner/karabiner.json"
+    "$DOTFILES_DIR/config/claude:$HOME/.claude"
+    "$DOTFILES_DIR/config/gwq:$HOME/.config/gwq"
 )
 
 # Only add npmrc if it's not empty
@@ -309,7 +310,7 @@ validate_environment() {
 
 update_submodules() {
     show_progress "Updating git submodules"
-    
+
     if [[ "$DRY_RUN" == true ]]; then
         log "DRY RUN: Would update git submodules"
         return 0

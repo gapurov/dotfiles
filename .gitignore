@@ -4,3 +4,8 @@ _aliases.zsh
 npmrc
 .history
 .env
+
+config/claude/*
+!config/claude/settings.json
+!config/claude/agents
+!config/claude/commands
