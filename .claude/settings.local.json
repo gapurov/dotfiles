@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(gwq list:*)",
+      "Bash(echo $SHELL)"
     ],
     "deny": [],
     "ask": []

@@ -110,3 +110,15 @@ function o() {
 		open "$@";
 	fi;
 }
+
+# gwq function - intercepts 'addx' subcommand for enhanced functionality
+gwq() {
+    if [[ "${1:-}" == "addx" ]]; then
+        # Call gwqx for the addx subcommand
+        shift
+        "$HOME/.dotfiles/scripts/copy-configs/gwqx" "$@"
+    else
+        # Pass through to native gwq for all other commands
+        /usr/local/bin/gwq "$@"
+    fi
+}
