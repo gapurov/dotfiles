@@ -1,0 +1,31 @@
+# install.conf.sh
+# Declarative "dotbot-like" config for your dotfiles installer.
+
+# 1) Symlinks (repo-relative source : absolute-or-~ destination)
+LINKS=(
+  "git/gitconfig:~/.gitconfig"
+  "git/gitignore:~/.gitignore"
+  "zsh/zshrc.zsh:~/.zshrc"
+  "config/karabiner/karabiner.json:~/.config/karabiner/karabiner.json"
+  "config/claude:~/.claude"
+  "config/gwq:~/.config/gwq"
+  "javascript/npmrc:~/.npmrc"          # you asked to just link it, no condition
+)
+
+# 2) Steps to run (executed in repo root, in order).
+#    Keep them simple shell commands; missing files are just skipped by the runner.
+STEPS=(
+  "git submodule update --init --recursive"
+
+  "./osx/brew.sh"
+  "./osx/mas.sh || true"
+  "./osx/custom-installations.sh || true"
+
+  "./config/tmux/tmux.sh"
+  "./javascript/install-packages.sh"
+
+  "./osx/macos.sh || true"
+  "./osx/workarounds.sh || true"
+  "./osx/symlinks.sh || true"
+  "./osx/name.sh || true"
+)
