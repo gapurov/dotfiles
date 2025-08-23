@@ -6,7 +6,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bunx -y @owloops/claude-powerline",
+    "command": "bunx -y @owloops/claude-powerline --style=minimal",
     "padding": 0
   },
   "model": "opusplan"

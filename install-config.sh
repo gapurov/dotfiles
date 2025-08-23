@@ -1,3 +1,4 @@
+
 # install.conf.sh
 # Declarative "dotbot-like" config for your dotfiles installer.
 
@@ -24,7 +25,6 @@ STEPS=(
 
   "test -d ~/.tmux/plugins/tpm || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
   "./javascript/install-packages.sh"
-
 
   "./osx/macos.sh || true"
   "./osx/workarounds.sh || true"

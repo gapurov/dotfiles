@@ -130,9 +130,8 @@ brew install --cask forklift
 brew install --cask fantastical
 brew install --cask soulver
 brew install --cask rapidapi
-brew install --cask httpie
 brew install --cask soundsource
-brew install --cask airfoil
+# brew install --cask airfoil
 brew install --cask ukelele
 brew install --cask zotero
 brew install --cask find-any-file
