@@ -4,3 +4,6 @@
 [submodule "scripts/copy-configs"]
 	path = scripts/copy-configs
 	url = https://github.com/gapurov/copy-configs.git
+[submodule "scripts/simple-dotfiles"]
+	path = scripts/simple-dotfiles
+	url = https://github.com/gapurov/simple-dotfiles.git
