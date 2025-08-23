@@ -19,15 +19,19 @@ LINKS=(
 STEPS=(
   "git submodule update --init --recursive"
 
-  "./osx/brew.sh"
-  "./osx/mas.sh || true"
-  "./osx/custom-installations.sh || true"
+  "./scripts/check-tools.sh --auto-install || true"
 
-  "test -d ~/.tmux/plugins/tpm || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
-  "./javascript/install-packages.sh"
+  "./scripts/install-omz.sh || true"
+
+  "./osx/custom-installations.sh || true"
+  "./osx/mas.sh || true"
+  "./osx/brew.sh"
 
   "./osx/macos.sh || true"
   "./osx/workarounds.sh || true"
   "./osx/symlinks.sh || true"
   "./osx/name.sh || true"
+
+  "test -d ~/.tmux/plugins/tpm || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
+  "./javascript/install-packages.sh"
 )
