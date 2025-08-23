@@ -9,6 +9,7 @@ LINKS=(
   "config/karabiner/karabiner.json:~/.config/karabiner/karabiner.json"
   "config/claude:~/.claude"
   "config/gwq:~/.config/gwq"
+  "config/tmux/tmux.conf:~/.config/tmux/tmux.conf"
   "javascript/npmrc:~/.npmrc"          # you asked to just link it, no condition
 )
 
@@ -21,7 +22,7 @@ STEPS=(
   "./osx/mas.sh || true"
   "./osx/custom-installations.sh || true"
 
-  "./config/tmux/tmux.sh"
+  "test -d ~/.tmux/plugins/tpm || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm"
   "./javascript/install-packages.sh"
 
   "./osx/macos.sh || true"
