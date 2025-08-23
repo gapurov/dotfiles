@@ -10,7 +10,7 @@ LINKS=(
   "config/claude:~/.claude"
   "config/gwq:~/.config/gwq"
   "config/tmux/tmux.conf:~/.config/tmux/tmux.conf"
-  "javascript/npmrc:~/.npmrc"          # you asked to just link it, no condition
+  "javascript/npmrc:~/.npmrc"
 )
 
 # 2) Steps to run (executed in repo root, in order).
