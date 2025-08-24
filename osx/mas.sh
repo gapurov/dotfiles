@@ -8,7 +8,7 @@ if ! command -v mas >/dev/null 2>&1; then
     elif [[ -x /usr/local/bin/brew ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
-    
+
     # Check again after adding Homebrew PATH
     if ! command -v mas >/dev/null 2>&1; then
         echo "Error: mas not found. Please install mas first." >&2
@@ -16,6 +16,22 @@ if ! command -v mas >/dev/null 2>&1; then
         exit 1
     fi
 fi
+
+# Check if signed into App Store
+echo "Checking App Store sign-in status..."
+if ! mas account >/dev/null 2>&1; then
+    echo "⚠ Not signed into App Store/iCloud"
+    echo ""
+    echo "To install Mac App Store apps, please:"
+    echo "1. Open the App Store app"
+    echo "2. Sign in with your Apple ID"
+    echo "3. Re-run this script"
+    echo ""
+    echo "Skipping Mac App Store app installations..."
+    exit 0
+fi
+
+echo "✓ Signed into App Store - proceeding with app installations"
 
 # Bear
 # mas install 1091189122

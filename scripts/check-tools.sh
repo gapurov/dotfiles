@@ -218,17 +218,19 @@ check_and_install_tools() {
         brew_available=true
     else
         warn "brew is missing"
-        missing_tools+=("brew")
         if ask_install "brew"; then
             if install_homebrew && command_exists "brew"; then
                 success "brew installed successfully"
                 brew_available=true
+                # Don't add to missing_tools since it was installed successfully
             else
                 error "Failed to install brew"
+                missing_tools+=("brew")
                 failed_installs+=("brew")
             fi
         else
             info "Skipping installation of brew"
+            missing_tools+=("brew")
         fi
     fi
 
