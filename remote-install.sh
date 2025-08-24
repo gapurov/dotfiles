@@ -78,7 +78,7 @@ update_submodules() {
 
     # Always ensure pinned commits are present
     if git -c fetch.parallel="$jobs" -c submodule.fetchJobs="$jobs" \
-        submodule update --init --recursive --jobs "$jobs" "${depth_args[@]}"; then
+        submodule update --init --recursive --jobs "$jobs" ${depth_args[@]+"${depth_args[@]}"}; then
         success "Submodules are initialized"
     else
         error "Failed to initialize submodules"
@@ -89,7 +89,7 @@ update_submodules() {
     if [[ "${DOTFILES_SUBMODULES_REMOTE:-0}" -eq 1 ]]; then
         info "Updating submodules to latest remote (no superproject commit)"
         if git -c fetch.parallel="$jobs" -c submodule.fetchJobs="$jobs" \
-            submodule update --remote --recursive --jobs "$jobs" "${depth_args[@]}"; then
+            submodule update --remote --recursive --jobs "$jobs" ${depth_args[@]+"${depth_args[@]}"}; then
             success "Submodules updated to remote HEAD"
         else
             warn "Remote submodule update failed; pinned versions remain"
