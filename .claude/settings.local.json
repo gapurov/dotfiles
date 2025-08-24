@@ -7,7 +7,8 @@
       "Bash(./install.sh:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(bash --version)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
