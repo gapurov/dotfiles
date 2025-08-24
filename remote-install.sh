@@ -71,14 +71,14 @@ update_submodules() {
     log "Syncing and updating submodules..."
     git submodule sync --recursive >/dev/null 2>&1 || true
 
-    local depth_args=()
+    local -a depth_args=()
     if [[ "${DOTFILES_SUBMODULES_SHALLOW:-0}" -eq 1 ]]; then
         depth_args+=(--depth 1)
     fi
 
     # Always ensure pinned commits are present
     if git -c fetch.parallel="$jobs" -c submodule.fetchJobs="$jobs" \
-        submodule update --init --recursive --jobs "$jobs" ${depth_args[*]}; then
+        submodule update --init --recursive --jobs "$jobs" "${depth_args[@]}"; then
         success "Submodules are initialized"
     else
         error "Failed to initialize submodules"
@@ -89,7 +89,7 @@ update_submodules() {
     if [[ "${DOTFILES_SUBMODULES_REMOTE:-0}" -eq 1 ]]; then
         info "Updating submodules to latest remote (no superproject commit)"
         if git -c fetch.parallel="$jobs" -c submodule.fetchJobs="$jobs" \
-            submodule update --remote --recursive --jobs "$jobs" ${depth_args[*]}; then
+            submodule update --remote --recursive --jobs "$jobs" "${depth_args[@]}"; then
             success "Submodules updated to remote HEAD"
         else
             warn "Remote submodule update failed; pinned versions remain"
@@ -139,18 +139,18 @@ determine_branch() {
 # Check prerequisites
 check_prerequisites() {
     log "Checking prerequisites..."
-    
+
     if ! have git; then
         error "Git is required but not installed"
         error "Please install Git and try again"
         exit 1
     fi
-    
+
     if ! have bash; then
         error "Bash is required but not found"
         exit 1
     fi
-    
+
     success "Prerequisites check passed"
 }
 
@@ -173,11 +173,11 @@ setup_repository() {
     fi
     if [[ -d "$DOTFILES_DIR" ]]; then
         log "Dotfiles directory exists at $DOTFILES_DIR"
-        
+
         if [[ -d "$DOTFILES_DIR/.git" ]]; then
             log "Updating existing repository..."
             cd "$DOTFILES_DIR"
-            
+
             # Warn if origin remote differs from expected
             if have git; then
                 local origin_url
@@ -186,7 +186,7 @@ setup_repository() {
                     warn "Origin URL differs: $origin_url (expected $REPO_URL)"
                 fi
             fi
-            
+
             # Check if we're on the right branch and pull updates
             current_branch=$(git branch --show-current 2>/dev/null || echo "")
             if [[ "$current_branch" != "$BRANCH" ]]; then
@@ -195,7 +195,7 @@ setup_repository() {
                     warn "Could not switch to branch '$BRANCH', continuing with current branch"
                 }
             fi
-            
+
             # Pull latest changes
             if git fetch --tags --prune >/dev/null 2>&1 && git pull --ff-only origin "$BRANCH" >/dev/null 2>&1; then
                 success "Repository updated successfully"
@@ -210,7 +210,7 @@ setup_repository() {
             log "Cloning dotfiles repository..."
             local tmp_dir
             tmp_dir="${DOTFILES_DIR}.tmp.$(date +%s)"
-            local clone_args=("--branch" "$BRANCH" "--recurse-submodules")
+            local -a clone_args=("--branch" "$BRANCH" "--recurse-submodules")
             # Shallow options for main repo and submodules
             if [[ "${DOTFILES_SHALLOW:-0}" -eq 1 ]]; then
                 clone_args+=("--depth" "1" "--no-single-branch")
@@ -231,7 +231,7 @@ setup_repository() {
         log "Cloning dotfiles repository..."
         local tmp_dir
         tmp_dir="${DOTFILES_DIR}.tmp.$(date +%s)"
-        local clone_args=("--branch" "$BRANCH" "--recurse-submodules")
+        local -a clone_args=("--branch" "$BRANCH" "--recurse-submodules")
         # Shallow options for main repo and submodules
         if [[ "${DOTFILES_SHALLOW:-0}" -eq 1 ]]; then
             clone_args+=("--depth" "1" "--no-single-branch")
@@ -248,10 +248,10 @@ setup_repository() {
             exit 1
         fi
     fi
-    
+
     # Ensure we're in the dotfiles directory
     cd "$DOTFILES_DIR"
-    
+
     # Initialize and update submodules before running installer
     update_submodules || {
         error "Failed to initialize/update submodules"
@@ -270,7 +270,7 @@ setup_repository() {
 # Run the installation
 run_installation() {
     log "Running dotfiles installation..."
-    
+
     # Pass all arguments to install.sh
     if [[ $# -eq 0 ]]; then
         ./install.sh
@@ -292,7 +292,7 @@ USAGE:
 
 OPTIONS:
     All options are passed through to the install.sh script:
-    
+
     -d, --dry-run         Show what would be done without executing
     -v, --verbose         Enable verbose output with debug information
     --links-only          Process only symlinks (skip steps)
@@ -302,13 +302,13 @@ OPTIONS:
 EXAMPLES:
     # Basic installation
     curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash
-    
+
     # Preview installation without making changes
     curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
-    
+
     # Install with verbose output
     curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --verbose
-    
+
     # Install only symlinks
     curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --links-only
 
@@ -360,9 +360,9 @@ main() {
             exit 0
         fi
     done
-    
+
     log "Starting remote dotfiles installation..."
-    
+
     check_prerequisites
     setup_repository
     # Optionally validate environment if script exists
@@ -371,7 +371,7 @@ main() {
         ./scripts/validate-environment.sh || warn "Environment validation reported issues"
     fi
     run_installation "$@"
-    
+
     success "Dotfiles installation completed!"
     log "Repository is available at: $DOTFILES_DIR"
 }
