@@ -4,7 +4,8 @@
       "Bash(grep:*)",
       "Bash(gwq list:*)",
       "Bash(echo $SHELL)",
-      "Bash(./install.sh:*)"
+      "Bash(./install.sh:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": [],
     "ask": []
