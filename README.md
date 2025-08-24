@@ -9,10 +9,20 @@ Personal macOS configuration and setup automation. This repository contains dotf
 ```bash
 # Automatic installation (recommended)
 curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash
+```
 
+### Preview installation without making changes
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
+```
+
+```bash
 # Preview installation without making changes
 curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
+```
 
+```bash
 # Install with verbose output
 curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --verbose
 ```
@@ -35,27 +45,6 @@ chmod +x install.sh
 ./install.sh --dry-run     # preview
 ./install.sh               # apply
 ./install.sh -v            # verbose
-```
-
-Option B — if already cloned without submodules:
-
-```bash
-cd ~/.dotfiles
-
-# Sync and initialize submodules
-git submodule sync --recursive
-git submodule update --init --recursive --jobs 8
-
-# Optional: shallow-fetch submodules for speed
-# git submodule update --init --recursive --jobs 8 --depth 1
-
-# Optional: move submodules to latest remote tracking branch
-# git submodule update --remote --recursive --jobs 8
-
-# Run the installer
-chmod +x install.sh
-./install.sh --dry-run
-./install.sh
 ```
 
 ### Execution Order
