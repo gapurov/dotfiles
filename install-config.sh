@@ -28,6 +28,7 @@ STEPS=(
   "./osx/brew.sh"
 
   "./scripts/install-omz.sh || true"
+  "[ -d ~/.oh-my-zsh ] && ln -sfn $(pwd)/zsh/omz-plugins/zsh-you-should-use ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use || true"
 
   "./osx/custom-installations.sh || true"
   "./osx/mas.sh || true"
