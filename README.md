@@ -4,15 +4,58 @@ Personal macOS configuration and setup automation. This repository contains dotf
 
 ## Quick Start
 
-```bash
-# Clone the repository
-git clone https://github.com/gapurov/dotfiles ~/.dotfiles && cd ~/.dotfiles
+### One-Line Remote Installation
 
-# From your dotfiles repo root
+```bash
+# Automatic installation (recommended)
+curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash
+
+# Preview installation without making changes
+curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
+
+# Install with verbose output
+curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --verbose
+```
+
+### Manual Installation
+
+Option A — fresh clone with submodules (recommended):
+
+```bash
+# Clone the repo and all submodules
+git clone --recurse-submodules https://github.com/gapurov/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+
+# Optional: faster shallow clone for main repo and submodules
+# git clone --recurse-submodules --depth 1 --shallow-submodules \
+#   https://github.com/gapurov/dotfiles ~/.dotfiles
+
+# Run the installer
 chmod +x install.sh
 ./install.sh --dry-run     # preview
 ./install.sh               # apply
-./install.sh -v            # verbose script output
+./install.sh -v            # verbose
+```
+
+Option B — if already cloned without submodules:
+
+```bash
+cd ~/.dotfiles
+
+# Sync and initialize submodules
+git submodule sync --recursive
+git submodule update --init --recursive --jobs 8
+
+# Optional: shallow-fetch submodules for speed
+# git submodule update --init --recursive --jobs 8 --depth 1
+
+# Optional: move submodules to latest remote tracking branch
+# git submodule update --remote --recursive --jobs 8
+
+# Run the installer
+chmod +x install.sh
+./install.sh --dry-run
+./install.sh
 ```
 
 ### Execution Order
