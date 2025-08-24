@@ -12,11 +12,11 @@ LINKS=(
   "git/gitconfig:~/.gitconfig"
   "git/gitignore:~/.gitignore"
   "zsh/zshrc.zsh:~/.zshrc"
+  "config/tmux/tmux.conf:~/.config/tmux/tmux.conf"
+  "javascript/npmrc:~/.npmrc"
   "config/karabiner/karabiner.json:~/.config/karabiner/karabiner.json"
   "config/claude:~/.claude"
   "config/gwq:~/.config/gwq"
-  "config/tmux/tmux.conf:~/.config/tmux/tmux.conf"
-  "javascript/npmrc:~/.npmrc"
 )
 
 # 2) Steps to run (executed in repo root, in order).
