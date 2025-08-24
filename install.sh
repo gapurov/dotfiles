@@ -8,11 +8,33 @@ set -euo pipefail
 # Request admin access upfront for scripts that need sudo
 echo "Checking for \`sudo\` access (which may request your password)..."
 if ! sudo -n true 2>/dev/null; then
-    sudo -v
-    if [[ $? -ne 0 ]]; then
-        echo "Need sudo access on macOS (e.g. the user $(whoami) needs to be an Administrator)!" >&2
+    # Try different approaches based on terminal availability
+    if tty -s; then
+        # We have a controlling terminal, can prompt normally
+        sudo -v
+        if [[ $? -ne 0 ]]; then
+            echo "Need sudo access on macOS (e.g. the user $(whoami) needs to be an Administrator)!" >&2
+            exit 1
+        fi
+    elif [[ -c /dev/tty ]] && { sudo -v < /dev/tty; } 2>/dev/null; then
+        # Successfully used /dev/tty for password input
+        echo "✓ Sudo access granted"
+    else
+        # No TTY available - provide helpful guidance
+        echo "⚠ Cannot prompt for sudo password (no interactive terminal)" >&2
+        echo "" >&2
+        echo "Please pre-authorize sudo in another terminal first:" >&2
+        echo "  sudo -v" >&2
+        echo "" >&2
+        echo "Then run the remote installer:" >&2
+        echo "  curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash" >&2
+        echo "" >&2
+        echo "Or clone and run locally:" >&2
+        echo "  git clone https://github.com/gapurov/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./install.sh" >&2
         exit 1
     fi
+else
+    echo "✓ Sudo access already available"
 fi
 
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
