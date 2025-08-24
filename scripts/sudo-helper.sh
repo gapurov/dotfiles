@@ -128,3 +128,38 @@ init_sudo() {
 should_skip_sudo_prompt() {
     [[ "${DOTFILES_SUDO_ACTIVE:-0}" == "1" ]]
 }
+
+# Main entry point when called as a script
+main() {
+    case "${1:-}" in
+        init)
+            echo "Initializing sudo management..."
+            init_sudo
+            ;;
+        cleanup)
+            echo "Cleaning up sudo management..."
+            cleanup_sudo
+            ;;
+        status)
+            if is_sudo_active; then
+                echo "Sudo is active"
+                return 0
+            else
+                echo "Sudo is not active"
+                return 1
+            fi
+            ;;
+        *)
+            echo "Usage: $0 {init|cleanup|status}" >&2
+            echo "  init    - Initialize sudo management with keep-alive"
+            echo "  cleanup - Stop sudo keep-alive and cleanup"
+            echo "  status  - Check if sudo is currently active"
+            return 1
+            ;;
+    esac
+}
+
+# Only run main if this script is executed directly (not sourced)
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

@@ -2,6 +2,11 @@
 # install.conf.sh
 # Declarative "dotbot-like" config for your dotfiles installer.
 
+# 0) Initialization steps (run once at the beginning, can set environment)
+INIT=(
+  "./scripts/sudo-helper.sh init"
+)
+
 # 1) Symlinks (repo-relative source : absolute-or-~ destination)
 LINKS=(
   "git/gitconfig:~/.gitconfig"

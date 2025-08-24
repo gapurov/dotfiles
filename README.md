@@ -39,16 +39,18 @@ chmod +x install.sh
 
 ### Execution Order
 
-- Links are processed first, in the exact order they appear in `LINKS`.
-- After all links are processed, steps are executed in the exact order they appear in `STEPS`.
-- Comments (`# ...`) and empty entries are ignored in both arrays.
-- Link targets: missing parent directories are created; existing correct symlinks are left as-is; existing files/dirs are backed up before replacement.
-- Steps run from the repository root; if a timeout utility is available (`timeout`/`gtimeout`), each step is limited to 5 minutes.
+- Initialization steps (`INIT`) are processed first for setup like sudo management
+- Links are processed next, in the exact order they appear in `LINKS`
+- Finally, installation steps (`STEPS`) are executed in order
+- Comments (`# ...`) and empty entries are ignored in all arrays
+- Link targets: missing parent directories are created; existing correct symlinks are left as-is; existing files/dirs are backed up before replacement
+- Steps run from the repository root; if a timeout utility is available (`timeout`/`gtimeout`), each step is limited to 5 minutes
 
 ## Installation Script
 
 The `install.sh` script is a small, declarative runner. It reads `install.conf.sh` and then:
 
+- Runs initialization steps defined in `INIT` (for setup like sudo management)
 - Creates symlinks defined in `LINKS`
 - Executes commands defined in `STEPS`
 - Makes timestamped backups of any files it replaces
@@ -73,10 +75,19 @@ EXAMPLES:
 
 ## Configuration: install.conf.sh
 
-Declare your setup in a single file. Two arrays are supported: `LINKS` and `STEPS`.
+Declare your setup in a single file. Three arrays are supported: `INIT`, `LINKS`, and `STEPS`.
 
 ```bash
 # install.conf.sh
+
+# Initialization steps (run first, can set environment variables)
+# - Executed in current shell to preserve environment changes
+# - Perfect for sudo management, environment setup
+# - Lines starting with # are comments and are ignored
+INIT=(
+  "./scripts/sudo-helper.sh init"
+  # Add other initialization tasks here
+)
 
 # Create symlinks: "source:target" (first colon splits the pair)
 # - `~` is supported in targets
