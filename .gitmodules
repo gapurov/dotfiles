@@ -7,3 +7,6 @@
 [submodule "scripts/simple-dotfiles"]
 	path = scripts/simple-dotfiles
 	url = https://github.com/gapurov/simple-dotfiles.git
+[submodule "zsh/omz-plugins/zsh-you-should-use"]
+	path = zsh/omz-plugins/zsh-you-should-use
+	url = https://github.com/MichaelAquilina/zsh-you-should-use.git
