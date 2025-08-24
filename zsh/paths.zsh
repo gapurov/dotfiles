@@ -16,7 +16,3 @@ case ":$PATH:" in
 *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-# export CLAUDE_CODE_USE_VERTEX=1
-# export CLOUD_ML_REGION=us-east5
-# export ANTHROPIC_VERTEX_PROJECT_ID=endless-science-454818-f4
