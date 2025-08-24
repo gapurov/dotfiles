@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+# Ensure Homebrew is in PATH
+if ! command -v brew >/dev/null 2>&1; then
+    # Try to add Homebrew to PATH
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    else
+        echo "Error: Homebrew not found. Please install Homebrew first." >&2
+        exit 1
+    fi
+fi
+
 brew update
 brew upgrade
 
