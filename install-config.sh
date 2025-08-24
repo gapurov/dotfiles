@@ -20,12 +20,12 @@ STEPS=(
   "git submodule update --init --recursive"
 
   "./scripts/check-tools.sh --auto-install || true"
+  "./osx/brew.sh"
 
   "./scripts/install-omz.sh || true"
 
   "./osx/custom-installations.sh || true"
   "./osx/mas.sh || true"
-  "./osx/brew.sh"
 
   "./osx/macos.sh || true"
   "./osx/workarounds.sh || true"
