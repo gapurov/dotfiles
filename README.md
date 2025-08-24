@@ -7,7 +7,7 @@ Personal macOS configuration and setup automation. This repository contains dotf
 ### One-Line Remote Installation
 
 ```bash
-# Automatic installation (recommended)
+
 curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash
 ```
 
@@ -15,16 +15,6 @@ curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-inst
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
-```
-
-```bash
-# Preview installation without making changes
-curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --dry-run
-```
-
-```bash
-# Install with verbose output
-curl -fsSL https://raw.githubusercontent.com/gapurov/dotfiles/master/remote-install.sh | bash -s -- --verbose
 ```
 
 ### Manual Installation
