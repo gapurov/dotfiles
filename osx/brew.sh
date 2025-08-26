@@ -138,7 +138,8 @@ brew install --cask telegram
 brew install --cask legcord
 # brew install --cask slack
 # brew install --cask microsoft-teams
-brew install --cask forklift
+# brew install --cask forklift (only have a license for v3)
+# https://blog.binarynights.com/tag/forklift-3/
 # brew install --cask mountain-duck
 brew install --cask fantastical
 brew install --cask soulver

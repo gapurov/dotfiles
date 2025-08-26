@@ -5,7 +5,6 @@
     "vercel": "latest-version",
     "turbo": "latest-version",
     "repomix": "latest-version",
-    "ccusage": "latest-version",
     "@openai/codex": "latest-version",
     "@google/gemini-cli": "latest-version",
     "@anthropic-ai/claude-code": "latest-version",
