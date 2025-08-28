@@ -146,6 +146,7 @@ alias c="open $1 -a \"Cursor\""
 alias print-commit-messages="$HOME/.dotfiles/scripts/print-commit-messages.sh"
 alias pcm="print-commit-messages"
 
+alias yt2fcp="$HOME/.dotfiles/scripts/yt2fcp.sh"
 
 alias copy-configs="$HOME/.dotfiles/scripts/copy-configs/copy-configs.sh"
 

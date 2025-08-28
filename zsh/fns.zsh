@@ -122,37 +122,3 @@ gwq() {
         /usr/local/bin/gwq "$@"
     fi
 }
-
-# Usage:
-# yt2fcp "https://youtu.be/...."            # default 16M video bitrate
-# yt2fcp "https://youtu.be/...." 20M        # custom target bitrate
-
-yt2fcp() {
-  local URL="$1"
-  local VBITRATE="${2:-16M}"  # raise for 1440p/2160p (e.g. 24M/40M)
-  local TITLE IN MKV OUT
-
-  # 1) Prefer the highest RESOLUTION regardless of codec (4320→2160→1440→1080),
-  #    so we DON'T get stuck on 1080p avc1 if higher AV1/VP9 exists.
-  #    Merge into MKV to avoid codec/container conflicts (no transcode).
-  yt-dlp -o "%(title)s.%(ext)s" "$URL" \
-    -f "bestvideo[height>=4320]+bestaudio/
-bestvideo[height>=2160]+bestaudio/
-bestvideo[height>=1440]+bestaudio/
-bestvideo[height>=1080]+bestaudio/
-bestvideo+bestaudio/best" \
-    --merge-output-format mkv || return 1
-
-  # 2) Determine filename safely (handles spaces)
-  TITLE="$(yt-dlp --get-filename -o "%(title)s" "$URL" | tail -n 1)"
-  IN="$TITLE.mkv"
-  OUT="$TITLE.mp4"
-
-  # 3) Fast hardware H.264 transcode (Final Cut friendly)
-  #    Preserves resolution/FPS of the source.
-  ffmpeg -hide_banner -y -i "$IN" \
-    -c:v h264_videotoolbox -b:v "$VBITRATE" -maxrate "$VBITRATE" -bufsize "$VBITRATE" \
-    -pix_fmt yuv420p \
-    -c:a aac -b:a 192k \
-    "$OUT"
-}
