@@ -5,10 +5,10 @@
 # Usage:
 #   yt2fcp <url> [--bitrate 16M] [--codec auto|h264|hevc|prores] [--outdir DIR] [--no-aria] [--no-hw]
 # Examples:
-#   yt2fcp "https://youtu.be/IdTMDpizis8"                       # auto bitrate by resolution, auto codec
-#   yt2fcp "https://youtu.be/IdTMDpizis8" --bitrate 20M         # custom target bitrate
-#   yt2fcp "https://youtu.be/IdTMDpizis8" --codec hevc          # force HEVC output (good for HDR/10-bit)
-#   yt2fcp "https://youtu.be/IdTMDpizis8" --codec prores        # ProRes 422 (bigger, edits like butter)
+#   yt2fcp "https://youtu.be/example"                           # auto bitrate by resolution, auto codec
+#   yt2fcp "https://youtu.be/example" --bitrate 20M             # custom target bitrate
+#   yt2fcp "https://youtu.be/example" --codec hevc              # force HEVC output (good for HDR/10-bit)
+#   yt2fcp "https://youtu.be/example" --codec prores            # ProRes 422 (bigger, edits like butter)
 
 set -euo pipefail
 
@@ -92,7 +92,32 @@ validate_outdir() {
 }
 
 usage() {
-  sed -n '1,40p' "$0" | sed 's/^# \{0,1\}//'
+  # Extract usage information from the script header
+  local script_path="$0"
+
+  # Handle both absolute and relative paths
+  if [[ "$script_path" != /* ]]; then
+    script_path="$(cd "$(dirname "$script_path")" 2>/dev/null && pwd)/$(basename "$script_path")"
+  fi
+
+  # Fallback if path resolution fails
+  if [[ ! -f "$script_path" ]]; then
+    cat << 'EOF'
+yt2fcp — Download highest-res YouTube video and produce an FCP-friendly file fast.
+Shows progress for both yt-dlp (download) and ffmpeg (encode).
+
+Usage:
+  yt2fcp <url> [--bitrate 16M] [--codec auto|h264|hevc|prores] [--outdir DIR] [--no-aria] [--no-hw]
+Examples:
+  yt2fcp "https://youtu.be/example"                           # auto bitrate by resolution, auto codec
+  yt2fcp "https://youtu.be/example" --bitrate 20M             # custom target bitrate
+  yt2fcp "https://youtu.be/example" --codec hevc              # force HEVC output (good for HDR/10-bit)
+  yt2fcp "https://youtu.be/example" --codec prores            # ProRes 422 (bigger, edits like butter)
+EOF
+    exit 2
+  fi
+
+  sed -n '1,40p' "$script_path" | sed 's/^# \{0,1\}//'
   exit 2
 }
 
@@ -299,7 +324,9 @@ get_auto_bitrate() {
     local height="$1"
 
     # Find the appropriate bitrate based on resolution
-    for res in "${!BITRATE_BY_RES[@]}"; do
+    # Sort resolutions in descending order for proper comparison
+    local resolutions=("4320" "2160" "1440" "1080" "720")
+    for res in "${resolutions[@]}"; do
         if (( height >= res )); then
             echo "${BITRATE_BY_RES[$res]}"
             return
