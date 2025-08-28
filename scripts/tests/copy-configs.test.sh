@@ -98,12 +98,54 @@ test_conflicts() {
   pass conflicts
 }
 
+test_dir_conflict_skip() {
+  echo "== test_dir_conflict_skip =="
+  local src="$TEST_ROOT/src4" tgt="$TEST_ROOT/tgt4"
+  mkdir -p "$src/dir/sub" "$tgt/dir"
+  echo OLD >"$tgt/dir/existing.txt"
+  echo NEW1 >"$src/dir/sub/newfile.txt"
+  echo OLD2 >"$src/dir/existing.txt" # should be ignored in skip mode
+  # Config: copy whole dir
+  echo "$tgt" | "$COPY_SCRIPT" --source "$src" -C skip -c <(echo 'dir/:dir/') >/dev/null
+  require_file "$tgt/dir/sub/newfile.txt"
+  require_content "$tgt/dir/existing.txt" OLD
+  pass dir_conflict_skip
+}
+
+test_backup_mode_nested() {
+  echo "== test_backup_mode_nested =="
+  local src="$TEST_ROOT/src5" tgt="$TEST_ROOT/tgt5"
+  mkdir -p "$src/dir" "$tgt/dir"
+  echo OLD >"$tgt/dir/file.txt"
+  echo NEW >"$src/dir/file.txt"
+  echo "$tgt" | "$COPY_SCRIPT" --source "$src" -C backup -c <(echo 'dir/:dir/') >/dev/null
+  require_content "$tgt/dir/file.txt" NEW
+  ls -1 "$tgt/dir" | rg '^file.txt\.bak-' >/dev/null || fail "Expected backup file in $tgt/dir"
+  pass backup_mode_nested
+}
+
+test_dry_run_variants() {
+  echo "== test_dry_run_variants =="
+  local src="$TEST_ROOT/src6" tgt="$TEST_ROOT/tgt6"
+  mkdir -p "$src/a" "$tgt"
+  echo X >"$src/a/file.txt"
+  # Relative dry-run (via config pattern only)
+  output="$(echo "$tgt" | "$COPY_SCRIPT" --source "$src" -c <(echo 'a/file.txt') -n 2>&1)"
+  echo "$output" | rg 'Would copy' >/dev/null || fail "Expected dry-run relative message"
+  # Explicit dry-run
+  output2="$(echo "$tgt" | "$COPY_SCRIPT" --source "$src" -c <(echo 'a/file.txt:dest.txt') -n 2>&1)"
+  echo "$output2" | rg 'Would copy: .* -> dest.txt' >/dev/null || fail "Expected dry-run explicit message"
+  pass dry_run_variants
+}
+
 main() {
   test_default_patterns
   test_config_mapping
   test_conflicts
+  test_dir_conflict_skip
+  test_backup_mode_nested
+  test_dry_run_variants
   echo "All copy-configs tests passed"
 }
 
 main "$@"
-
