@@ -76,6 +76,7 @@ brew install wget
 brew install tree
 brew install yt-dlp
 brew install jless
+brew install ast-grep
 # brew install speedtest-cli
 
 brew install zsh
