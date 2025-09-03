@@ -41,6 +41,11 @@ EOF
   esac
 done
 
+# Source shared cleaning helpers
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=clean-utils.sh
+source "${SCRIPT_DIR}/clean-utils.sh"
+
 # Sanity checks
 if [[ -z "${HOME:-}" || ! -d "$HOME" || "$HOME" == "/" ]]; then
   echo "❌ Refusing to run: invalid HOME='${HOME:-}'." >&2
@@ -56,83 +61,6 @@ cleaned_count=0
 skipped_count=0
 failed_count=0
 
-log()   { echo -e "$*"; }
-debug() {
-  # Use an if-guard to be safe under `set -e`
-  if [[ "$VERBOSE" == true ]]; then
-    echo "🔎 $*"
-  fi
-}
-
-# Allowable base prefixes for removal
-is_removal_allowed() {
-  local p="$1"
-  # Normalize $TMPDIR to avoid false negatives if it ends without a slash
-  local tmp_prefixes=()
-  [[ -n "${TMPDIR:-}" ]] && tmp_prefixes+=("$TMPDIR")
-  tmp_prefixes+=("/tmp" "/private/tmp")
-
-  if [[ "$p" == "$HOME"* ]]; then
-    return 0
-  fi
-  for t in "${tmp_prefixes[@]}"; do
-    [[ "$p" == "$t"* ]] && return 0
-  done
-  return 1
-}
-
-remove_path() {
-  # Removes a file or directory with safety and error reporting
-  local path="$1"
-  local description="$2"
-
-  if [[ ! -e "$path" ]]; then
-    debug "Skip (missing): $path"
-    ((skipped_count+=1))
-    return 0
-  fi
-  if ! is_removal_allowed "$path"; then
-    log "⚠️  Skipping unsafe path (outside HOME/TMP): $path"
-    ((skipped_count+=1))
-    return 0
-  fi
-  if $DRY_RUN; then
-    log "🧪 Would remove $description → $path"
-    ((skipped_count+=1))
-    return 0
-  fi
-
-  if rm -rf -- "$path" 2>/dev/null; then
-    log "🗑️  Removed $description"
-    ((cleaned_count+=1))
-  else
-    log "❌ Failed to remove $description → $path"
-    ((failed_count+=1))
-    # Do not return non-zero; we want to continue and show a full summary
-  fi
-}
-
-run_find_delete() {
-  # Runs a find -delete pattern and records success/failure without aborting the script
-  local label="$1"; shift
-  local cmd=(find "$@")
-
-  if $DRY_RUN; then
-    log "🧪 Would run: ${cmd[*]} -delete"
-    ((skipped_count+=1))
-    return 0
-  fi
-
-  if "${cmd[@]}" -delete 2>/dev/null; then
-    log "🧹 Cleaned: $label"
-    ((cleaned_count+=1))
-  else
-    log "❌ Failed: $label (find -delete)"
-    ((failed_count+=1))
-    # Continue execution
-  fi
-}
-
 # On exit, if we unexpectedly abort, print a friendly note
 trap 'rc=$?; if (( rc != 0 )); then echo "💥 Aborted with exit $rc. See messages above for the failing step."; fi' EXIT
 
@@ -143,9 +71,6 @@ fi
 
 # Clean common temporary directories
 remove_path "$HOME/.cache" "user cache directory"
-remove_path "$HOME/.npm/_logs" "npm log files"
-remove_path "$HOME/.npm/_cacache" "npm cache"
-remove_path "$HOME/.node_repl_history" "Node.js REPL history"
 remove_path "$HOME/.python_history" "Python history"
 remove_path "$HOME/.lesshst" "less history"
 remove_path "$HOME/.viminfo" "Vim info file"
@@ -154,12 +79,7 @@ remove_path "$HOME/.viminfo" "Vim info file"
 remove_path "$HOME/Library/Caches/Homebrew" "Homebrew cache (macOS)"
 remove_path "$HOME/.composer/cache" "Composer cache"
 
-# Clean JS dev tool caches and versions
-remove_path "$HOME/.bun/install/cache" "Bun cache"
-remove_path "$HOME/.bun/install/global" "Bun global installs"
-remove_path "$HOME/.pnpm" "pnpm store/cache"
-remove_path "$HOME/Library/Application Support/fnm/node-versions" "fnm Node.js versions"
-remove_path "$HOME/.local/state/fnm_multishells" "fnm multishells state"
+# JS-related cleaning is moved to scripts/clean-js.sh
 
 # Clean temporary files (Xcode CLT markers in /tmp)
 run_find_delete "Xcode CLT temp files in /tmp" /tmp -maxdepth 1 -name ".com.apple.dt.CommandLineTools.*"
