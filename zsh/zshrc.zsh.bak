@@ -29,7 +29,7 @@ source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
 source $HOME/.dotfiles/zsh/_aliases.zsh
 # claude env switcher
-source $HOME/.dotfiles/scripts/claude-code-env-switcher/claude-code-env-switcher.sh
+source $HOME/.dotfiles/scripts/claude-code-env-switcher/claude-env-switcher.sh
 
 # gwq completion
 source <(gwq completion zsh)
