@@ -10,6 +10,6 @@
 [submodule "zsh/omz-plugins/zsh-you-should-use"]
 	path = zsh/omz-plugins/zsh-you-should-use
 	url = https://github.com/MichaelAquilina/zsh-you-should-use.git
-[submodule "scripts/claude-env-switcher"]
+[submodule "scripts/claude-code-env-switcher"]
 	path = scripts/claude-code-env-switcher
 	url = https://github.com/gapurov/claude-code-env-switcher.git
