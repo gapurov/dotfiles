@@ -28,6 +28,8 @@ source $HOME/.dotfiles/zsh/fns.zsh
 source $HOME/.dotfiles/zsh/paths.zsh
 source $HOME/.dotfiles/zsh/aliases.zsh
 source $HOME/.dotfiles/zsh/_aliases.zsh
+# claude env switcher
+source $HOME/.dotfiles/scripts/claude-env-switcher/claude-env-switcher.sh
 
 # gwq completion
 source <(gwq completion zsh)
@@ -68,14 +70,15 @@ eval "$(fnm env --use-on-cd --resolve-engines)"
 # unset __conda_setup
 # <<< conda initialize <<<
 
-# Use a minimal prompt in Cursor to avoid command detection issues
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-  PROMPT='%n@%m:%~%# '
-  RPROMPT=''
-fi
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Use a minimal prompt in Cursor to avoid command detection issues
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+  PROMPT='%n@%m:%~%# '
+  RPROMPT=''
+fi
