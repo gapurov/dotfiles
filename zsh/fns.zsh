@@ -111,6 +111,11 @@ function o() {
 	fi;
 }
 
+# from: <https://x.com/iannuttall/status/1965090297630826931>
+cdx() {
+    codex -m gpt-5 --yolo -c model_reasoning_effort="medium" --search "$@"
+}
+
 # gwq function - intercepts 'addx' subcommand for enhanced functionality
 gwq() {
     if [[ "${1:-}" == "addx" ]]; then
