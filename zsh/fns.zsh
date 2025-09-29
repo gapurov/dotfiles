@@ -111,19 +111,7 @@ function o() {
 	fi;
 }
 
-# from: <https://x.com/iannuttall/status/1965090297630826931>
-cdx() {
-    codex -m gpt-5 --yolo -c model_reasoning_effort="medium" --search "$@"
-}
-
-# gwq function - intercepts 'addx' subcommand for enhanced functionality
-gwq() {
-    if [[ "${1:-}" == "addx" ]]; then
-        # Call gwqx for the addx subcommand
-        shift
-        "$HOME/.dotfiles/scripts/copy-configs/gwqx" "$@"
-    else
-        # Pass through to native gwq for all other commands
-        /usr/local/bin/gwq "$@"
-    fi
-}
+# # from: <https://x.com/iannuttall/status/1965090297630826931>
+# cdx() {
+#     codex -m gpt-5-codex -c model_reasoning_summary_format="experimental" --yolo --search "$@"
+# }

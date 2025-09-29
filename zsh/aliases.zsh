@@ -152,3 +152,7 @@ alias yt2fcp="$HOME/.dotfiles/scripts/yt2fcp.sh"
 alias copy-configs="$HOME/.dotfiles/scripts/copy-configs/copy-configs.sh"
 
 alias ca="cursor-agent --force"
+
+alias cdx='codex -m gpt-5-codex -c model_reasoning_summary_format=experimental --yolo --search'
+
+alias gwq=~/.dotfiles/scripts/copy-configs/gwqx

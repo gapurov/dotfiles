@@ -4,7 +4,6 @@
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
-  "model": "opusplan",
   "statusLine": {
     "type": "command",
     "command": "bunx -y @owloops/claude-powerline --style=minimal",
