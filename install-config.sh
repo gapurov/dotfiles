@@ -35,6 +35,7 @@ STEPS=(
 
   "./osx/macos.sh || true"
   "./osx/workarounds.sh || true"
+  "./scripts/simple-dotfiles/scripts/enable-sudo-fingerprint.sh || true"
   "./osx/symlinks.sh || true"
   "./osx/name.sh || true"
 

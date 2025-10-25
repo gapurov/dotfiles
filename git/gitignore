@@ -109,3 +109,4 @@ Temporary Items
 .vscode/*
 .opencode/*
 .opencode.json
+**/.cursor/.agent-tools
