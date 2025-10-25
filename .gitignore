@@ -1,6 +1,7 @@
 _sb
 _nl
 _aliases.zsh
+_scripts
 npmrc
 .history
 .env
