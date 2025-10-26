@@ -30,8 +30,6 @@ brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
 brew install gnu-sed
 
-# Install GnuPG to enable PGP-signing commits.
-brew install gnupg
 
 # Install more recent versions of some macOS tools.
 brew install vim
@@ -45,17 +43,13 @@ brew install curl
 brew install btop
 brew install git
 brew install git-lfs
-brew install gist
-brew install git-extras
-brew install hub
+brew install gh
 brew install p7zip
 brew install gawk
 brew install pv
 brew install ssh-copy-id
 brew install zopfli
 brew install exiftool
-brew install ack
-brew install cowsay
 brew install ffmpeg
 brew install fzf
 brew install bat
@@ -138,10 +132,8 @@ brew install --cask telegram
 # brew install --cask discord
 brew install --cask legcord
 # brew install --cask slack
-# brew install --cask microsoft-teams
 # brew install --cask forklift (only have a license for v3)
 # https://blog.binarynights.com/tag/forklift-3/
-# brew install --cask mountain-duck
 brew install --cask fantastical
 brew install --cask soulver
 brew install --cask rapidapi
@@ -154,7 +146,6 @@ brew install --cask pdf-expert
 # brew install --cask jdownloader
 # brew install --cask adguard
 brew install --cask lunar
-# brew install --cask nordvpn
 # brew install --cask hazel
 brew install --cask maestral
 # brew install --cask dropbox
