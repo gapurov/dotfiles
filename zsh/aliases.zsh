@@ -153,6 +153,6 @@ alias copy-configs="$HOME/.dotfiles/scripts/copy-configs/copy-configs.sh"
 
 alias ca="cursor-agent --force"
 
-alias cdx='codex -m gpt-5-codex -c model_reasoning_summary_format=experimental --yolo --enable web_search_request --search'
+alias cdx='codex -m gpt-5-codex -c model_reasoning_summary_format=experimental --yolo --enable web_search_request'
 
 alias gwq=~/.dotfiles/scripts/copy-configs/gwqx
