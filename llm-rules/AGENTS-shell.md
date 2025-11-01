@@ -1,36 +1,4 @@
-# Repository Guidelines
-
-This guide orients contributors and agents working in this macOS-focused Bash dotfiles repo. Keep changes minimal, scoped, and consistent with the conventions below.
-
-## Project Structure & Module Organization
-
-- `install.sh`: Entrypoint. Symlinks dotfiles and runs steps from `install.conf.sh`.
-- `install.conf.sh`: Declarative source of truth.
-  - `LINKS` entries are "source:target".
-  - `STEPS` entries are commands run from repo root.
-- `git/`, `zsh/`, `config/`, `osx/`: Source configs that become symlinks (e.g., `git/gitconfig -> ~/.gitconfig`).
-- `scripts/`: Utility scripts; `scripts/tests/`: script-specific integration tests.
-- `tests/`: End-to-end installer tests.
-
-Example (edit here, not in home directory):
-
-```bash
-LINKS=(
-  "git/gitconfig:~/.gitconfig"
-  "zsh/zshrc.zsh:~/.zshrc"
-)
-STEPS=("git submodule update --init --recursive" "./osx/brew.sh")
-```
-
-## Build, Test, and Development Commands
-
-- Run installer: `./install.sh` (use `--dry-run` to preview, `-v` for debug).
-- Update submodules: `git submodule update --init --recursive`.
-- Validate environment (macOS prereqs): `./scripts/validate-environment.sh`.
-- E2E test: `./tests/install.test.sh`.
-- Script tests: `./scripts/tests/*.test.sh`.
-
-## Tool Selection ()
+# AGENTS.md — Tool Selection (Shell)
 
 When you need to call tools from the shell, use this rubric:
 
@@ -65,7 +33,6 @@ If `ast-grep` is available, avoid `rg` or `grep` unless a plain-text search is e
 Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; for pure POSIX `sh`, adjust flags accordingly.
 
 - Lint (static analysis): `shellcheck`
-
   - Single file (follow sourced files): `shellcheck -x path/to/script.sh`
   - Many by extension: `fd -e sh -e bash -t f | xargs -r shellcheck -x`
   - Many by shebang: `rg -l '^\s*#!.*\b(bash|sh)\b' | fzf -m | xargs -r shellcheck -x`
@@ -73,7 +40,6 @@ Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; 
   - Exclude rules sparingly: `-e SC1091,SC2086` (prefer file-local disables: `# shellcheck disable=SC2086`)
 
 - Format: `shfmt`
-
   - Check (diff only): `shfmt -d -i 2 -ci -sr .`
   - Write changes: `shfmt -w -i 2 -ci -sr .`
   - Bash dialect when needed: `shfmt -ln=bash -w -i 2 -ci -sr .`
@@ -92,7 +58,6 @@ Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; 
     ```
 
 ### CI one-liners
-
 - Lint: `fd -e sh -e bash -t f | xargs -r shellcheck -S warning -x`
 - Format check: `shfmt -d -i 2 -ci -sr .`
 - Tests: `bats -r test/`
