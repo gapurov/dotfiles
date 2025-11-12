@@ -30,7 +30,7 @@ STEPS=("git submodule update --init --recursive" "./osx/brew.sh")
 - E2E test: `./tests/install.test.sh`.
 - Script tests: `./scripts/tests/*.test.sh`.
 
-## Tool Selection ()
+## Tool Selection
 
 When you need to call tools from the shell, use this rubric:
 
