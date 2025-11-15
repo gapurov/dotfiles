@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # @raycast.schemaVersion 1
 # @raycast.title Restart Stream Deck
+# @raycast.icon images/elgato_logo_icon.svg
 # @raycast.mode silent
 
 # Raycast Script Command wrapper:

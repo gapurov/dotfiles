@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # @raycast.schemaVersion 1
 # @raycast.title Start Stream Deck
+# @raycast.icon images/elgato_logo_icon.svg
 # @raycast.mode silent
 
 # Raycast Script Command wrapper:
@@ -17,4 +18,3 @@ if [[ ! -x "$CONTROL_SCRIPT" ]]; then
 fi
 
 "$CONTROL_SCRIPT" start
-
