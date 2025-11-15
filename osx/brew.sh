@@ -58,6 +58,7 @@ brew install imagemagick
 brew install aria2
 brew install jq
 brew install mas
+brew install switchaudio-osx
 # brew install koekeishiya/formulae/yabai
 # brew install neovim
 brew install fx
