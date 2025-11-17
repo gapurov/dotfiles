@@ -47,6 +47,9 @@ main() {
     warn "Could not switch output to built-in speakers (BuiltInSpeakerDevice)."
   fi
 
+  # Give CoreAudio a brief moment to settle before switching back.
+  sleep 0.5
+
   log "Switching output back to previous device..."
 
   if [[ -n "${prev_output:-}" ]]; then
