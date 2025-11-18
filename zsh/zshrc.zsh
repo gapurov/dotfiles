@@ -31,9 +31,6 @@ source $HOME/.dotfiles/zsh/_aliases.zsh
 # claude env switcher
 source $HOME/.dotfiles/scripts/claude-code-env-switcher/claude-code-env-switcher.sh
 
-# gwq completion
-source <(gwq completion zsh)
-
 # navi plugin
 eval "$(navi widget zsh)"
 

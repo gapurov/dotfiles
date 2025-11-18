@@ -1,9 +1,0 @@
-.env*
-CLAUDE.md
-AGENT.md
-AGENTS.md
-GEMINI.md
-.cursor/
-.claude/
-.augment/
-.vscode/settings.json

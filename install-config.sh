@@ -16,7 +16,6 @@ LINKS=(
   "javascript/npmrc:~/.npmrc"
   "config/karabiner/karabiner.json:~/.config/karabiner/karabiner.json"
   "config/claude:~/.claude"
-  "config/gwq:~/.config/gwq"
 )
 
 # 2) Steps to run (executed in repo root, in order).
