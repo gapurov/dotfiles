@@ -108,7 +108,27 @@ alias update='(
     brew outdated --cask 2>&1 | tee -a "$logfile" || true
 
     echo "Upgrading Homebrew casks..."
-    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cask --greedy 2>&1 | tee -a "$logfile" || echo "brew cask upgrade failed (see $logfile)"
+
+    # Skip casks that should stay on their installed version (e.g. TablePlus auto-update conflicts)
+    skip_casks=(tableplus)
+    mapfile -t installed_casks < <(brew list --cask 2>/dev/null)
+    upgrade_casks=()
+    for cask in "${installed_casks[@]}"; do
+      skip=false
+      for blocked in "${skip_casks[@]}"; do
+        if [[ $cask == "$blocked" ]]; then
+          skip=true
+          break
+        fi
+      done
+      $skip || upgrade_casks+=("$cask")
+    done
+
+    if ((${#upgrade_casks[@]})); then
+      HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade --cask --greedy "${upgrade_casks[@]}" 2>&1 | tee -a "$logfile" || echo "brew cask upgrade failed (see $logfile)"
+    else
+      echo "No Homebrew casks to upgrade (all skipped)."
+    fi
 
     echo "Cleaning up Homebrew..."
     HOMEBREW_NO_AUTO_UPDATE=1 brew cleanup -s 2>&1 | tee -a "$logfile" || echo "brew cleanup failed (see $logfile)"
