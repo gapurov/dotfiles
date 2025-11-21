@@ -111,7 +111,11 @@ alias update='(
 
     # Skip casks that should stay on their installed version (e.g. TablePlus auto-update conflicts)
     skip_casks=(tableplus)
-    mapfile -t installed_casks < <(brew list --cask 2>/dev/null)
+    installed_casks=()
+    while IFS= read -r cask_name; do
+      [[ -n $cask_name ]] && installed_casks+=("$cask_name")
+    done < <(brew list --cask 2>/dev/null)
+
     upgrade_casks=()
     for cask in "${installed_casks[@]}"; do
       skip=false
