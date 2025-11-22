@@ -54,6 +54,8 @@ brew install ffmpeg
 brew install fzf
 brew install bat
 brew install fd
+brew install yq
+brew install difft
 brew install imagemagick
 brew install aria2
 brew install jq
