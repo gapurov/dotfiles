@@ -176,3 +176,5 @@ alias yt2fcp="$HOME/.dotfiles/scripts/yt2fcp.sh"
 alias ca="cursor-agent --force"
 
 alias cdx='codex -m gpt-5-codex -c model_reasoning_summary_format=experimental --yolo --enable web_search_request'
+
+alias lg="lazygit"
