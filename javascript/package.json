@@ -6,6 +6,7 @@
     "turbo": "latest-version",
     "repomix": "latest-version",
     "degit": "latest-version",
+    "@antfu/ni": "latest-version",
     "@openai/codex": "latest-version",
     "@google/gemini-cli": "latest-version",
     "@anthropic-ai/claude-code": "latest-version",

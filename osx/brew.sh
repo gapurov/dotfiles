@@ -41,6 +41,7 @@ brew install ripgrep
 brew install bash
 brew install curl
 brew install btop
+brew install lazygit
 brew install git
 brew install git-lfs
 brew install gh
