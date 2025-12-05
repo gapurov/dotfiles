@@ -1,4 +1,18 @@
-# AGENTS.md — Tool Selection (Shell)
+- MUST: We use @antfu/ni. Use `ni` to install, `nr SCRIPT_NAME` to run script, `nun` to uninstall package
+- MUST: Use TypeScript interfaces over types
+- MUST: Use arrow functions over function declarations
+- NEVER comment unless absolutely necessary.
+  - If it is a hack, such as a setTimeout or potentially confusing code, it should be prefixed with // HACK: reason for hack
+- MUST: Use kebab-case for files
+- MUST: Use descriptive names for variables (avoid shorthands, or 1-2 character names).
+  - Example: for .map(), you can use `innerX` instead of `x`
+  - Example: instead of `moved` use `didPositionChange`
+- MUST: Do not type cast ("as") unless absolutely necessary
+- MUST: Keep interfaces or types on the global scope.
+- MUST: Remove unused code and don't repeat yourself.
+- MUST: Always find, think, then implement the most _elegant_ solution.
+
+## Tool Selection (Shell)
 
 When you need to call tools from the shell, use this rubric:
 
@@ -33,6 +47,7 @@ If `ast-grep` is available, avoid `rg` or `grep` unless a plain-text search is e
 Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; for pure POSIX `sh`, adjust flags accordingly.
 
 - Lint (static analysis): `shellcheck`
+
   - Single file (follow sourced files): `shellcheck -x path/to/script.sh`
   - Many by extension: `fd -e sh -e bash -t f | xargs -r shellcheck -x`
   - Many by shebang: `rg -l '^\s*#!.*\b(bash|sh)\b' | fzf -m | xargs -r shellcheck -x`
@@ -40,6 +55,7 @@ Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; 
   - Exclude rules sparingly: `-e SC1091,SC2086` (prefer file-local disables: `# shellcheck disable=SC2086`)
 
 - Format: `shfmt`
+
   - Check (diff only): `shfmt -d -i 2 -ci -sr .`
   - Write changes: `shfmt -w -i 2 -ci -sr .`
   - Bash dialect when needed: `shfmt -ln=bash -w -i 2 -ci -sr .`
@@ -58,6 +74,7 @@ Default to Bash. For `.sh` files or scripts with a `bash` shebang, assume Bash; 
     ```
 
 ### CI one-liners
+
 - Lint: `fd -e sh -e bash -t f | xargs -r shellcheck -S warning -x`
 - Format check: `shfmt -d -i 2 -ci -sr .`
 - Tests: `bats -r test/`

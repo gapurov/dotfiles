@@ -1,4 +1,18 @@
-# AGENTS.md — Tool Selection (TypeScript)
+- MUST: We use @antfu/ni. Use `ni` to install, `nr SCRIPT_NAME` to run script, `nun` to uninstall package
+- MUST: Use TypeScript interfaces over types
+- MUST: Use arrow functions over function declarations
+- NEVER comment unless absolutely necessary.
+  - If it is a hack, such as a setTimeout or potentially confusing code, it should be prefixed with // HACK: reason for hack
+- MUST: Use kebab-case for files
+- MUST: Use descriptive names for variables (avoid shorthands, or 1-2 character names).
+  - Example: for .map(), you can use `innerX` instead of `x`
+  - Example: instead of `moved` use `didPositionChange`
+- MUST: Do not type cast ("as") unless absolutely necessary
+- MUST: Keep interfaces or types on the global scope.
+- MUST: Remove unused code and don't repeat yourself.
+- MUST: Always find, think, then implement the most _elegant_ solution.
+
+## Tool Selection (TypeScript)
 
 - Find files by file name: `fd`
 - Find files with path name: `fd -p <file-path>`
@@ -27,17 +41,17 @@ If `ast-grep` is available, avoid `rg` or `grep` unless a plain-text search is e
 
 ### Structured search and refactors with ast-grep
 
-* Find all exported interfaces:
+- Find all exported interfaces:
   `ast-grep --lang ts -p 'export interface $I { ... }'`
-* Find default exports:
+- Find default exports:
   `ast-grep --lang ts -p 'export default $X'`
-* Find a function call with args:
+- Find a function call with args:
   `ast-grep --lang ts -p 'axios.get($URL, $$REST)'`
-* Rename an imported specifier (codemod):
+- Rename an imported specifier (codemod):
   `ast-grep --lang ts -p 'import { $Old as $Alias } from "$M"' --rewrite 'import { $Old } from "$M"' -U`
-* Disallow await in Promise.all items (quick fix):
+- Disallow await in Promise.all items (quick fix):
   `ast-grep --lang ts -p 'await $X' --inside 'Promise.all($_)' --rewrite '$X'`
-* React hook smell: empty deps array in useEffect:
+- React hook smell: empty deps array in useEffect:
   `ast-grep --lang tsx -p 'useEffect($FN, [])'`
-* List matching files then pick with fzf:
+- List matching files then pick with fzf:
   `ast-grep --lang ts -p '<pattern>' -l | fzf -m | xargs -r sed -n '1,120p'`
