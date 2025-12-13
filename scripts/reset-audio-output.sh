@@ -26,6 +26,25 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
+switch_output_to_builtin() {
+  local sas="$1"
+
+  # Use CoreAudio UID for built-in speakers when possible.
+  if "$sas" -t output -u BuiltInSpeakerDevice >/dev/null 2>&1; then
+    return 0
+  fi
+
+  warn "Could not switch output to built-in speakers (BuiltInSpeakerDevice)."
+  return 1
+}
+
+switch_output_to_name() {
+  local sas="$1"
+  local output_name="$2"
+
+  "$sas" -t output -s "$output_name" >/dev/null 2>&1
+}
+
 main() {
   if ! command_exists SwitchAudioSource; then
     error "SwitchAudioSource is not installed."
@@ -34,33 +53,33 @@ main() {
   fi
 
   local sas="SwitchAudioSource"
+  local settle_sleep=0.9
+  local bounce_rounds=2
 
   # Capture current default output device.
   local prev_output
   prev_output="$("$sas" -c -t output || true)"
   log "Current output device: ${prev_output:-unknown}"
 
-  log "Switching output to built-in speakers..."
-
-  # Use CoreAudio UID for built-in speakers when possible.
-  if ! "$sas" -t output -u BuiltInSpeakerDevice >/dev/null 2>&1; then
-    warn "Could not switch output to built-in speakers (BuiltInSpeakerDevice)."
+  if [[ -z "${prev_output:-}" ]]; then
+    warn "No previous output device recorded; switching to built-in speakers only."
+    switch_output_to_builtin "$sas" || true
+    exit 0
   fi
 
-  # Give CoreAudio a brief moment to settle before switching back.
-  sleep 0.5
+  for ((i = 1; i <= bounce_rounds; i++)); do
+    log "Bounce ${i}/${bounce_rounds}: switching output to built-in speakers..."
+    switch_output_to_builtin "$sas" || true
+    sleep "$settle_sleep"
 
-  log "Switching output back to previous device..."
-
-  if [[ -n "${prev_output:-}" ]]; then
-    if ! "$sas" -t output -s "$prev_output" >/dev/null 2>&1; then
+    log "Bounce ${i}/${bounce_rounds}: switching output back to previous device..."
+    if ! switch_output_to_name "$sas" "$prev_output"; then
       warn "Failed to restore previous output device: $prev_output"
-    else
-      log "Restored output device: $prev_output"
     fi
-  else
-    warn "No previous output device recorded; nothing to restore."
-  fi
+    sleep "$settle_sleep"
+  done
+
+  log "Restored output device: $prev_output"
 }
 
 main "$@"
