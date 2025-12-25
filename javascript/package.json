@@ -13,6 +13,7 @@
     "@musistudio/claude-code-router": "latest-version",
     "opencode-ai": "latest-version",
     "tldr": "latest-version",
+    "convex": "latest-version",
     "@withgraphite/graphite-cli": "latest-version",
     "npm-check-updates": "latest-version",
     "typescript": "latest-version",

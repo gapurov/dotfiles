@@ -1,16 +1,14 @@
-- MUST: We use @antfu/ni. Use `ni` to install, `nr SCRIPT_NAME` to run script, `nun` to uninstall package
-- MUST: Use TypeScript interfaces over types
-- MUST: Use arrow functions over function declarations
 - NEVER comment unless absolutely necessary.
-  - If it is a hack, such as a setTimeout or potentially confusing code, it should be prefixed with // HACK: reason for hack
-- MUST: Use kebab-case for files
 - MUST: Use descriptive names for variables (avoid shorthands, or 1-2 character names).
-  - Example: for .map(), you can use `innerX` instead of `x`
-  - Example: instead of `moved` use `didPositionChange`
-- MUST: Do not type cast ("as") unless absolutely necessary
-- MUST: Keep interfaces or types on the global scope.
 - MUST: Remove unused code and don't repeat yourself.
 - MUST: Always find, think, then implement the most _elegant_ solution.
+
+## Git commits
+
+- **Never commit unless explicitly asked**.
+- When asked, use **Conventional Commits** and **mirror the style of recent commits**
+- Prefer: `type(scope): imperative summary`.
+- Keep messages short and specific.
 
 ## Tool Selection (Shell)
 

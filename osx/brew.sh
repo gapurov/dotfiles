@@ -76,6 +76,8 @@ brew install yt-dlp
 brew install jless
 brew install ast-grep
 # brew install speedtest-cli
+brew install tw93/tap/mole
+
 
 brew install zsh
 brew install zsh-syntax-highlighting

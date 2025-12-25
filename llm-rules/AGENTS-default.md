@@ -12,6 +12,13 @@
 - MUST: Remove unused code and don't repeat yourself.
 - MUST: Always find, think, then implement the most _elegant_ solution.
 
+## Git commits
+
+- **Never commit unless explicitly asked**.
+- When asked, use **Conventional Commits** and **mirror the style of recent commits**
+- Prefer: `type(scope): imperative summary`.
+- Keep messages short and specific.
+
 ## Tool Selection
 
 When you need to call tools from the shell, use this rubric:

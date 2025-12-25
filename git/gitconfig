@@ -64,3 +64,14 @@
 [diff "lockb"]
 	textconv = bun
 	binary = true
+[gtr "editor"]
+	default = cursor
+[gtr "ai"]
+	default = codex
+[gtr "copy"]
+  include = **/.env
+  include = **/.env.*
+  include = **/*.env
+  include = **/AGENTS.md
+  include = **/CLAUDE.md
+  includeDirs = .cursor

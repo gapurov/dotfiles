@@ -9,5 +9,7 @@
     "command": "bunx -y @owloops/claude-powerline --style=minimal",
     "padding": 0
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true
+  }
 }
