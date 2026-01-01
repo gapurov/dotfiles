@@ -74,4 +74,4 @@
   include = **/*.env
   include = **/AGENTS.md
   include = **/CLAUDE.md
-  includeDirs = .cursor
+  includeDirs = .cursor .vscode
