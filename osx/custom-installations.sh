@@ -12,3 +12,7 @@ curl https://cursor.com/install -fsS | bash
 # factory.ai cli
 echo "installing factory.ai cli"
 curl -fsSL https://app.factory.ai/cli | sh
+
+# claude cli
+echo "installing claude cli"
+curl -fsSL https://claude.ai/install.sh | bash

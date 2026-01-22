@@ -7,6 +7,7 @@
   autocrlf = input
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   excludesfile = ~/.gitignore
+	pager = less -FRSX
 [init]
 	defaultBranch = main
 [web]
@@ -26,7 +27,10 @@
 [rebase]
 	updateRefs = true
 [color]
-  ui = auto
+	ui = always
+	diff = always
+	status = always
+	branch = always
 [credential]
 	helper = osxkeychain
 [log]
@@ -74,4 +78,4 @@
   include = **/*.env
   include = **/AGENTS.md
   include = **/CLAUDE.md
-  includeDirs = .cursor .vscode
+  includeDirs = .cursor .vscode .wrangler
