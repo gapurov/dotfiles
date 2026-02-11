@@ -11,11 +11,16 @@ Minimal Playwright-over-CDP tools for collaborative site exploration.
 ## Start Chrome
 
 ```bash
-./scripts/start.js              # Fresh profile
+./scripts/start.js              # Reuse isolated cached profile
 ./scripts/start.js --profile    # Copy your profile (cookies, logins)
 ```
 
 Start or reuse an isolated Chrome debug session (port stored in `~/.cache/agent-web/session.json`).
+On successful `--profile` starts, older copied profiles (`chrome-data-profile-*`) are deleted.
+
+If a command cannot connect, run `./scripts/start.js`.
+Optional explicit override: `AGENT_WEB_DEBUG_URL=http://127.0.0.1:<port>`.
+Legacy fallback to `:9222` is disabled by default; enable only with `AGENT_WEB_ALLOW_LEGACY_9222=1`.
 
 ## Navigate
 

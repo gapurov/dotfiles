@@ -25,17 +25,32 @@ function getSessionDebugUrl() {
       return parsed.debugUrl;
     }
   } catch {
-    // Ignore malformed session file and fall back to default URL.
+    // Ignore malformed session file.
   }
   return null;
 }
 
 export async function connectBrowser(timeoutMs = 5000) {
-  const envDebugUrl = process.env["AGENT_WEB_DEBUG_URL"] || null;
+  const envDebugUrl = process.env["AGENT_WEB_DEBUG_URL"]?.trim() || null;
   const sessionDebugUrl = getSessionDebugUrl();
-  const candidates = [envDebugUrl, sessionDebugUrl, DEFAULT_DEBUG_URL].filter(
-    (value, index, list) => typeof value === "string" && list.indexOf(value) === index
-  );
+  const allowLegacy9222 = process.env["AGENT_WEB_ALLOW_LEGACY_9222"] === "1";
+  const candidates = [];
+
+  if (envDebugUrl) {
+    candidates.push(envDebugUrl);
+  }
+  if (sessionDebugUrl && !candidates.includes(sessionDebugUrl)) {
+    candidates.push(sessionDebugUrl);
+  }
+  if (allowLegacy9222 && !candidates.includes(DEFAULT_DEBUG_URL)) {
+    candidates.push(DEFAULT_DEBUG_URL);
+  }
+
+  if (candidates.length === 0) {
+    throw new Error(
+      "No managed debug session configured. Run ./scripts/start.js or set AGENT_WEB_DEBUG_URL."
+    );
+  }
 
   let lastError = null;
   for (const debugUrl of candidates) {
@@ -52,9 +67,7 @@ export async function connectBrowser(timeoutMs = 5000) {
 
   const reason = lastError?.message || "unknown error";
   throw new Error(
-    `Connection failed - ensure Chrome is running with remote debugging. Tried: ${candidates.join(
-      ", "
-    )}. Last error: ${reason}`
+    `Connection failed for managed session. Tried: ${candidates.join(", ")}. Last error: ${reason}`
   );
 }
 

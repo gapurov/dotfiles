@@ -4,6 +4,7 @@ import { spawn, execSync } from "node:child_process";
 import {
   existsSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
   rmSync,
   unlinkSync,
@@ -32,6 +33,7 @@ const SESSION_FILE = join(CACHE_ROOT, "session.json");
 const WATCHER_PID_FILE = join(homedir(), ".cache/agent-web/logs/.pid");
 const CHROME_BINARY = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const CHROME_APP = "Google Chrome";
+const PROFILE_COPY_PREFIX = "chrome-data-profile-";
 
 function ensureDir(dir) {
   if (!existsSync(dir)) {
@@ -100,6 +102,41 @@ function sanitizeUserDataDir(userDataDir) {
     } catch {
       // Ignore missing/stale cleanup failures.
     }
+  }
+}
+
+function profileCopyDirPrefix() {
+  return join(CACHE_ROOT, PROFILE_COPY_PREFIX);
+}
+
+function isProfileCopyDir(path) {
+  return typeof path === "string" && path.startsWith(profileCopyDirPrefix());
+}
+
+function listProfileCopyDirs() {
+  if (!existsSync(CACHE_ROOT)) return [];
+  try {
+    return readdirSync(CACHE_ROOT, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && entry.name.startsWith(PROFILE_COPY_PREFIX))
+      .map((entry) => join(CACHE_ROOT, entry.name));
+  } catch {
+    return [];
+  }
+}
+
+function deleteProfileCopyDir(path) {
+  if (!isProfileCopyDir(path)) return;
+  try {
+    rmSync(path, { recursive: true, force: true });
+  } catch {
+    // Ignore cleanup failures.
+  }
+}
+
+function cleanupOldProfileCopies(keepPath) {
+  for (const dirPath of listProfileCopyDirs()) {
+    if (dirPath === keepPath) continue;
+    deleteProfileCopyDir(dirPath);
   }
 }
 
@@ -286,15 +323,25 @@ if (useProfile && existingSession) {
 }
 
 const userDataDir = useProfile
-  ? join(CACHE_ROOT, `chrome-data-profile-${Date.now()}`)
+  ? join(CACHE_ROOT, `${PROFILE_COPY_PREFIX}${Date.now()}`)
   : DEFAULT_USER_DATA_DIR;
 ensureDir(userDataDir);
 
 if (useProfile) {
-  execSync(
-    `rsync -a --delete "${process.env["HOME"]}/Library/Application Support/Google/Chrome/" "${userDataDir}/"`,
-    { stdio: "pipe" }
-  );
+  try {
+    execSync(
+      `rsync -a --delete "${process.env["HOME"]}/Library/Application Support/Google/Chrome/" "${userDataDir}/"`,
+      { stdio: "pipe" }
+    );
+  } catch (e) {
+    const code = e?.status;
+    if (code !== 23 && code !== 24) {
+      deleteProfileCopyDir(userDataDir);
+      console.error("✗ Failed to copy Chrome profile");
+      process.exit(1);
+    }
+    console.error(`○ Profile copy completed with transient changes (rsync code ${code})`);
+  }
 }
 
 sanitizeUserDataDir(userDataDir);
@@ -306,6 +353,9 @@ const chromePid = launchChrome({ port, userDataDir });
 const connected = await waitForEndpoint(debugUrl, 40, 300);
 if (!connected) {
   deleteSessionFile();
+  if (useProfile) {
+    deleteProfileCopyDir(userDataDir);
+  }
   console.error(`✗ Failed to connect to Chrome on ${debugUrl}`);
   process.exit(1);
 }
@@ -320,6 +370,10 @@ writeSession({
   startedAt: new Date().toISOString(),
   copiedProfile: useProfile,
 });
+
+if (useProfile) {
+  cleanupOldProfileCopies(userDataDir);
+}
 
 stopExistingWatcher();
 await sleep(300);
