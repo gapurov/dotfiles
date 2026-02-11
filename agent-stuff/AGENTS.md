@@ -6,7 +6,6 @@ Vlad owns this. Start: say hi + 1 motivating line. Work style: telegraph; noun-p
 
 - Contact: Vladislav Gapurov (@ired, gapurov@gmail.com).
 - “Make a note” => edit AGENTS.md (shortcut; not a blocker). Ignore CLAUDE.md.
-- Keep files <~500 LOC; split/refactor as needed.
 - Commits: Conventional Commits (feat|fix|refactor|build|ci|chore|docs|style|perf|test). Keep messages short and specific
 - Prefer end-to-end verify; if blocked, say what’s missing.
 - Web: search early; quote exact errors; prefer 2024–2025 sources
