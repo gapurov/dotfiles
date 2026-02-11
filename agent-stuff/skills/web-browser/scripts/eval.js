@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { connect } from "./cdp.js";
+import { closeBrowserSafe, connectBrowser, getPageForCommand } from "./pw.js";
 
 const DEBUG = process.env.DEBUG === "1";
 const log = DEBUG ? (...args) => console.error("[debug]", ...args) : () => {};
@@ -22,23 +22,24 @@ const globalTimeout = setTimeout(() => {
 
 try {
   log("connecting...");
-  const cdp = await connect(5000);
-
-  log("getting pages...");
-  const pages = await cdp.getPages();
-  const page = pages.at(-1);
-
-  if (!page) {
-    console.error("✗ No active tab found");
-    process.exit(1);
+  const browser = await connectBrowser(5000);
+  let page;
+  try {
+    page = await getPageForCommand(browser);
+  } catch (e) {
+    if (e.message === "No active tab found") {
+      console.error("✗ No active tab found");
+      process.exit(1);
+    }
+    throw e;
   }
-
-  log("attaching to page...");
-  const sessionId = await cdp.attachToPage(page.targetId);
 
   log("evaluating...");
   const expression = `(async () => { return (${code}); })()`;
-  const result = await cdp.evaluate(sessionId, expression);
+  const result = await page.evaluate(
+    (wrappedExpression) => window.eval(wrappedExpression),
+    expression
+  );
 
   log("formatting result...");
   if (Array.isArray(result)) {
@@ -57,7 +58,7 @@ try {
   }
 
   log("closing...");
-  cdp.close();
+  await closeBrowserSafe(browser);
   log("done");
 } catch (e) {
   console.error("✗", e.message);

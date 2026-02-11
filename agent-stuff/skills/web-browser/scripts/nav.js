@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { connect } from "./cdp.js";
+import { closeBrowserSafe, connectBrowser, getPageForCommand } from "./pw.js";
 
 const DEBUG = process.env.DEBUG === "1";
 const log = DEBUG ? (...args) => console.error("[debug]", ...args) : () => {};
@@ -24,37 +24,27 @@ const globalTimeout = setTimeout(() => {
 
 try {
   log("connecting...");
-  const cdp = await connect(5000);
+  const browser = await connectBrowser(5000);
+  let page;
 
-  log("getting pages...");
-  let targetId;
-
-  if (newTab) {
-    log("creating new tab...");
-    const { targetId: newTargetId } = await cdp.send("Target.createTarget", {
-      url: "about:blank",
-    });
-    targetId = newTargetId;
-  } else {
-    const pages = await cdp.getPages();
-    const page = pages.at(-1);
-    if (!page) {
+  log("getting page...");
+  try {
+    page = await getPageForCommand(browser, { newTab });
+  } catch (e) {
+    if (e.message === "No active tab found") {
       console.error("✗ No active tab found");
       process.exit(1);
     }
-    targetId = page.targetId;
+    throw e;
   }
 
-  log("attaching to page...");
-  const sessionId = await cdp.attachToPage(targetId);
-
   log("navigating...");
-  await cdp.navigate(sessionId, url);
+  await page.goto(url, { timeout: 30000, waitUntil: "domcontentloaded" });
 
   console.log(newTab ? "✓ Opened:" : "✓ Navigated to:", url);
 
   log("closing...");
-  cdp.close();
+  await closeBrowserSafe(browser);
   log("done");
 } catch (e) {
   console.error("✗", e.message);

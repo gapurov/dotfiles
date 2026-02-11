@@ -11,7 +11,7 @@
  *   ./dismiss-cookies.js --reject # Reject cookies (where possible)
  */
 
-import { connect } from "./cdp.js";
+import { closeBrowserSafe, connectBrowser, getPageForCommand } from "./pw.js";
 
 const DEBUG = process.env.DEBUG === "1";
 const log = DEBUG ? (...args) => console.error("[debug]", ...args) : () => {};
@@ -277,17 +277,6 @@ const IFRAME_DISMISS_SCRIPT = `(acceptCookies) => {
   return clicked;
 }`;
 
-// Recursively collect all frames
-function collectFrames(frameTree, frames = []) {
-  frames.push({ id: frameTree.frame.id, url: frameTree.frame.url });
-  if (frameTree.childFrames) {
-    for (const child of frameTree.childFrames) {
-      collectFrames(child, frames);
-    }
-  }
-  return frames;
-}
-
 // Global timeout
 const globalTimeout = setTimeout(() => {
   console.error("✗ Global timeout exceeded (30s)");
@@ -296,62 +285,67 @@ const globalTimeout = setTimeout(() => {
 
 try {
   log("connecting...");
-  const cdp = await connect(5000);
-
-  log("getting pages...");
-  const pages = await cdp.getPages();
-  const page = pages.at(-1);
-
-  if (!page) {
-    console.error("✗ No active tab found");
-    process.exit(1);
+  const browser = await connectBrowser(5000);
+  let page;
+  try {
+    page = await getPageForCommand(browser);
+  } catch (e) {
+    if (e.message === "No active tab found") {
+      console.error("✗ No active tab found");
+      process.exit(1);
+    }
+    throw e;
   }
-
-  log("attaching to page...");
-  const sessionId = await cdp.attachToPage(page.targetId);
 
   // Wait a bit for consent dialogs to appear
   await new Promise((r) => setTimeout(r, 500));
 
   log("trying main page...");
-  let result = await cdp.evaluate(sessionId, `(${COOKIE_DISMISS_SCRIPT})(${!reject})`);
+  let result = await page.evaluate(
+    ({ script, shouldAccept }) => {
+      const dismissFn = window.eval(script);
+      return dismissFn(shouldAccept);
+    },
+    { script: COOKIE_DISMISS_SCRIPT, shouldAccept: !reject }
+  );
 
   // If nothing found, try iframes
   if (result.length === 0) {
     log("trying iframes...");
-    try {
-      const frameTree = await cdp.getFrameTree(sessionId);
-      const frames = collectFrames(frameTree);
+    const frames = page.frames().map((frame) => ({
+      frame,
+      url: frame.url() || "",
+    }));
 
-      for (const frame of frames) {
-        if (frame.url === "about:blank" || frame.url.startsWith("javascript:")) continue;
-        if (
-          frame.url.includes("sp_message") ||
-          frame.url.includes("consent") ||
-          frame.url.includes("privacy") ||
-          frame.url.includes("cmp") ||
-          frame.url.includes("sourcepoint") ||
-          frame.url.includes("cookie") ||
-          frame.url.includes("privacy-mgmt")
-        ) {
-          log("trying frame:", frame.url.slice(0, 60));
-          try {
-            const frameResult = await cdp.evaluateInFrame(
-              sessionId,
-              frame.id,
-              `(${IFRAME_DISMISS_SCRIPT})(${!reject})`
-            );
-            if (frameResult.length > 0) {
-              result = frameResult;
-              break;
-            }
-          } catch (e) {
-            log("frame error:", e.message);
+    for (const frameInfo of frames) {
+      const frameUrl = frameInfo.url;
+      if (frameUrl === "about:blank" || frameUrl.startsWith("javascript:")) continue;
+      if (
+        frameUrl.includes("sp_message") ||
+        frameUrl.includes("consent") ||
+        frameUrl.includes("privacy") ||
+        frameUrl.includes("cmp") ||
+        frameUrl.includes("sourcepoint") ||
+        frameUrl.includes("cookie") ||
+        frameUrl.includes("privacy-mgmt")
+      ) {
+        log("trying frame:", frameUrl.slice(0, 60));
+        try {
+          const frameResult = await frameInfo.frame.evaluate(
+            ({ script, shouldAccept }) => {
+              const dismissFrameFn = window.eval(script);
+              return dismissFrameFn(shouldAccept);
+            },
+            { script: IFRAME_DISMISS_SCRIPT, shouldAccept: !reject }
+          );
+          if (frameResult.length > 0) {
+            result = frameResult;
+            break;
           }
+        } catch (e) {
+          log("frame error:", e.message);
         }
       }
-    } catch (e) {
-      log("getFrameTree error:", e.message);
     }
   }
 
@@ -362,7 +356,7 @@ try {
   }
 
   log("closing...");
-  cdp.close();
+  await closeBrowserSafe(browser);
   log("done");
 } catch (e) {
   console.error("✗", e.message);
