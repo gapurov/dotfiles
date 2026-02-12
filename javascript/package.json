@@ -7,6 +7,7 @@
     "repomix": "latest-version",
     "degit": "latest-version",
     "@antfu/ni": "latest-version",
+    "@steipete/oracle": "latest-version",
     "@openai/codex": "latest-version",
     "@google/gemini-cli": "latest-version",
     "@musistudio/claude-code-router": "latest-version",
